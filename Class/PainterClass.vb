@@ -56,48 +56,37 @@
         Next
         Return ResultArr
     End Function
-    ''' <summary>
-    ''' 检查一个点是否被包围
-    ''' </summary>
-    ''' <param name="BolArr"></param>
-    ''' <param name="x"></param>
-    ''' <param name="y"></param>
-    ''' <returns></returns>
-    Private Function CheckPointAround(BolArr As Integer(,), ByVal x As Integer, ByVal y As Integer) As Boolean
-        If Not (x > 0 And y > 0 And x < BolArr.GetUpperBound(0) And y < BolArr.GetUpperBound(1)) Then Return False
-        If BolArr(x - 1, y) = 1 And BolArr(x + 1, y) = 1 And BolArr(x, y - 1) = 1 And BolArr(x, y + 1) = 1 Then
-            Return True '当前点为实体内部
-        Else
-            Return False '当前点为实体边缘
-        End If
-    End Function
 
     Dim xArray() As Short = {-1, 0, 1, 1, 1, 0, -1, -1}
     Dim yArray() As Short = {-1, -1, -1, 0, 1, 1, 1, 0}
     Dim NewStart As Boolean
     '检查移动
     Private Sub CheckMove(ByRef BolArr(,) As Integer, ByVal x As Integer, ByVal y As Integer, ByVal StepNum As Integer)
+        Application.DoEvents()
         If StepNum > 100 Then Exit Sub
+        Dim xBound As Integer = BolArr.GetUpperBound(0)
+        Dim yBound As Integer = BolArr.GetUpperBound(1)
         Dim dx, dy As Integer
         For i = 0 To 7
-            dx = x + xArray(i) : dy = y + yArray(i)
-            If Not (dx > 0 And dy > 0 And dx < BolArr.GetUpperBound(0) And dy < BolArr.GetUpperBound(1)) Then MouseDownUp(dx, dy, False) : NewStart = True : Exit Sub
-            If CheckPointAround(BolArr, dx, dy) = False Then
-                If BolArr(dx, dy) = 1 Then
-                    BolArr(dx, dy) = 0
-                    MouseMove(dx, dy)
-                    If NewStart = True Then MouseDownUp(dx, dy, True) : NewStart = False
-                    CheckMove(BolArr, dx, dy, StepNum + 1)
-                    MouseDownUp(dx, dy, False)
-                    NewStart = True
-                End If
-            Else
+            dx = x + xArray(i)
+            dy = y + yArray(i)
+            If Not (dx > 0 And dy > 0 And dx < xBound And dy < yBound) Then
+                MouseDownUp(dx, dy, False)
+                NewStart = True
+                Exit Sub
+            ElseIf BolArr(dx, dy) = 1 Then
                 BolArr(dx, dy) = 0
+                MouseMove(dx, dy)
+                If NewStart = True Then
+                    MouseDownUp(dx, dy, True)
+                    NewStart = False
+                End If
+                CheckMove(BolArr, dx, dy, StepNum + 1)
+                MouseDownUp(dx, dy, False)
+                NewStart = True
             End If
         Next
-        Application.DoEvents()
     End Sub
-
     Private Sub Painting(BolArr(,) As Integer)
         Dim xCount As Integer = BolArr.GetUpperBound(0)
         Dim yCount As Integer = BolArr.GetUpperBound(1)
@@ -108,7 +97,7 @@
                 Dim dx As Integer = CP.X + R * Math.Cos(Theat)
                 Dim dy As Integer = CP.Y + R * Math.Sin(Theat)
                 If Not (dx > 0 And dy > 0 And dx < xCount And dy < yCount) Then Continue For
-                'NewStart = True
+                NewStart = True
                 If BolArr(dx, dy) = 1 Then
                     BolArr(dx, dy) = 0
                     MouseMove(dx, dy)

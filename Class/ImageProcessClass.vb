@@ -82,7 +82,7 @@
         Dim xArray2() As Short = {0, 1, 0, -1}
         Dim yArray2() As Short = {-1, 0, 1, 0}
         'Dim ResultBitmap As New Bitmap(gBitmap) '在原图的基础上绘图
-        Dim ResultBitmap As New Bitmap(gBitmap.Width, gBitmap.Height) '在原图的基础上绘图
+        Dim ResultBitmap As New Bitmap(gBitmap.Width, gBitmap.Height)
         Dim Color1, Color2 As Color
         For i = 1 To gBitmap.Width - 2
             For j = 1 To gBitmap.Height - 2
@@ -91,6 +91,8 @@
                     Color2 = gBitmap.GetPixel(i + xArray2(p), j + yArray2(p))
                     If CompareRGB(Color1, Color2, gDistance) = False And gethHD(Color1) - gethHD(Color2) > 0 Then
                         ResultBitmap.SetPixel(i, j, Color.Black)
+                    Else
+                        ResultBitmap.SetPixel(i, j, Color.White)
                     End If
                 Next
             Next
@@ -98,4 +100,56 @@
         Return ResultBitmap
     End Function
 
+    ''' <summary>
+    ''' 返回指定图像的空心图像
+    ''' </summary>
+    ''' <param name="gBitmap"></param>
+    ''' <returns></returns>
+    Public Function GetAroundImage(gBitmap As Bitmap)
+        Dim ResultBitmap As New Bitmap(gBitmap.Width, gBitmap.Height)
+        Dim ImageBolArr(,) As Integer = GetImageBol(gBitmap)
+        For i = 0 To gBitmap.Width - 1
+            For j = 0 To gBitmap.Height - 1
+                If ImageBolArr(i, j) = 1 AndAlso CheckPointAround(ImageBolArr, i, j) = False Then
+                    ResultBitmap.SetPixel(i, j, Color.Black)
+                Else
+                    ResultBitmap.SetPixel(i, j, Color.White)
+                End If
+            Next
+        Next
+        Return ResultBitmap
+    End Function
+    ''' <summary>
+    ''' 返回指定图像的二值化数据
+    ''' </summary>
+    ''' <param name="gBitmap"></param>
+    ''' <returns></returns>
+    Private Function GetImageBol(ByVal gBitmap As Bitmap) As Integer(,)
+        Dim ResultArr(gBitmap.Width - 1, gBitmap.Height - 1) As Integer
+        For i = 0 To gBitmap.Width - 1
+            For j = 0 To gBitmap.Height - 1
+                If gBitmap.GetPixel(i, j).Equals(Color.FromArgb(0, 0, 0)) = True Then
+                    ResultArr(i, j) = 1
+                Else
+                    ResultArr(i, j) = 0
+                End If
+            Next
+        Next
+        Return ResultArr
+    End Function
+    ''' <summary>
+    ''' 检查一个点是否被包围
+    ''' </summary>
+    ''' <param name="BolArr"></param>
+    ''' <param name="x"></param>
+    ''' <param name="y"></param>
+    ''' <returns></returns>
+    Private Function CheckPointAround(BolArr As Integer(,), ByVal x As Integer, ByVal y As Integer) As Boolean
+        If Not (x > 0 And y > 0 And x < BolArr.GetUpperBound(0) And y < BolArr.GetUpperBound(1)) Then Return True
+        If BolArr(x - 1, y) = 1 And BolArr(x + 1, y) = 1 And BolArr(x, y - 1) = 1 And BolArr(x, y + 1) = 1 Then
+            Return True '当前点为实体内部
+        Else
+            Return False '当前点为实体边缘
+        End If
+    End Function
 End Class

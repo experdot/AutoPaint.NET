@@ -28,6 +28,8 @@ Partial Class Form1
         Me.Button1 = New System.Windows.Forms.Button()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TrackBar2 = New System.Windows.Forms.TrackBar()
@@ -80,6 +82,8 @@ Partial Class Form1
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.SystemColors.Control
+        Me.Panel1.Controls.Add(Me.TextBox1)
+        Me.Panel1.Controls.Add(Me.CheckBox1)
         Me.Panel1.Controls.Add(Me.Label2)
         Me.Panel1.Controls.Add(Me.Label1)
         Me.Panel1.Controls.Add(Me.TrackBar2)
@@ -92,6 +96,24 @@ Partial Class Form1
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(716, 55)
         Me.Panel1.TabIndex = 10
+        '
+        'TextBox1
+        '
+        Me.TextBox1.Location = New System.Drawing.Point(363, 4)
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.Size = New System.Drawing.Size(111, 21)
+        Me.TextBox1.TabIndex = 16
+        Me.TextBox1.Text = "by ExperDot"
+        '
+        'CheckBox1
+        '
+        Me.CheckBox1.AutoSize = True
+        Me.CheckBox1.Location = New System.Drawing.Point(363, 33)
+        Me.CheckBox1.Name = "CheckBox1"
+        Me.CheckBox1.Size = New System.Drawing.Size(48, 16)
+        Me.CheckBox1.TabIndex = 15
+        Me.CheckBox1.Text = "空心"
+        Me.CheckBox1.UseVisualStyleBackColor = True
         '
         'Label2
         '
@@ -226,4 +248,6 @@ Partial Class Form1
     Friend WithEvents TrackBar2 As TrackBar
     Friend WithEvents Label2 As Label
     Friend WithEvents Label1 As Label
+    Friend WithEvents CheckBox1 As CheckBox
+    Friend WithEvents TextBox1 As TextBox
 End Class
