@@ -23,4 +23,4 @@
 在使用中有任何问题，欢迎反馈给我，可以用以下联系方式跟我交流
 
 * 邮件：experdot@foxmail.com
-* 博客园: [@ExperDot](http://weibo.com/ihubo)
+* 博客园: [@ExperDot](http://www.cnblogs.com/experdot/)
