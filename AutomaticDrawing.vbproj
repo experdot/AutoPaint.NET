@@ -72,6 +72,8 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class\PointSequenceClass.vb" />
+    <Compile Include="Class\SequenceManagerClass.vb" />
     <Compile Include="Form\Form1.Designer.vb">
       <DependentUpon>Form1.vb</DependentUpon>
     </Compile>

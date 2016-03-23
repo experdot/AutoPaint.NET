@@ -22,10 +22,12 @@
     Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
         If Not FinalBitmap Is Nothing Then
             If MsgBox("请确保你已经打开画板程序！", MsgBoxStyle.OkCancel, "提示") = MsgBoxResult.Ok Then
+                Me.Hide()
                 TabControl1.SelectedIndex = 0
                 MyPainter.StartPaint(FinalBitmap, TabPage1.PointToScreen(New Point(0, 0)).X + 3, TabPage1.PointToScreen(New Point(0, 0)).Y + 3)
                 Dim SignatureBitmap As Bitmap = ImageProcessing.GetTextImage(TextBox1.Text, New Font("Letter Gothic Std"， 18)， 200, 36)
                 MyPainter.StartPaint(SignatureBitmap, TabPage1.PointToScreen(New Point(0, 0)).X + 3, TabPage1.PointToScreen(New Point(0, 0)).Y + 3)
+                Me.Show()
             End If
         Else
             MsgBox("请先复制屏幕")
