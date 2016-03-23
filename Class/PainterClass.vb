@@ -52,12 +52,15 @@
     Private Sub Painting(SequenceManager As SequenceManagerClass)
         For Each SubSequence In SequenceManager.SequenceList
             MouseMove(SubSequence.PointList.First.X + BoardX, SubSequence.PointList.First.Y + BoardY)
+            System.Threading.Thread.Sleep(SleepTime)
             MouseDownUp(SubSequence.PointList.First.X + BoardX, SubSequence.PointList.First.Y + BoardY, True)
+            System.Threading.Thread.Sleep(SleepTime)
             For Each SubPoint In SubSequence.PointList
                 MouseMove(SubPoint.X + BoardX, SubPoint.Y + BoardY)
                 System.Threading.Thread.Sleep(SleepTime)
             Next
             MouseDownUp(SubSequence.PointList.Last.X + BoardX, SubSequence.PointList.Last.Y + BoardY, False)
+            System.Threading.Thread.Sleep(SleepTime)
         Next
     End Sub
 End Class

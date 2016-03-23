@@ -120,6 +120,25 @@
         Return ResultBitmap
     End Function
     ''' <summary>
+    ''' 返回指定图像的反相图像
+    ''' </summary>
+    ''' <param name="gBitmap"></param>
+    ''' <returns></returns>
+    Public Function GetInvertImage(gBitmap As Bitmap)
+        Dim ResultBitmap As New Bitmap(gBitmap.Width, gBitmap.Height)
+        Dim ImageBolArr(,) As Integer = GetImageBol(gBitmap)
+        For i = 0 To gBitmap.Width - 1
+            For j = 0 To gBitmap.Height - 1
+                If ImageBolArr(i, j) = 1 Then
+                    ResultBitmap.SetPixel(i, j, Color.White)
+                Else
+                    ResultBitmap.SetPixel(i, j, Color.Black)
+                End If
+            Next
+        Next
+        Return ResultBitmap
+    End Function
+    ''' <summary>
     ''' 返回指定图像的二值化数据
     ''' </summary>
     ''' <param name="gBitmap"></param>
