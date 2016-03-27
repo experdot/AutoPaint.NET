@@ -19,7 +19,7 @@
     Dim NewStart As Boolean
     Private Sub CheckMove(ByRef BolArr(,) As Integer, ByVal x As Integer, ByVal y As Integer, ByVal StepNum As Integer)
         Application.DoEvents()
-        If StepNum > 100 Then Return
+        If StepNum > 200 Then Return
         Dim xBound As Integer = BolArr.GetUpperBound(0)
         Dim yBound As Integer = BolArr.GetUpperBound(1)
         Dim dx, dy As Integer

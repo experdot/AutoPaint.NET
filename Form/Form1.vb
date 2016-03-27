@@ -9,6 +9,7 @@
     Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         ImageProcessing = New ImageProcessClass
         MyPainter = New PainterClass
+        AddHandler MyPainter.UpdatePreviewImage, AddressOf RefreshPicturebox2
         Me.TopMost = True
     End Sub
     '复制屏幕
@@ -31,6 +32,16 @@
                 End If
                 Me.Show()
             End If
+        Else
+            MsgBox("请先复制屏幕")
+        End If
+    End Sub
+    '预览绘制
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        If Not FinalBitmap Is Nothing Then
+            TabControl1.SelectedIndex = 2
+            PictureBox2.Image = New Bitmap(FinalBitmap.Width, FinalBitmap.Height)
+            MyPainter.StartPreview(FinalBitmap, PictureBox2.Image）
         Else
             MsgBox("请先复制屏幕")
         End If
@@ -65,8 +76,6 @@
     Private Sub CheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox1.CheckedChanged， CheckBox2.CheckedChanged
         ImageChanged()
     End Sub
-
-
     Dim IsMouseDown As Boolean
     Dim OldPoint As New PointF
     Private Sub PictureBox1_MouseDown(sender As Object, e As MouseEventArgs) Handles PictureBox1.MouseDown
@@ -88,5 +97,9 @@
     End Sub
     Private Sub PictureBox1_MouseUp(sender As Object, e As MouseEventArgs) Handles PictureBox1.MouseUp
         IsMouseDown = False
+    End Sub
+    Private Sub RefreshPicturebox2()
+        PictureBox2.Refresh()
+        Application.DoEvents()
     End Sub
 End Class
