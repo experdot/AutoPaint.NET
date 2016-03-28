@@ -6,7 +6,7 @@ Public Class PainterClass
     Public SleepTime As Integer = 1
     Public BoardX As Integer
     Public BoardY As Integer
-    Public Event UpdatePreviewImage()
+    Public Event UpdatePreviewImage(ePoint As PointF, ePen As Pen)
     ''' <summary>
     ''' 绘制
     ''' </summary>
@@ -80,18 +80,26 @@ Public Class PainterClass
     End Sub
     Private Sub Previewing(SequenceManager As SequenceManagerClass, ByRef DepthBitmap As Bitmap)
         Dim TempColor As Color = Color.FromArgb(255, 0, 0, 0)
+        Dim rnd As New Random
         Using pg As Graphics = Graphics.FromImage(DepthBitmap)
             pg.SmoothingMode = Drawing2D.SmoothingMode.HighQuality
             For Each SubSequence In SequenceManager.SequenceList
+                Dim TempR = rnd.NextDouble * SubSequence.PointList.Count
+                Dim TempG = rnd.NextDouble * SubSequence.PointList.Count
+                Dim TempB = rnd.NextDouble * SubSequence.PointList.Count
                 For Each SubPoint In SubSequence.PointList
                     Dim Index As Single = SubSequence.PointList.IndexOf(SubPoint)
+                    'TempColor = Color.FromArgb(255 - Index, 0, 0, 0)
+                    TempColor = Color.FromArgb(255 - Index, TempR, TempG, TempB)
+
                     Dim Count As Single = SubSequence.PointList.Count
-                    Dim penWidth As Single = 0.01 + (Count / 2 - Math.Abs(Index - Count / 2)) / 20
-                    If penWidth > 3 Then penWidth = 3
-                    If penWidth > 2 AndAlso CInt(Index) Mod (5 - CInt(penWidth)) = 0 Then Continue For
-                    pg.DrawEllipse(New Pen(TempColor, 1 + penWidth),
-                                   New RectangleF(SubPoint.X - penWidth / 2, SubPoint.Y - penWidth / 2, penWidth, penWidth))
-                    RaiseEvent UpdatePreviewImage()
+                    ' Dim penWidth As Single = 0.01 + (Count / 2 - Math.Abs(Index - Count / 2)) / 20
+                    Dim penWidth As Single = 0.5 + Math.Abs(Index - Count) / 40
+                    If penWidth > 7 Then penWidth = 7
+                    If penWidth > 2 AndAlso CInt(Index) Mod (9 - CInt(penWidth)) = 0 Then Continue For
+                    Dim mypen As New Pen(TempColor, 1 + penWidth)
+                    pg.DrawEllipse(mypen, New RectangleF(SubPoint.X - penWidth / 2, SubPoint.Y - penWidth / 2, penWidth, penWidth))
+                    RaiseEvent UpdatePreviewImage(SubPoint, mypen)
                 Next
             Next
         End Using

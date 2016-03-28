@@ -23,6 +23,10 @@
         Dim xBound As Integer = BolArr.GetUpperBound(0)
         Dim yBound As Integer = BolArr.GetUpperBound(1)
         Dim dx, dy As Integer
+        Dim AroundValue As Integer = GetAroundValue(BolArr, x, y)
+        If AroundValue > 2 AndAlso AroundValue < 8 Then
+            Return
+        End If
         For i = 0 To 7
             dx = x + xArray(i)
             dy = y + yArray(i)
@@ -62,4 +66,19 @@
             Next
         Next
     End Sub
+    Private Function GetAroundValue(ByRef BolArr(,) As Integer, ByVal x As Integer, ByVal y As Integer) As Integer
+        Dim dx, dy, ResultValue As Integer
+        Dim xBound As Integer = BolArr.GetUpperBound(0)
+        Dim yBound As Integer = BolArr.GetUpperBound(1)
+        For i = 0 To 7
+            dx = x + xArray(i)
+            dy = y + yArray(i)
+            If dx > 0 And dy > 0 And dx < xBound And dy < yBound Then
+                If BolArr(dx, dy) = 1 Then
+                    ResultValue += 1
+                End If
+            End If
+        Next
+        Return ResultValue
+    End Function
 End Class
