@@ -16,7 +16,8 @@
 * 演示1：[AutomaticDrawing_花鸟](http://v.youku.com/v_show/id_XMTUwNTI5MTAwMA==.html)
 * 演示2：[AutomaticDrawing_人物](http://v.youku.com/v_show/id_XMTUwNjI2NzkwOA==.html)
 * 演示3：[AutomaticDrawing_山水](http://v.youku.com/v_show/id_XMTUwODg2MTUxNg==.html)
-* 演示4：[AutomaticDrawing_雄狮](http://v.youku.com/v_show/id_XMTUxNDk5OTgxNg==.html)New!
+* 演示4：[AutomaticDrawing_雄狮](http://v.youku.com/v_show/id_XMTUxNDk5OTgxNg==.html)
+
 ##版本更新
 * 早期版本，暂无该项内容
 
