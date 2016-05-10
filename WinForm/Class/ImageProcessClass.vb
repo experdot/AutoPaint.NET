@@ -1,13 +1,39 @@
 ﻿Public Class ImageProcessClass
     ''' <summary> 
-    ''' 根据指定阈值判断两个颜色是否相近
+    ''' 基于RGB根据指定阈值判断两个颜色是否相近
     ''' </summary> 
-    Public Function CompareRGB(ByVal Color1 As Color, ByVal Color2 As Color, ByVal Distance As Byte) As Boolean
+    Public Function CompareRGB(ByVal Color1 As Color, ByVal Color2 As Color, ByVal Distance As Single) As Boolean
         Dim r As Integer = Int(Color1.R) - Int(Color2.R)
         Dim g As Integer = Int(Color1.G) - Int(Color2.G)
         Dim b As Integer = Int(Color1.B) - Int(Color2.B)
         Dim absDis As Integer = Math.Sqrt(r * r + g * g + b * b)
         If absDis < Distance Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
+    ''' <summary> 
+    ''' 基于HSB根据指定阈值判断两个颜色是否相近
+    ''' </summary> 
+    Public Function CompareHSB(ByVal Color1 As Color, ByVal Color2 As Color, ByVal Distance As Single) As Boolean
+        'Dim h As Single = (Color1.GetHue - Color2.GetHue) / 360
+        'Dim s As Single = Color1.GetSaturation - Color2.GetSaturation
+        'Dim b As Single = Color1.GetBrightness - Color2.GetBrightness
+        'Dim absDis As Single = Math.Sqrt(h * h + s * s + b * b)
+        'If absDis < Distance Then
+        '    Return True
+        'Else
+        '    Return False
+        'End If
+        Dim h1 As Single = Color1.GetHue / 360
+        Dim s1 As Single = Color1.GetSaturation
+        Dim b1 As Single = Color1.GetBrightness
+        Dim h2 As Single = Color2.GetHue / 360
+        Dim s2 As Single = Color2.GetSaturation
+        Dim b2 As Single = Color2.GetBrightness
+        Dim absDis As Single = (h1 * h2 + s1 * s2 + b1 * b2) / (Math.Sqrt(h1 * h1 + s1 * s1 + b1 * b1) * Math.Sqrt(h2 * h2 + s2 * s2 + b2 * b2))
+        If absDis > Distance / 5 + 0.8 Then
             Return True
         Else
             Return False
@@ -23,6 +49,20 @@
         b = color1.B
         HD = (r + g + b) / 3
         Return HD
+    End Function
+    ''' <summary>
+    ''' 返回指定图像的颜色数组
+    ''' </summary>
+    ''' <param name="gBitmap"></param>
+    ''' <returns></returns>
+    Public Function GetColorArr(ByRef gBitmap As Bitmap) As Color(,)
+        Dim TempArr(gBitmap.Width - 1, gBitmap.Height - 1) As Color
+        For i = 0 To gBitmap.Width - 1
+            For j = 0 To gBitmap.Height - 1
+                TempArr(i, j) = gBitmap.GetPixel(i, j)
+            Next
+        Next
+        Return TempArr
     End Function
     ''' <summary>
     ''' 返回指定区域的屏幕图像
@@ -61,15 +101,21 @@
     ''' <param name="gBitmap"></param>
     ''' <param name="gSplitNum"></param>
     ''' <returns></returns>
-    Public Function GetThresholdImage(ByVal gBitmap As Bitmap, ByVal gSplitNum As Byte) As Bitmap
+    Public Function GetThresholdImage(ByVal gBitmap As Bitmap, ByVal gSplitNum As Single, Optional IsHSB As Boolean = False) As Bitmap
         Dim ResultBitmap As New Bitmap(gBitmap.Width, gBitmap.Height)
+        Dim ColorArr(,) = GetColorArr(gBitmap)
         Dim TempHD As Integer
+        Dim IsOverThreshold = Function(ByVal C1 As Color, ByVal gNum As Single)
+                                  TempHD = gethHD(C1)
+                                  Return (If(IsHSB, (C1.GetHue / 360 + C1.GetSaturation + C1.GetBrightness) / 3 < gNum,
+                                  TempHD < gNum))
+                              End Function
         For i = 0 To gBitmap.Width - 1
             For j = 0 To gBitmap.Height - 1
-                TempHD = gethHD(gBitmap.GetPixel(i, j))
-                ResultBitmap.SetPixel(i, j, IIf(TempHD < gSplitNum, Color.Black, Color.White))
+                ResultBitmap.SetPixel(i, j, If(IsOverThreshold(ColorArr(i, j), gSplitNum), Color.Black, Color.White))
             Next
         Next
+
         Return ResultBitmap
     End Function
     ''' <summary>
@@ -78,21 +124,32 @@
     ''' <param name="gBitmap"></param>
     ''' <param name="gDistance"></param>
     ''' <returns></returns>
-    Public Function GetOutLineImage(ByVal gBitmap As Bitmap, ByVal gDistance As Byte) As Bitmap
+    Public Function GetOutLineImage(ByVal gBitmap As Bitmap, ByVal gDistance As Single, Optional IsHSB As Boolean = False) As Bitmap
         Dim xArray2() As Short = {0, 1, 0, -1}
         Dim yArray2() As Short = {-1, 0, 1, 0}
         'Dim ResultBitmap As New Bitmap(gBitmap) '在原图的基础上绘图
         Dim ResultBitmap As New Bitmap(gBitmap.Width, gBitmap.Height)
         Dim Color1, Color2 As Color
+        Dim CompareColor = Function(ByVal C1 As Color, ByVal C2 As Color, ByVal Distance As Single)
+                               Return If(IsHSB,
+                               CompareHSB(Color1, Color2, Distance),
+                               CompareRGB(Color1, Color2, Distance))
+                           End Function
+        Dim CompareColorExtra = Function(ByVal C1 As Color, ByVal C2 As Color)
+                                    Return If(IsHSB,
+                                    Color1.GetBrightness - Color2.GetBrightness > 0,
+                                    gethHD(Color1) - gethHD(Color2) > 0)
+                                End Function
+        Dim ColorArr(,) = GetColorArr(gBitmap)
         For i = 1 To gBitmap.Width - 2
             For j = 1 To gBitmap.Height - 2
+                ResultBitmap.SetPixel(i, j, Color.White)
+                Color1 = ColorArr(i, j)
                 For p = 0 To 3
-                    Color1 = gBitmap.GetPixel(i, j)
-                    Color2 = gBitmap.GetPixel(i + xArray2(p), j + yArray2(p))
-                    If CompareRGB(Color1, Color2, gDistance) = False And gethHD(Color1) - gethHD(Color2) > 0 Then
+                    Color2 = ColorArr(i + xArray2(p), j + yArray2(p))
+                    If Not CompareColor(Color1, Color2, gDistance) And CompareColorExtra(Color1, Color2) Then
                         ResultBitmap.SetPixel(i, j, Color.Black)
-                    Else
-                        ResultBitmap.SetPixel(i, j, Color.White)
+                        ' ResultBitmap.SetPixel(i, j, ColorArr(i, j))
                     End If
                 Next
             Next
@@ -139,6 +196,25 @@
         Return ResultBitmap
     End Function
     ''' <summary>
+    ''' 返回指定图像的色块图像
+    ''' </summary>
+    ''' <param name="gBitmap"></param>
+    ''' <returns></returns>
+    Public Function GetLumpImage(gBitmap As Bitmap, Optional Range As Integer = 10)
+        Dim ResultBitmap As New Bitmap(gBitmap.Width, gBitmap.Height)
+        Dim ColorArr(,) = GetColorArr(gBitmap)
+        Dim R, G, B As Integer
+        For i = 0 To gBitmap.Width - 1
+            For j = 0 To gBitmap.Height - 1
+                R = Int(ColorArr(i, j).R / Range) * Range
+                G = Int(ColorArr(i, j).G / Range) * Range
+                B = Int(ColorArr(i, j).B / Range) * Range
+                ResultBitmap.SetPixel(i, j, Color.FromArgb(R, G, B))
+            Next
+        Next
+        Return ResultBitmap
+    End Function
+    ''' <summary>
     ''' 返回指定图像的二值化数据
     ''' </summary>
     ''' <param name="gBitmap"></param>
@@ -147,7 +223,7 @@
         Dim ResultArr(gBitmap.Width - 1, gBitmap.Height - 1) As Integer
         For i = 0 To gBitmap.Width - 1
             For j = 0 To gBitmap.Height - 1
-                If gBitmap.GetPixel(i, j).Equals(Color.FromArgb(0, 0, 0)) = True Then
+                If Not gBitmap.GetPixel(i, j).Equals(Color.FromArgb(255, 255, 255)) Then
                     ResultArr(i, j) = 1
                 Else
                     ResultArr(i, j) = 0

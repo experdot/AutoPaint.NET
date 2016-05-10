@@ -22,14 +22,13 @@ Partial Class Form1
     '不要使用代码编辑器修改它。
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripStatusLabel2 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripStatusLabel3 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.Button1 = New System.Windows.Forms.Button()
-        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.CheckBox4 = New System.Windows.Forms.CheckBox()
         Me.Button3 = New System.Windows.Forms.Button()
         Me.TrackBar2 = New System.Windows.Forms.TrackBar()
         Me.RadioButton2 = New System.Windows.Forms.RadioButton()
@@ -47,6 +46,8 @@ Partial Class Form1
         Me.TabPage3 = New System.Windows.Forms.TabPage()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
+        Me.TrackBar3 = New System.Windows.Forms.TrackBar()
+        Me.CheckBox5 = New System.Windows.Forms.CheckBox()
         Me.StatusStrip1.SuspendLayout()
         Me.Panel1.SuspendLayout()
         CType(Me.TrackBar2, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -56,6 +57,7 @@ Partial Class Form1
         Me.TabPage2.SuspendLayout()
         Me.TabPage3.SuspendLayout()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.TrackBar3, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'StatusStrip1
@@ -64,7 +66,7 @@ Partial Class Form1
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel1, Me.ToolStripStatusLabel2, Me.ToolStripStatusLabel3})
         Me.StatusStrip1.Location = New System.Drawing.Point(0, 424)
         Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(716, 30)
+        Me.StatusStrip1.Size = New System.Drawing.Size(814, 30)
         Me.StatusStrip1.TabIndex = 3
         Me.StatusStrip1.Text = "StatusStrip1"
         '
@@ -96,20 +98,19 @@ Partial Class Form1
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(6, 3)
+        Me.Button1.Location = New System.Drawing.Point(38, 12)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(99, 38)
+        Me.Button1.Size = New System.Drawing.Size(94, 38)
         Me.Button1.TabIndex = 1
         Me.Button1.Text = "复制屏幕"
         Me.Button1.UseVisualStyleBackColor = True
         '
-        'Timer1
-        '
-        Me.Timer1.Enabled = True
-        '
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.SystemColors.Control
+        Me.Panel1.Controls.Add(Me.CheckBox5)
+        Me.Panel1.Controls.Add(Me.TrackBar3)
+        Me.Panel1.Controls.Add(Me.CheckBox4)
         Me.Panel1.Controls.Add(Me.Button3)
         Me.Panel1.Controls.Add(Me.TrackBar2)
         Me.Panel1.Controls.Add(Me.RadioButton2)
@@ -122,17 +123,27 @@ Partial Class Form1
         Me.Panel1.Controls.Add(Me.Button2)
         Me.Panel1.Controls.Add(Me.Button1)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Right
-        Me.Panel1.Location = New System.Drawing.Point(605, 0)
+        Me.Panel1.Location = New System.Drawing.Point(648, 0)
         Me.Panel1.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(111, 424)
+        Me.Panel1.Size = New System.Drawing.Size(166, 424)
         Me.Panel1.TabIndex = 10
+        '
+        'CheckBox4
+        '
+        Me.CheckBox4.AutoSize = True
+        Me.CheckBox4.Location = New System.Drawing.Point(14, 222)
+        Me.CheckBox4.Name = "CheckBox4"
+        Me.CheckBox4.Size = New System.Drawing.Size(66, 16)
+        Me.CheckBox4.TabIndex = 24
+        Me.CheckBox4.Text = "HSB空间"
+        Me.CheckBox4.UseVisualStyleBackColor = True
         '
         'Button3
         '
-        Me.Button3.Location = New System.Drawing.Point(9, 370)
+        Me.Button3.Location = New System.Drawing.Point(68, 364)
         Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(96, 37)
+        Me.Button3.Size = New System.Drawing.Size(92, 37)
         Me.Button3.TabIndex = 23
         Me.Button3.Text = "预览"
         Me.Button3.UseVisualStyleBackColor = True
@@ -141,7 +152,7 @@ Partial Class Form1
         '
         Me.TrackBar2.AutoSize = False
         Me.TrackBar2.LargeChange = 32
-        Me.TrackBar2.Location = New System.Drawing.Point(57, 95)
+        Me.TrackBar2.Location = New System.Drawing.Point(60, 95)
         Me.TrackBar2.Maximum = 255
         Me.TrackBar2.Name = "TrackBar2"
         Me.TrackBar2.Orientation = System.Windows.Forms.Orientation.Vertical
@@ -175,16 +186,16 @@ Partial Class Form1
         '
         'TextBox1
         '
-        Me.TextBox1.Location = New System.Drawing.Point(9, 250)
+        Me.TextBox1.Location = New System.Drawing.Point(9, 337)
         Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(97, 21)
+        Me.TextBox1.Size = New System.Drawing.Size(91, 21)
         Me.TextBox1.TabIndex = 16
         Me.TextBox1.Text = "by ExperDot"
         '
         'CheckBox3
         '
         Me.CheckBox3.AutoSize = True
-        Me.CheckBox3.Location = New System.Drawing.Point(9, 230)
+        Me.CheckBox3.Location = New System.Drawing.Point(106, 339)
         Me.CheckBox3.Name = "CheckBox3"
         Me.CheckBox3.Size = New System.Drawing.Size(48, 16)
         Me.CheckBox3.TabIndex = 19
@@ -194,7 +205,7 @@ Partial Class Form1
         'CheckBox2
         '
         Me.CheckBox2.AutoSize = True
-        Me.CheckBox2.Location = New System.Drawing.Point(9, 342)
+        Me.CheckBox2.Location = New System.Drawing.Point(14, 267)
         Me.CheckBox2.Name = "CheckBox2"
         Me.CheckBox2.Size = New System.Drawing.Size(48, 16)
         Me.CheckBox2.TabIndex = 18
@@ -204,7 +215,7 @@ Partial Class Form1
         'CheckBox1
         '
         Me.CheckBox1.AutoSize = True
-        Me.CheckBox1.Location = New System.Drawing.Point(9, 320)
+        Me.CheckBox1.Location = New System.Drawing.Point(14, 245)
         Me.CheckBox1.Name = "CheckBox1"
         Me.CheckBox1.Size = New System.Drawing.Size(48, 16)
         Me.CheckBox1.TabIndex = 15
@@ -227,9 +238,9 @@ Partial Class Form1
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(9, 277)
+        Me.Button2.Location = New System.Drawing.Point(9, 364)
         Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(97, 37)
+        Me.Button2.Size = New System.Drawing.Size(53, 37)
         Me.Button2.TabIndex = 10
         Me.Button2.Text = "画图"
         Me.Button2.UseVisualStyleBackColor = True
@@ -254,7 +265,7 @@ Partial Class Form1
         Me.TabControl1.Location = New System.Drawing.Point(0, 0)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(605, 424)
+        Me.TabControl1.Size = New System.Drawing.Size(648, 424)
         Me.TabControl1.TabIndex = 12
         '
         'TabPage1
@@ -263,7 +274,7 @@ Partial Class Form1
         Me.TabPage1.Location = New System.Drawing.Point(4, 22)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(597, 398)
+        Me.TabPage1.Size = New System.Drawing.Size(640, 398)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Screen"
         '
@@ -310,12 +321,36 @@ Partial Class Form1
         Me.PictureBox2.TabIndex = 0
         Me.PictureBox2.TabStop = False
         '
+        'TrackBar3
+        '
+        Me.TrackBar3.AutoSize = False
+        Me.TrackBar3.LargeChange = 32
+        Me.TrackBar3.Location = New System.Drawing.Point(110, 95)
+        Me.TrackBar3.Maximum = 255
+        Me.TrackBar3.Name = "TrackBar3"
+        Me.TrackBar3.Orientation = System.Windows.Forms.Orientation.Vertical
+        Me.TrackBar3.Size = New System.Drawing.Size(44, 121)
+        Me.TrackBar3.TabIndex = 25
+        Me.TrackBar3.TickFrequency = 32
+        Me.TrackBar3.TickStyle = System.Windows.Forms.TickStyle.Both
+        Me.TrackBar3.Value = 128
+        '
+        'CheckBox5
+        '
+        Me.CheckBox5.AutoSize = True
+        Me.CheckBox5.Location = New System.Drawing.Point(115, 73)
+        Me.CheckBox5.Name = "CheckBox5"
+        Me.CheckBox5.Size = New System.Drawing.Size(48, 16)
+        Me.CheckBox5.TabIndex = 26
+        Me.CheckBox5.Text = "色块"
+        Me.CheckBox5.UseVisualStyleBackColor = True
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.Control
-        Me.ClientSize = New System.Drawing.Size(716, 454)
+        Me.ClientSize = New System.Drawing.Size(814, 454)
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.StatusStrip1)
@@ -336,6 +371,7 @@ Partial Class Form1
         Me.TabPage3.ResumeLayout(False)
         Me.TabPage3.PerformLayout()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.TrackBar3, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -343,7 +379,6 @@ Partial Class Form1
     Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
     Friend WithEvents ToolStripStatusLabel1 As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents Button1 As System.Windows.Forms.Button
-    Friend WithEvents Timer1 As System.Windows.Forms.Timer
     Friend WithEvents Panel1 As Panel
     Friend WithEvents Button2 As Button
     Friend WithEvents PictureBox1 As PictureBox
@@ -364,4 +399,7 @@ Partial Class Form1
     Friend WithEvents Label1 As Label
     Friend WithEvents ToolStripStatusLabel2 As ToolStripStatusLabel
     Friend WithEvents ToolStripStatusLabel3 As ToolStripStatusLabel
+    Friend WithEvents CheckBox4 As CheckBox
+    Friend WithEvents TrackBar3 As TrackBar
+    Friend WithEvents CheckBox5 As CheckBox
 End Class

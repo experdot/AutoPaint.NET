@@ -75,15 +75,25 @@
             MsgBox("请先复制屏幕")
         End If
     End Sub
-
-    Private Sub TrackBar_MouseUp(sender As Object, e As MouseEventArgs) Handles TrackBar1.MouseUp, TrackBar2.MouseUp
+    Private Sub TrackBar_MouseUp(sender As Object, e As MouseEventArgs) Handles TrackBar1.MouseUp, TrackBar2.MouseUp, TrackBar3.MouseUp
         If Not OriginalBitmap Is Nothing Then
             If sender Is TrackBar1 Then
-                CurrentBitmap = ImageProcessing.GetThresholdImage(OriginalBitmap, sender.Value)
+                If CheckBox4.Checked Then
+                    CurrentBitmap = ImageProcessing.GetThresholdImage(OriginalBitmap, sender.Value / 255, True)
+                Else
+                    CurrentBitmap = ImageProcessing.GetThresholdImage(OriginalBitmap, sender.Value)
+                End If
                 RadioButton1.Checked = True
-            Else
-                CurrentBitmap = ImageProcessing.GetOutLineImage(OriginalBitmap, sender.Value)
-                RadioButton2.Checked = True
+                ElseIf sender Is TrackBar2 Then
+                    Dim tempBitmap = If(CheckBox5.Checked, ImageProcessing.GetLumpImage(OriginalBitmap, TrackBar3.Value + 1), OriginalBitmap)
+                    If CheckBox4.Checked Then
+                        CurrentBitmap = ImageProcessing.GetOutLineImage(tempBitmap, sender.Value / 255 * Math.Sqrt(1), True)
+                    Else
+                        CurrentBitmap = ImageProcessing.GetOutLineImage(tempBitmap, 255 - sender.Value)
+                    End If
+                    RadioButton2.Checked = True
+                Else
+                    CurrentBitmap = ImageProcessing.GetLumpImage(OriginalBitmap, sender.Value + 1)
             End If
             ImageChanged()
         Else
@@ -105,5 +115,9 @@
         Else
             Panel1.Show()
         End If
+    End Sub
+
+    Private Sub CheckBox4_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox4.CheckedChanged
+        TrackBar_MouseUp(If(RadioButton1.Checked, TrackBar1, TrackBar2), Nothing)
     End Sub
 End Class

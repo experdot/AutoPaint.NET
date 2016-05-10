@@ -59,10 +59,10 @@ Public Class PainterClass
         Dim ResultArr(gBitmap.Width - 1, gBitmap.Height - 1) As Integer
         For i = 0 To gBitmap.Width - 1
             For j = 0 To gBitmap.Height - 1
-                If gBitmap.GetPixel(i, j).Equals(Color.FromArgb(0, 0, 0)) = True Then
-                    ResultArr(i, j) = 1
-                Else
+                If gBitmap.GetPixel(i, j).Equals(Color.FromArgb(255, 255, 255)) Then
                     ResultArr(i, j) = 0
+                Else
+                    ResultArr(i, j) = 1
                 End If
             Next
         Next
@@ -89,16 +89,19 @@ Public Class PainterClass
                 Dim TempB = rnd.NextDouble * SubSequence.PointList.Count
                 For Each SubPoint In SubSequence.PointList
                     Dim Index As Single = SubSequence.PointList.IndexOf(SubPoint)
-                    'TempColor = Color.FromArgb(255 - Index, 0, 0, 0)
-                    TempColor = Color.FromArgb(255 - Index, TempR, TempG, TempB)
-
+                    Dim alpha As Integer = 255 - Index
+                    If alpha < 1 Then alpha = 1
+                    TempColor = Color.FromArgb(alpha, 0, 0, 0)
+                    'TempColor = Color.FromArgb(255 - Index, TempR, TempG, TempB)
                     Dim Count As Single = SubSequence.PointList.Count
-                    ' Dim penWidth As Single = 0.01 + (Count / 2 - Math.Abs(Index - Count / 2)) / 20
+                    'Dim penWidth As Single = 0.01 + (Count / 2 - Math.Abs(Index - Count / 2)) / 20
                     Dim penWidth As Single = 0.5 + Math.Abs(Index - Count) / 40
-                    If penWidth > 7 Then penWidth = 7
-                    If penWidth > 2 AndAlso CInt(Index) Mod (9 - CInt(penWidth)) = 0 Then Continue For
+                    Dim maxWidth As Single = 3
+                    If penWidth > maxWidth Then penWidth = maxWidth
+                    If penWidth > 2 AndAlso CInt(Index) Mod (maxWidth + 2 - CInt(penWidth)) = 0 Then Continue For
                     Dim mypen As New Pen(TempColor, 1 + penWidth)
                     pg.DrawEllipse(mypen, New RectangleF(SubPoint.X - penWidth / 2, SubPoint.Y - penWidth / 2, penWidth, penWidth))
+                    'pg.DrawLine(mypen, SubPoint, SubSequence.PointList.First)
                     RaiseEvent UpdatePreviewImage(SubPoint, mypen)
                 Next
             Next
