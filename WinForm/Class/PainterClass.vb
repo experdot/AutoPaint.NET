@@ -84,19 +84,19 @@ Public Class PainterClass
         Using pg As Graphics = Graphics.FromImage(DepthBitmap)
             pg.SmoothingMode = Drawing2D.SmoothingMode.HighQuality
             For Each SubSequence In SequenceManager.SequenceList
-                Dim TempR = rnd.NextDouble * SubSequence.PointList.Count
-                Dim TempG = rnd.NextDouble * SubSequence.PointList.Count
-                Dim TempB = rnd.NextDouble * SubSequence.PointList.Count
+                Dim TempR = rnd.NextDouble * 255
+                Dim TempG = rnd.NextDouble * 255
+                Dim TempB = rnd.NextDouble * 255
                 For Each SubPoint In SubSequence.PointList
                     Dim Index As Single = SubSequence.PointList.IndexOf(SubPoint)
-                    Dim alpha As Integer = 255 - Index
+                    Dim alpha As Integer = 255 - Index * 255 / SubSequence.PointList.Count
                     If alpha < 1 Then alpha = 1
-                    TempColor = Color.FromArgb(alpha, 0, 0, 0)
-                    'TempColor = Color.FromArgb(255 - Index, TempR, TempG, TempB)
+                    'TempColor = Color.FromArgb(alpha, 0, 0, 0)
+                    TempColor = Color.FromArgb(alpha, TempR, TempG, TempB)
                     Dim Count As Single = SubSequence.PointList.Count
                     'Dim penWidth As Single = 0.01 + (Count / 2 - Math.Abs(Index - Count / 2)) / 20
-                    Dim penWidth As Single = 0.5 + Math.Abs(Index - Count) / 40
-                    Dim maxWidth As Single = 3
+                    Dim penWidth As Single = 0.5 + Math.Abs(Index - Count) / 30
+                    Dim maxWidth As Single = 2
                     If penWidth > maxWidth Then penWidth = maxWidth
                     If penWidth > 2 AndAlso CInt(Index) Mod (maxWidth + 2 - CInt(penWidth)) = 0 Then Continue For
                     Dim mypen As New Pen(TempColor, 1 + penWidth)

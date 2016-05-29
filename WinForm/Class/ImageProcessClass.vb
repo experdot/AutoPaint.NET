@@ -51,7 +51,7 @@
         Return HD
     End Function
     ''' <summary>
-    ''' 返回指定图像的颜色数组
+    ''' 返回指定位图的颜色数组
     ''' </summary>
     ''' <param name="gBitmap"></param>
     ''' <returns></returns>
@@ -80,7 +80,7 @@
         Return ResultBitmap
     End Function
     ''' <summary>
-    ''' 返回指定文字生成的图像
+    ''' 返回指定文字生成的位图
     ''' </summary>
     ''' <param name="gString"></param>
     ''' <param name="gFont"></param>
@@ -96,7 +96,7 @@
         Return ResultBitmap
     End Function
     ''' <summary>
-    ''' 返回指定图像的二值化图像
+    ''' 返回指定图位图的二值化图像
     ''' </summary>
     ''' <param name="gBitmap"></param>
     ''' <param name="gSplitNum"></param>
@@ -119,7 +119,7 @@
         Return ResultBitmap
     End Function
     ''' <summary>
-    ''' 返回指定图像的轮廓图像
+    ''' 返回指定位图的轮廓图像
     ''' </summary>
     ''' <param name="gBitmap"></param>
     ''' <param name="gDistance"></param>
@@ -156,9 +156,8 @@
         Next
         Return ResultBitmap
     End Function
-
     ''' <summary>
-    ''' 返回指定图像的空心图像
+    ''' 返回指定位图的空心图像
     ''' </summary>
     ''' <param name="gBitmap"></param>
     ''' <returns></returns>
@@ -177,7 +176,7 @@
         Return ResultBitmap
     End Function
     ''' <summary>
-    ''' 返回指定图像的反相图像
+    ''' 返回指定位图的反相图像
     ''' </summary>
     ''' <param name="gBitmap"></param>
     ''' <returns></returns>
@@ -196,7 +195,7 @@
         Return ResultBitmap
     End Function
     ''' <summary>
-    ''' 返回指定图像的色块图像
+    ''' 返回指定位图的色块图像
     ''' </summary>
     ''' <param name="gBitmap"></param>
     ''' <returns></returns>
@@ -215,7 +214,7 @@
         Return ResultBitmap
     End Function
     ''' <summary>
-    ''' 返回指定图像的二值化数据
+    ''' 返回指定位图的二值化数据
     ''' </summary>
     ''' <param name="gBitmap"></param>
     ''' <returns></returns>
