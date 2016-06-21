@@ -22,7 +22,7 @@
 * 早期版本，暂无该项内容
 
 ##问题反馈
-若你在使用中有问题，欢迎反馈给我，联系方式
+联系方式
 
 * 邮件：experdot@foxmail.com
 * 博客园: [@ExperDot](http://www.cnblogs.com/experdot/)
