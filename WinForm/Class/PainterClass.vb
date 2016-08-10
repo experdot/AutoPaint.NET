@@ -3,7 +3,7 @@
 Public Class PainterClass
     Private Declare Sub mouse_event Lib "user32" (ByVal dwFlags As Int32, ByVal dx As Int32, ByVal dy As Int32, ByVal cButtons As Int32, ByVal dwExtraInfo As Int32)
     Private Declare Function SetCursorPos Lib "user32" (ByVal x As Integer, ByVal y As Integer) As Integer
-    Public SleepTime As Integer = 1
+    Public SleepTime As Integer = 2
     Public BoardX As Integer
     Public BoardY As Integer
     Public Event UpdatePreviewImage(ePoint As PointF, ePen As Pen)
