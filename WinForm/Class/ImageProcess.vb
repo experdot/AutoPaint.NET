@@ -1,4 +1,7 @@
-﻿Public Class ImageProcessClass
+﻿''' <summary>
+''' 提供对位图图像和颜色的一系列操作的对象
+''' </summary>
+Public Class ImageProcess
     ''' <summary> 
     ''' 基于RGB根据指定阈值判断两个颜色是否相近
     ''' </summary> 
@@ -17,6 +20,7 @@
     ''' 基于HSB根据指定阈值判断两个颜色是否相近
     ''' </summary> 
     Public Function CompareHSB(ByVal Color1 As Color, ByVal Color2 As Color, ByVal Distance As Single) As Boolean
+        '向量距离
         'Dim h As Single = (Color1.GetHue - Color2.GetHue) / 360
         'Dim s As Single = Color1.GetSaturation - Color2.GetSaturation
         'Dim b As Single = Color1.GetBrightness - Color2.GetBrightness
@@ -26,6 +30,7 @@
         'Else
         '    Return False
         'End If
+        '向量夹角
         Dim h1 As Single = Color1.GetHue / 360
         Dim s1 As Single = Color1.GetSaturation
         Dim b1 As Single = Color1.GetBrightness
@@ -65,35 +70,32 @@
         Return TempArr
     End Function
     ''' <summary>
-    ''' 返回指定区域的屏幕图像
+    ''' 返回指定矩形区域的屏幕图像
     ''' </summary>
-    ''' <param name="gX"></param>
-    ''' <param name="gY"></param>
-    ''' <param name="gWidth"></param>
-    ''' <param name="gHeight"></param>
+    ''' <param name="rect">指定的矩形区域</param>
     ''' <returns></returns>
-    Public Function GetScreenImage(ByVal gX As Integer, ByVal gY As Integer, ByVal gWidth As Integer, ByVal gHeight As Integer) As Bitmap
-        Dim ResultBitmap As New Bitmap(gWidth, gHeight)
-        Using pg As Graphics = Graphics.FromImage(ResultBitmap)
-            pg.CopyFromScreen(gX, gY, 0, 0, New Size(gWidth, gHeight))
+    Public Function GetScreenImage(ByVal rect As Rectangle) As Bitmap
+        Dim resultBmp As New Bitmap(rect.Width, rect.Height)
+        Using pg As Graphics = Graphics.FromImage(resultBmp)
+            pg.CopyFromScreen(rect.X, rect.Y, 0, 0, New Size(rect.Width, rect.Height))
         End Using
-        Return ResultBitmap
+        Return resultBmp
     End Function
     ''' <summary>
     ''' 返回指定文字生成的位图
     ''' </summary>
-    ''' <param name="gString"></param>
-    ''' <param name="gFont"></param>
-    ''' <param name="gWidth"></param>
-    ''' <param name="gHeight"></param>
+    ''' <param name="text">文本</param>
+    ''' <param name="font">字体</param>
+    ''' <param name="width">位图宽度</param>
+    ''' <param name="height">位图高度</param>
     ''' <returns></returns>
-    Public Function GetTextImage(ByVal gString As String, ByVal gFont As Font, ByVal gWidth As Integer, ByVal gHeight As Integer) As Bitmap
-        Dim ResultBitmap As New Bitmap(gWidth, gHeight)
-        Using pg = Graphics.FromImage(ResultBitmap)
+    Public Function GetTextImage(ByVal text As String, ByVal font As Font, ByVal width As Integer, ByVal height As Integer) As Bitmap
+        Dim resultBmp As New Bitmap(width, height)
+        Using pg = Graphics.FromImage(resultBmp)
             pg.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias '抗锯齿
-            pg.DrawString(gString, gFont, Brushes.Black, 0, 0)
+            pg.DrawString(text, font, Brushes.Black, 0, 0)
         End Using
-        Return ResultBitmap
+        Return resultBmp
     End Function
     ''' <summary>
     ''' 返回指定图位图的二值化图像

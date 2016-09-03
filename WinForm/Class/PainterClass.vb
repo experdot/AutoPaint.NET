@@ -17,7 +17,7 @@ Public Class PainterClass
         BoardX = bx
         BoardY = by
         Dim TempBolArr(,) = GetImageBol(sBitmap)
-        Painting(New SequenceManagerClass(TempBolArr))
+        Painting(New SequenceManager(TempBolArr))
     End Sub
     ''' <summary>
     ''' 预览
@@ -25,7 +25,7 @@ Public Class PainterClass
     ''' <param name="sBitmap"></param>
     Public Sub StartPreview(ByRef sBitmap As Bitmap, ByRef ViewBitmap As Bitmap)
         Dim TempBolArr(,) = GetImageBol(sBitmap)
-        Previewing(New SequenceManagerClass(TempBolArr), ViewBitmap)
+        Previewing(New SequenceManager(TempBolArr), ViewBitmap)
     End Sub
     ''' <summary>
     ''' 模拟鼠标左键按下或弹起
@@ -68,7 +68,7 @@ Public Class PainterClass
         Next
         Return ResultArr
     End Function
-    Private Sub Painting(SequenceManager As SequenceManagerClass)
+    Private Sub Painting(SequenceManager As SequenceManager)
         For Each SubSequence In SequenceManager.SequenceList
             MouseMove(SubSequence.PointList.First.X + BoardX, SubSequence.PointList.First.Y + BoardY)
             MouseDownUp(SubSequence.PointList.First.X + BoardX, SubSequence.PointList.First.Y + BoardY, True)
@@ -78,7 +78,7 @@ Public Class PainterClass
             MouseDownUp(SubSequence.PointList.Last.X + BoardX, SubSequence.PointList.Last.Y + BoardY, False)
         Next
     End Sub
-    Private Sub Previewing(SequenceManager As SequenceManagerClass, ByRef DepthBitmap As Bitmap)
+    Private Sub Previewing(SequenceManager As SequenceManager, ByRef DepthBitmap As Bitmap)
         Dim TempColor As Color = Color.FromArgb(255, 0, 0, 0)
         Dim rnd As New Random
         Using pg As Graphics = Graphics.FromImage(DepthBitmap)

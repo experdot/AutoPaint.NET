@@ -1,24 +1,36 @@
-﻿Public Class SequenceManagerClass
+﻿''' <summary>
+''' 提供由图像循迹生成绘图序列的对象
+''' </summary>
+Public Class SequenceManager
     ''' <summary>
     ''' 绘制序列的集合
     ''' </summary>
-    Public SequenceList As List(Of PointSequenceClass)
+    Public SequenceList As List(Of PointSequence)
 
     Public Sub New(BolArr(,) As Integer)
-        SequenceList = New List(Of PointSequenceClass)
+        SequenceList = New List(Of PointSequence)
         CalculateSequence(BolArr)
     End Sub
+    ''' <summary>
+    ''' 创建新的序列
+    ''' </summary>
     Private Sub CreateNewSequence()
-        SequenceList.Add(New PointSequenceClass)
+        SequenceList.Add(New PointSequence)
     End Sub
-    Private Sub AddPoint(aPoint As PointF)
-        SequenceList.Last.PointList.Add(aPoint)
+    ''' <summary>
+    ''' 添加新的位置
+    ''' </summary>
+    Private Sub AddPoint(point As PointF)
+        SequenceList.Last.PointList.Add(point)
     End Sub
     Dim xArray() As Integer = {-1, 0, 1, 1, 1, 0, -1, -1}
     Dim yArray() As Integer = {-1, -1, -1, 0, 1, 1, 1, 0}
     Dim NewStart As Boolean
+    ''' <summary>
+    ''' 递归循迹
+    ''' </summary>
     Private Sub CheckMove(ByRef BolArr(,) As Integer, ByVal x As Integer, ByVal y As Integer, ByVal StepNum As Integer)
-        Application.DoEvents()
+        Application.DoEvents() '处理主线程消息
         If StepNum > 10000 Then Return
         Dim xBound As Integer = BolArr.GetUpperBound(0)
         Dim yBound As Integer = BolArr.GetUpperBound(1)
@@ -46,6 +58,9 @@
             End If
         Next
     End Sub
+    ''' <summary>
+    ''' 计算序列
+    ''' </summary>
     Private Sub CalculateSequence(BolArr(,) As Integer)
         Dim xCount As Integer = BolArr.GetUpperBound(0)
         Dim yCount As Integer = BolArr.GetUpperBound(1)
@@ -66,6 +81,9 @@
             Next
         Next
     End Sub
+    ''' <summary>
+    ''' 返回指定像素位置的权值
+    ''' </summary>
     Private Function GetAroundValue(ByRef BolArr(,) As Integer, ByVal x As Integer, ByVal y As Integer) As Integer
         Dim dx, dy, ResultValue As Integer
         Dim xBound As Integer = BolArr.GetUpperBound(0)

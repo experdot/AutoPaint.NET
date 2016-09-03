@@ -72,15 +72,15 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class\PointSequenceClass.vb" />
-    <Compile Include="Class\SequenceManagerClass.vb" />
+    <Compile Include="Class\PointSequence.vb" />
+    <Compile Include="Class\SequenceManager.vb" />
     <Compile Include="Form\Form1.Designer.vb">
       <DependentUpon>Form1.vb</DependentUpon>
     </Compile>
     <Compile Include="Form\Form1.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Class\ImageProcessClass.vb" />
+    <Compile Include="Class\ImageProcess.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>

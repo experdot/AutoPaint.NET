@@ -1,6 +1,6 @@
 ﻿Public Class Form1
 
-    Dim ImageProcessing As ImageProcessClass '图像处理
+    Dim ImageProcessing As ImageProcess '图像处理
     Dim MyPainter As PainterClass '绘图操作
     Dim OriginalBitmap As Bitmap '初始图像
     Dim CurrentBitmap As Bitmap '当前图像
@@ -31,7 +31,7 @@
     End Sub
     '窗体加载
     Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        ImageProcessing = New ImageProcessClass
+        ImageProcessing = New ImageProcess
         MyPainter = New PainterClass
         AddHandler MyPainter.UpdatePreviewImage, AddressOf RefreshPicturebox2
         Me.TopMost = True
@@ -39,7 +39,7 @@
     '复制屏幕
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
         TabControl1.SelectedIndex = 0
-        OriginalBitmap = ImageProcessing.GetScreenImage(TabPage1.PointToScreen(New Point(0, 0)).X + 3, TabPage1.PointToScreen(New Point(0, 0)).Y + 3, TabPage1.Width - 6, TabPage1.Height - 6)
+        OriginalBitmap = ImageProcessing.GetScreenImage(New Rectangle(TabPage1.PointToScreen(New Point(0, 0)).X + 3, TabPage1.PointToScreen(New Point(0, 0)).Y + 3, TabPage1.Width - 6, TabPage1.Height - 6))
         TabControl1.SelectedIndex = 1
         TrackBar_MouseUp(TrackBar1, e)
     End Sub
