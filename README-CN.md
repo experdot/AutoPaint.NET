@@ -1,3 +1,4 @@
+Translation：[English](./README-EN.md)
 ##AutomaticDrawing是什么?
 一个实现自动绘图的程序，提供它一块画板与鼠标，就能为你画出美丽的图形
 ##AutomaticDrawing有哪些功能？
