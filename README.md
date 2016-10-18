@@ -1,6 +1,7 @@
 Translation:[Simple-Chinese](./README-CN.md)(简体中文)
+
 ## What's AutomaticDrawing?
-An automatic drawing program, it can control the mouse on the screen to draw beautiful images.
+An automatic drawing program, it can control the mouse to draw beautiful images on the screen.
 ##Featrues
 
 * Load Image
