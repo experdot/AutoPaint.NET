@@ -1,12 +1,15 @@
-﻿Imports System.Runtime.InteropServices
-
-Public Class PainterClass
+﻿Imports System.Drawing
+Imports System.Windows.Forms
+''' <summary>
+''' 绘制器
+''' </summary>
+Public Class Painter
     Private Declare Sub mouse_event Lib "user32" (ByVal dwFlags As Int32, ByVal dx As Int32, ByVal dy As Int32, ByVal cButtons As Int32, ByVal dwExtraInfo As Int32)
     Private Declare Function SetCursorPos Lib "user32" (ByVal x As Integer, ByVal y As Integer) As Integer
-    Public SleepTime As Integer = 2
+    Public SleepTime As Integer = 3
     Public BoardX As Integer
     Public BoardY As Integer
-    Public Event UpdatePreviewImage(ePoint As PointF, ePen As Pen)
+    Public Event UpdatePreviewImage(ePoint As Point, ePen As Pen)
     ''' <summary>
     ''' 绘制
     ''' </summary>
@@ -17,7 +20,7 @@ Public Class PainterClass
         BoardX = bx
         BoardY = by
         Dim TempBolArr(,) = GetImageBol(sBitmap)
-        Painting(New SequenceManager(TempBolArr))
+        Painting(New SequenceAI(TempBolArr))
     End Sub
     ''' <summary>
     ''' 预览
@@ -25,7 +28,7 @@ Public Class PainterClass
     ''' <param name="sBitmap"></param>
     Public Sub StartPreview(ByRef sBitmap As Bitmap, ByRef ViewBitmap As Bitmap)
         Dim TempBolArr(,) = GetImageBol(sBitmap)
-        Previewing(New SequenceManager(TempBolArr), ViewBitmap)
+        Previewing(New SequenceAI(TempBolArr), ViewBitmap)
     End Sub
     ''' <summary>
     ''' 模拟鼠标左键按下或弹起
@@ -47,8 +50,9 @@ Public Class PainterClass
     ''' <param name="dx"></param>
     ''' <param name="dy"></param>
     Private Sub MouseMove(ByVal dx As Integer, ByVal dy As Integer)
-        Cursor.Position = New Point(dx, dy)
-        System.Threading.Thread.Sleep(SleepTime)
+        'Cursor.Position = New Drawing.Point(dx, dy)
+        SetCursorPos(dx, dy)
+        System.Threading.Thread.Sleep(SleepTime * 2)
     End Sub
     ''' <summary>
     ''' 返回指定图像的二值化数据
@@ -68,32 +72,32 @@ Public Class PainterClass
         Next
         Return ResultArr
     End Function
-    Private Sub Painting(SequenceManager As SequenceManager)
-        For Each SubSequence In SequenceManager.SequenceList
-            MouseMove(SubSequence.PointList.First.X + BoardX, SubSequence.PointList.First.Y + BoardY)
-            MouseDownUp(SubSequence.PointList.First.X + BoardX, SubSequence.PointList.First.Y + BoardY, True)
-            For Each SubPoint In SubSequence.PointList
+    Private Sub Painting(SequenceManager As SequenceAI)
+        For Each SubSequence In SequenceManager.Lines
+            MouseMove(SubSequence.Points.First.X + BoardX, SubSequence.Points.First.Y + BoardY)
+            MouseDownUp(SubSequence.Points.First.X + BoardX, SubSequence.Points.First.Y + BoardY, True)
+            For Each SubPoint In SubSequence.Points
                 MouseMove(SubPoint.X + BoardX, SubPoint.Y + BoardY)
             Next
-            MouseDownUp(SubSequence.PointList.Last.X + BoardX, SubSequence.PointList.Last.Y + BoardY, False)
+            MouseDownUp(SubSequence.Points.Last.X + BoardX, SubSequence.Points.Last.Y + BoardY, False)
         Next
     End Sub
-    Private Sub Previewing(SequenceManager As SequenceManager, ByRef DepthBitmap As Bitmap)
+    Private Sub Previewing(SequenceManager As SequenceAI, ByRef DepthBitmap As Bitmap)
         Dim TempColor As Color = Color.FromArgb(255, 0, 0, 0)
         Dim rnd As New Random
         Using pg As Graphics = Graphics.FromImage(DepthBitmap)
             pg.SmoothingMode = Drawing2D.SmoothingMode.HighQuality
-            For Each SubSequence In SequenceManager.SequenceList
+            For Each SubSequence In SequenceManager.Lines
                 Dim TempR = rnd.NextDouble * 255
                 Dim TempG = rnd.NextDouble * 255
                 Dim TempB = rnd.NextDouble * 255
-                For Each SubPoint In SubSequence.PointList
-                    Dim Index As Single = SubSequence.PointList.IndexOf(SubPoint)
-                    Dim alpha As Integer = 255 - Index * 255 / SubSequence.PointList.Count
+                For Each SubPoint In SubSequence.Points
+                    Dim Index As Single = SubSequence.Points.IndexOf(SubPoint)
+                    Dim alpha As Integer = 255 - Index * 255 / SubSequence.Points.Count
                     If alpha < 1 Then alpha = 1
                     'TempColor = Color.FromArgb(alpha, 0, 0, 0)
                     TempColor = Color.FromArgb(alpha, TempR, TempG, TempB)
-                    Dim Count As Single = SubSequence.PointList.Count
+                    Dim Count As Single = SubSequence.Points.Count
                     'Dim penWidth As Single = 0.01 + (Count / 2 - Math.Abs(Index - Count / 2)) / 20
                     Dim penWidth As Single = 0.5 + Math.Abs(Index - Count) / 30
                     Dim maxWidth As Single = 2

@@ -28,6 +28,8 @@ Partial Class Form1
         Me.ToolStripStatusLabel3 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.CheckBox5 = New System.Windows.Forms.CheckBox()
+        Me.TrackBar3 = New System.Windows.Forms.TrackBar()
         Me.CheckBox4 = New System.Windows.Forms.CheckBox()
         Me.Button3 = New System.Windows.Forms.Button()
         Me.TrackBar2 = New System.Windows.Forms.TrackBar()
@@ -46,10 +48,9 @@ Partial Class Form1
         Me.TabPage3 = New System.Windows.Forms.TabPage()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
-        Me.TrackBar3 = New System.Windows.Forms.TrackBar()
-        Me.CheckBox5 = New System.Windows.Forms.CheckBox()
         Me.StatusStrip1.SuspendLayout()
         Me.Panel1.SuspendLayout()
+        CType(Me.TrackBar3, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.TrackBar2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.TrackBar1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -57,14 +58,13 @@ Partial Class Form1
         Me.TabPage2.SuspendLayout()
         Me.TabPage3.SuspendLayout()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.TrackBar3, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'StatusStrip1
         '
         Me.StatusStrip1.GripMargin = New System.Windows.Forms.Padding(0)
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel1, Me.ToolStripStatusLabel2, Me.ToolStripStatusLabel3})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 424)
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 446)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Size = New System.Drawing.Size(814, 30)
         Me.StatusStrip1.TabIndex = 3
@@ -92,7 +92,7 @@ Partial Class Form1
         '
         Me.ToolStripStatusLabel3.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left
         Me.ToolStripStatusLabel3.Name = "ToolStripStatusLabel3"
-        Me.ToolStripStatusLabel3.Size = New System.Drawing.Size(124, 25)
+        Me.ToolStripStatusLabel3.Size = New System.Drawing.Size(96, 25)
         Me.ToolStripStatusLabel3.Text = "1280*720 Pixel"
         Me.ToolStripStatusLabel3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -126,8 +126,32 @@ Partial Class Form1
         Me.Panel1.Location = New System.Drawing.Point(648, 0)
         Me.Panel1.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(166, 424)
+        Me.Panel1.Size = New System.Drawing.Size(166, 446)
         Me.Panel1.TabIndex = 10
+        '
+        'CheckBox5
+        '
+        Me.CheckBox5.AutoSize = True
+        Me.CheckBox5.Location = New System.Drawing.Point(115, 73)
+        Me.CheckBox5.Name = "CheckBox5"
+        Me.CheckBox5.Size = New System.Drawing.Size(48, 16)
+        Me.CheckBox5.TabIndex = 26
+        Me.CheckBox5.Text = "色块"
+        Me.CheckBox5.UseVisualStyleBackColor = True
+        '
+        'TrackBar3
+        '
+        Me.TrackBar3.AutoSize = False
+        Me.TrackBar3.LargeChange = 32
+        Me.TrackBar3.Location = New System.Drawing.Point(110, 95)
+        Me.TrackBar3.Maximum = 255
+        Me.TrackBar3.Name = "TrackBar3"
+        Me.TrackBar3.Orientation = System.Windows.Forms.Orientation.Vertical
+        Me.TrackBar3.Size = New System.Drawing.Size(44, 121)
+        Me.TrackBar3.TabIndex = 25
+        Me.TrackBar3.TickFrequency = 32
+        Me.TrackBar3.TickStyle = System.Windows.Forms.TickStyle.Both
+        Me.TrackBar3.Value = 128
         '
         'CheckBox4
         '
@@ -251,7 +275,7 @@ Partial Class Form1
         Me.PictureBox1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PictureBox1.Location = New System.Drawing.Point(3, 3)
         Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(591, 392)
+        Me.PictureBox1.Size = New System.Drawing.Size(634, 392)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.PictureBox1.TabIndex = 11
         Me.PictureBox1.TabStop = False
@@ -265,7 +289,7 @@ Partial Class Form1
         Me.TabControl1.Location = New System.Drawing.Point(0, 0)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(648, 424)
+        Me.TabControl1.Size = New System.Drawing.Size(648, 446)
         Me.TabControl1.TabIndex = 12
         '
         'TabPage1
@@ -274,7 +298,7 @@ Partial Class Form1
         Me.TabPage1.Location = New System.Drawing.Point(4, 22)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(640, 398)
+        Me.TabPage1.Size = New System.Drawing.Size(640, 420)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Screen"
         '
@@ -284,7 +308,7 @@ Partial Class Form1
         Me.TabPage2.Location = New System.Drawing.Point(4, 22)
         Me.TabPage2.Name = "TabPage2"
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(597, 398)
+        Me.TabPage2.Size = New System.Drawing.Size(640, 398)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "Image"
         Me.TabPage2.UseVisualStyleBackColor = True
@@ -296,7 +320,7 @@ Partial Class Form1
         Me.TabPage3.Location = New System.Drawing.Point(4, 22)
         Me.TabPage3.Name = "TabPage3"
         Me.TabPage3.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage3.Size = New System.Drawing.Size(597, 398)
+        Me.TabPage3.Size = New System.Drawing.Size(640, 398)
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "Preview"
         Me.TabPage3.UseVisualStyleBackColor = True
@@ -316,41 +340,17 @@ Partial Class Form1
         Me.PictureBox2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PictureBox2.Location = New System.Drawing.Point(3, 3)
         Me.PictureBox2.Name = "PictureBox2"
-        Me.PictureBox2.Size = New System.Drawing.Size(591, 392)
+        Me.PictureBox2.Size = New System.Drawing.Size(634, 392)
         Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
         Me.PictureBox2.TabIndex = 0
         Me.PictureBox2.TabStop = False
-        '
-        'TrackBar3
-        '
-        Me.TrackBar3.AutoSize = False
-        Me.TrackBar3.LargeChange = 32
-        Me.TrackBar3.Location = New System.Drawing.Point(110, 95)
-        Me.TrackBar3.Maximum = 255
-        Me.TrackBar3.Name = "TrackBar3"
-        Me.TrackBar3.Orientation = System.Windows.Forms.Orientation.Vertical
-        Me.TrackBar3.Size = New System.Drawing.Size(44, 121)
-        Me.TrackBar3.TabIndex = 25
-        Me.TrackBar3.TickFrequency = 32
-        Me.TrackBar3.TickStyle = System.Windows.Forms.TickStyle.Both
-        Me.TrackBar3.Value = 128
-        '
-        'CheckBox5
-        '
-        Me.CheckBox5.AutoSize = True
-        Me.CheckBox5.Location = New System.Drawing.Point(115, 73)
-        Me.CheckBox5.Name = "CheckBox5"
-        Me.CheckBox5.Size = New System.Drawing.Size(48, 16)
-        Me.CheckBox5.TabIndex = 26
-        Me.CheckBox5.Text = "色块"
-        Me.CheckBox5.UseVisualStyleBackColor = True
         '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.Control
-        Me.ClientSize = New System.Drawing.Size(814, 454)
+        Me.ClientSize = New System.Drawing.Size(814, 476)
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.StatusStrip1)
@@ -363,6 +363,7 @@ Partial Class Form1
         Me.StatusStrip1.PerformLayout()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
+        CType(Me.TrackBar3, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.TrackBar2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.TrackBar1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -371,7 +372,6 @@ Partial Class Form1
         Me.TabPage3.ResumeLayout(False)
         Me.TabPage3.PerformLayout()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.TrackBar3, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

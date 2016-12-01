@@ -1,13 +1,13 @@
-﻿Public Class Form1
+﻿Imports AutomaticDrawingLib
 
-    Dim ImageProcessing As ImageProcess '图像处理
-    Dim MyPainter As PainterClass '绘图操作
+Public Class Form1
+    Dim MyPainter As Painter '绘图操作
     Dim OriginalBitmap As Bitmap '初始图像
     Dim CurrentBitmap As Bitmap '当前图像
     Dim FinalBitmap As Bitmap '最终绘制图像
     Dim PreviewBitmap As Bitmap '预览图像
     Dim tempInt As Integer
-    Private Sub RefreshPicturebox2(ePoint As PointF, ePen As Pen)
+    Private Sub RefreshPicturebox2(ePoint As Point, ePen As Pen)
         ToolStripStatusLabel2.Text = "Position:[" & ePoint.X & "," & ePoint.Y & "]"
         tempInt += 1
         If tempInt Mod 2 = 0 Then
@@ -22,24 +22,23 @@
     Private Sub ImageChanged()
         FinalBitmap = New Bitmap(CurrentBitmap)
         If CheckBox1.Checked Then
-            FinalBitmap = ImageProcessing.GetAroundImage(CurrentBitmap)
+            FinalBitmap = BitmapHelper.GetAroundImage(CurrentBitmap)
         End If
         If CheckBox2.Checked Then
-            FinalBitmap = ImageProcessing.GetInvertImage(FinalBitmap)
+            FinalBitmap = BitmapHelper.GetInvertImage(FinalBitmap)
         End If
         PictureBox1.Image = FinalBitmap
     End Sub
     '窗体加载
     Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        ImageProcessing = New ImageProcess
-        MyPainter = New PainterClass
+        MyPainter = New Painter
         AddHandler MyPainter.UpdatePreviewImage, AddressOf RefreshPicturebox2
         Me.TopMost = True
     End Sub
     '复制屏幕
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
         TabControl1.SelectedIndex = 0
-        OriginalBitmap = ImageProcessing.GetScreenImage(New Rectangle(TabPage1.PointToScreen(New Point(0, 0)).X + 3, TabPage1.PointToScreen(New Point(0, 0)).Y + 3, TabPage1.Width - 6, TabPage1.Height - 6))
+        OriginalBitmap = BitmapHelper.GetScreenImage(New Rectangle(TabPage1.PointToScreen(New Drawing.Point(0, 0)).X + 3, TabPage1.PointToScreen(New Drawing.Point(0, 0)).Y + 3, TabPage1.Width - 6, TabPage1.Height - 6))
         TabControl1.SelectedIndex = 1
         TrackBar_MouseUp(TrackBar1, e)
     End Sub
@@ -49,10 +48,10 @@
             If MsgBox("请确保你已经打开画板程序！", MsgBoxStyle.OkCancel, "提示") = MsgBoxResult.Ok Then
                 Me.Hide()
                 TabControl1.SelectedIndex = 0
-                MyPainter.StartPaint(FinalBitmap, TabPage1.PointToScreen(New Point(0, 0)).X + 3, TabPage1.PointToScreen(New Point(0, 0)).Y + 3)
+                MyPainter.StartPaint(FinalBitmap, TabPage1.PointToScreen(New Drawing.Point(0, 0)).X + 3, TabPage1.PointToScreen(New Drawing.Point(0, 0)).Y + 3)
                 If CheckBox3.Checked Then
-                    Dim SignatureBitmap As Bitmap = ImageProcessing.GetTextImage(TextBox1.Text, New Font("Letter Gothic Std"， 18)， 200, 36)
-                    MyPainter.StartPaint(SignatureBitmap, TabPage1.PointToScreen(New Point(0, 0)).X + 3, TabPage1.PointToScreen(New Point(0, 0)).Y + 3)
+                    Dim SignatureBitmap As Bitmap = BitmapHelper.GetTextImage(TextBox1.Text, New Font("Letter Gothic Std"， 18)， 200, 36)
+                    MyPainter.StartPaint(SignatureBitmap, TabPage1.PointToScreen(New Drawing.Point(0, 0)).X + 3, TabPage1.PointToScreen(New Drawing.Point(0, 0)).Y + 3)
                 End If
                 Me.Show()
             End If
@@ -79,21 +78,21 @@
         If Not OriginalBitmap Is Nothing Then
             If sender Is TrackBar1 Then
                 If CheckBox4.Checked Then
-                    CurrentBitmap = ImageProcessing.GetThresholdImage(OriginalBitmap, sender.Value / 255, True)
+                    CurrentBitmap = BitmapHelper.GetThresholdImage(OriginalBitmap, sender.Value / 255, True)
                 Else
-                    CurrentBitmap = ImageProcessing.GetThresholdImage(OriginalBitmap, sender.Value)
+                    CurrentBitmap = BitmapHelper.GetThresholdImage(OriginalBitmap, sender.Value)
                 End If
                 RadioButton1.Checked = True
-                ElseIf sender Is TrackBar2 Then
-                    Dim tempBitmap = If(CheckBox5.Checked, ImageProcessing.GetLumpImage(OriginalBitmap, TrackBar3.Value + 1), OriginalBitmap)
-                    If CheckBox4.Checked Then
-                        CurrentBitmap = ImageProcessing.GetOutLineImage(tempBitmap, sender.Value / 255 * Math.Sqrt(1), True)
-                    Else
-                        CurrentBitmap = ImageProcessing.GetOutLineImage(tempBitmap, 255 - sender.Value)
-                    End If
-                    RadioButton2.Checked = True
+            ElseIf sender Is TrackBar2 Then
+                Dim tempBitmap = If(CheckBox5.Checked, BitmapHelper.GetLumpImage(OriginalBitmap, TrackBar3.Value + 1), OriginalBitmap)
+                If CheckBox4.Checked Then
+                    CurrentBitmap = BitmapHelper.GetOutLineImage(tempBitmap, sender.Value / 255 * Math.Sqrt(1), True)
                 Else
-                    CurrentBitmap = ImageProcessing.GetLumpImage(OriginalBitmap, sender.Value + 1)
+                    CurrentBitmap = BitmapHelper.GetOutLineImage(tempBitmap, 255 - sender.Value)
+                End If
+                RadioButton2.Checked = True
+            Else
+                CurrentBitmap = BitmapHelper.GetLumpImage(OriginalBitmap, sender.Value + 1)
             End If
             ImageChanged()
         Else

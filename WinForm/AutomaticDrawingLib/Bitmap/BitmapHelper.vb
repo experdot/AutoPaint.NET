@@ -1,11 +1,12 @@
-﻿''' <summary>
-''' 提供对位图图像和颜色的一系列操作的对象
+﻿Imports System.Drawing
+''' <summary>
+''' 位图帮助类，提供对位图图像和颜色的一系列操作的对象
 ''' </summary>
-Public Class ImageProcess
+Public Class BitmapHelper
     ''' <summary> 
     ''' 基于RGB根据指定阈值判断两个颜色是否相近
     ''' </summary> 
-    Public Function CompareRGB(ByVal Color1 As Color, ByVal Color2 As Color, ByVal Distance As Single) As Boolean
+    Public Shared Function CompareRGB(ByVal Color1 As Color, ByVal Color2 As Color, ByVal Distance As Single) As Boolean
         Dim r As Integer = Int(Color1.R) - Int(Color2.R)
         Dim g As Integer = Int(Color1.G) - Int(Color2.G)
         Dim b As Integer = Int(Color1.B) - Int(Color2.B)
@@ -19,7 +20,7 @@ Public Class ImageProcess
     ''' <summary> 
     ''' 基于HSB根据指定阈值判断两个颜色是否相近
     ''' </summary> 
-    Public Function CompareHSB(ByVal Color1 As Color, ByVal Color2 As Color, ByVal Distance As Single) As Boolean
+    Public Shared Function CompareHSB(ByVal Color1 As Color, ByVal Color2 As Color, ByVal Distance As Single) As Boolean
         '向量距离
         'Dim h As Single = (Color1.GetHue - Color2.GetHue) / 360
         'Dim s As Single = Color1.GetSaturation - Color2.GetSaturation
@@ -47,7 +48,7 @@ Public Class ImageProcess
     ''' <summary> 
     ''' 返回指定颜色的中值
     ''' </summary> 
-    Public Function gethHD(ByVal color1 As Color)
+    Public Shared Function gethHD(ByVal color1 As Color)
         Dim HD, r, g, b As Integer
         r = color1.R
         g = color1.G
@@ -60,7 +61,7 @@ Public Class ImageProcess
     ''' </summary>
     ''' <param name="gBitmap"></param>
     ''' <returns></returns>
-    Public Function GetColorArr(ByRef gBitmap As Bitmap) As Color(,)
+    Public Shared Function GetColorArr(ByRef gBitmap As Bitmap) As Color(,)
         Dim TempArr(gBitmap.Width - 1, gBitmap.Height - 1) As Color
         For i = 0 To gBitmap.Width - 1
             For j = 0 To gBitmap.Height - 1
@@ -74,7 +75,7 @@ Public Class ImageProcess
     ''' </summary>
     ''' <param name="rect">指定的矩形区域</param>
     ''' <returns></returns>
-    Public Function GetScreenImage(ByVal rect As Rectangle) As Bitmap
+    Public Shared Function GetScreenImage(ByVal rect As Rectangle) As Bitmap
         Dim resultBmp As New Bitmap(rect.Width, rect.Height)
         Using pg As Graphics = Graphics.FromImage(resultBmp)
             pg.CopyFromScreen(rect.X, rect.Y, 0, 0, New Size(rect.Width, rect.Height))
@@ -89,7 +90,7 @@ Public Class ImageProcess
     ''' <param name="width">位图宽度</param>
     ''' <param name="height">位图高度</param>
     ''' <returns></returns>
-    Public Function GetTextImage(ByVal text As String, ByVal font As Font, ByVal width As Integer, ByVal height As Integer) As Bitmap
+    Public Shared Function GetTextImage(ByVal text As String, ByVal font As Font, ByVal width As Integer, ByVal height As Integer) As Bitmap
         Dim resultBmp As New Bitmap(width, height)
         Using pg = Graphics.FromImage(resultBmp)
             pg.SmoothingMode = Drawing2D.SmoothingMode.AntiAlias '抗锯齿
@@ -103,7 +104,7 @@ Public Class ImageProcess
     ''' <param name="gBitmap"></param>
     ''' <param name="gSplitNum"></param>
     ''' <returns></returns>
-    Public Function GetThresholdImage(ByVal gBitmap As Bitmap, ByVal gSplitNum As Single, Optional IsHSB As Boolean = False) As Bitmap
+    Public Shared Function GetThresholdImage(ByVal gBitmap As Bitmap, ByVal gSplitNum As Single, Optional IsHSB As Boolean = False) As Bitmap
         Dim ResultBitmap As New Bitmap(gBitmap.Width, gBitmap.Height)
         Dim ColorArr(,) = GetColorArr(gBitmap)
         Dim TempHD As Integer
@@ -126,7 +127,7 @@ Public Class ImageProcess
     ''' <param name="gBitmap"></param>
     ''' <param name="gDistance"></param>
     ''' <returns></returns>
-    Public Function GetOutLineImage(ByVal gBitmap As Bitmap, ByVal gDistance As Single, Optional IsHSB As Boolean = False) As Bitmap
+    Public Shared Function GetOutLineImage(ByVal gBitmap As Bitmap, ByVal gDistance As Single, Optional IsHSB As Boolean = False) As Bitmap
         Dim xArray2() As Short = {0, 1, 0, -1}
         Dim yArray2() As Short = {-1, 0, 1, 0}
         'Dim ResultBitmap As New Bitmap(gBitmap) '在原图的基础上绘图
@@ -163,12 +164,12 @@ Public Class ImageProcess
     ''' </summary>
     ''' <param name="gBitmap"></param>
     ''' <returns></returns>
-    Public Function GetAroundImage(gBitmap As Bitmap)
+    Public Shared Function GetAroundImage(gBitmap As Bitmap)
         Dim ResultBitmap As New Bitmap(gBitmap.Width, gBitmap.Height)
         Dim ImageBolArr(,) As Integer = GetImageBol(gBitmap)
         For i = 0 To gBitmap.Width - 1
             For j = 0 To gBitmap.Height - 1
-                If ImageBolArr(i, j) = 1 AndAlso CheckPointAround(ImageBolArr, i, j) = False Then
+                If ImageBolArr(i, j) = 1 AndAlso BitmapHelper.CheckPointAround(ImageBolArr, i, j) = False Then
                     ResultBitmap.SetPixel(i, j, Color.Black)
                 Else
                     ResultBitmap.SetPixel(i, j, Color.White)
@@ -182,7 +183,7 @@ Public Class ImageProcess
     ''' </summary>
     ''' <param name="gBitmap"></param>
     ''' <returns></returns>
-    Public Function GetInvertImage(gBitmap As Bitmap)
+    Public Shared Function GetInvertImage(gBitmap As Bitmap)
         Dim ResultBitmap As New Bitmap(gBitmap.Width, gBitmap.Height)
         Dim ImageBolArr(,) As Integer = GetImageBol(gBitmap)
         For i = 0 To gBitmap.Width - 1
@@ -201,7 +202,7 @@ Public Class ImageProcess
     ''' </summary>
     ''' <param name="gBitmap"></param>
     ''' <returns></returns>
-    Public Function GetLumpImage(gBitmap As Bitmap, Optional Range As Integer = 10)
+    Public Shared Function GetLumpImage(gBitmap As Bitmap, Optional Range As Integer = 10)
         Dim ResultBitmap As New Bitmap(gBitmap.Width, gBitmap.Height)
         Dim ColorArr(,) = GetColorArr(gBitmap)
         Dim R, G, B As Integer
@@ -220,7 +221,7 @@ Public Class ImageProcess
     ''' </summary>
     ''' <param name="gBitmap"></param>
     ''' <returns></returns>
-    Private Function GetImageBol(ByVal gBitmap As Bitmap) As Integer(,)
+    Private Shared Function GetImageBol(ByVal gBitmap As Bitmap) As Integer(,)
         Dim ResultArr(gBitmap.Width - 1, gBitmap.Height - 1) As Integer
         For i = 0 To gBitmap.Width - 1
             For j = 0 To gBitmap.Height - 1
@@ -240,7 +241,7 @@ Public Class ImageProcess
     ''' <param name="x"></param>
     ''' <param name="y"></param>
     ''' <returns></returns>
-    Private Function CheckPointAround(BolArr As Integer(,), ByVal x As Integer, ByVal y As Integer) As Boolean
+    Private Shared Function CheckPointAround(BolArr As Integer(,), ByVal x As Integer, ByVal y As Integer) As Boolean
         If Not (x > 0 And y > 0 And x < BolArr.GetUpperBound(0) And y < BolArr.GetUpperBound(1)) Then Return True
         If BolArr(x - 1, y) = 1 And BolArr(x + 1, y) = 1 And BolArr(x, y - 1) = 1 And BolArr(x, y + 1) = 1 Then
             Return True '当前点为实体内部
