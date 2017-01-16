@@ -23,7 +23,7 @@ An automatic drawing program, it can control the mouse to draw beautiful images 
 * Demo4：[AutomaticDrawing_Lion](http://v.youku.com/v_show/id_XMTUxNDk5OTgxNg==.html)
 
 ##Versions
-* There is an another version with the latest algorithms and better graphics engine ,[click here](https://github.com/experdot/ExperDot.EDGameEngine/tree/master/EDGameEngine.Visuals/GameObject/Model/GameVisual/AutoDraw).
+* There is an another version with the latest algorithms and better graphics engine ,[click me](https://github.com/experdot/ExperDot.EDGameEngine/tree/master/EDGameEngine.Visuals/GameObject/Model/GameVisual/AutoDraw)!
 
 ##Feedback
 * Email：experdot@foxmail.com
