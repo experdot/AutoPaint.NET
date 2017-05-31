@@ -1,9 +1,9 @@
 ﻿Imports System.Drawing
 Imports System.Numerics
 ''' <summary>
-''' 具有位置、颜色和大小的点
+''' 具有位置、颜色和大小的顶点
 ''' </summary>
-Public Class Point
+Public Class Vertex
     ''' <summary>
     ''' 位置
     ''' </summary>

@@ -21,18 +21,17 @@ Public Class SequenceAI
         Lines = New List(Of Line)
         CalculateSequence(BolArr)
     End Sub
-
     ''' <summary>
-    ''' 新增一个序列
+    ''' 新增一个线条
     ''' </summary>
     Private Sub CreateNewSequence()
         Lines.Add(New Line)
     End Sub
     ''' <summary>
-    ''' 在序列List末尾项新增一个点
+    ''' 在序列List末尾项新增一个顶点
     ''' </summary>
-    Private Sub AddPoint(p As Vector2)
-        Lines.Last.Points.Add(New Point() With {.Position = p, .Size = 1})
+    Private Sub AddVertex(p As Vector2)
+        Lines.Last.Vertices.Add(New Vertex() With {.Position = p, .Size = 1})
     End Sub
     ''' <summary>
     ''' 计算序列
@@ -60,7 +59,7 @@ Public Class SequenceAI
                 If BolArr(dx, dy) = 1 Then
                     BolArr(dx, dy) = 0
                     Me.CreateNewSequence()
-                    Me.AddPoint(New Vector2(dx, dy))
+                    Me.AddVertex(New Vector2(dx, dy))
                     CheckMove(BolArr, dx, dy, 0)
                     NewStart = True
                 End If
@@ -70,20 +69,19 @@ Public Class SequenceAI
     ''' <summary>
     ''' 矩形扫描
     ''' </summary>
-    ''' <param name="BolArr"></param>
-    Private Sub ScanRect(BolArr(,) As Integer)
-        Dim xCount As Integer = BolArr.GetUpperBound(0)
-        Dim yCount As Integer = BolArr.GetUpperBound(1)
+    Private Sub ScanRect(bolArr(,) As Integer)
+        Dim xCount As Integer = bolArr.GetUpperBound(0)
+        Dim yCount As Integer = bolArr.GetUpperBound(1)
         For i = 0 To xCount - 1
             For j = 0 To yCount - 1
                 Dim dx As Integer = i
                 Dim dy As Integer = j
                 If Not (dx > 0 And dy > 0 And dx < xCount And dy < yCount) Then Continue For
-                If BolArr(dx, dy) = 1 Then
-                    BolArr(dx, dy) = 0
+                If bolArr(dx, dy) = 1 Then
+                    bolArr(dx, dy) = 0
                     Me.CreateNewSequence()
-                    Me.AddPoint(New Vector2(dx, dy))
-                    CheckMove(BolArr, dx, dy, 0)
+                    Me.AddVertex(New Vector2(dx, dy))
+                    CheckMove(bolArr, dx, dy, 0)
                     NewStart = True
                 End If
             Next
@@ -92,8 +90,8 @@ Public Class SequenceAI
     ''' <summary>
     ''' 递归循迹算法
     ''' </summary>
-    Private Sub CheckMove(ByRef bolArr(,) As Integer, ByVal x As Integer, ByVal y As Integer, ByVal StepNum As Integer)
-        If StepNum > 1000 Then Return
+    Private Sub CheckMove(ByRef bolArr(,) As Integer, ByVal x As Integer, ByVal y As Integer, ByVal depth As Integer)
+        If depth > 1000 Then Return
         Dim xBound As Integer = bolArr.GetUpperBound(0)
         Dim yBound As Integer = bolArr.GetUpperBound(1)
         Dim dx, dy As Integer
@@ -111,12 +109,12 @@ Public Class SequenceAI
                 bolArr(dx, dy) = 0
                 If NewStart = True Then
                     Me.CreateNewSequence()
-                    Me.AddPoint(New Vector2(dx, dy))
+                    Me.AddVertex(New Vector2(dx, dy))
                     NewStart = False
                 Else
-                    Me.AddPoint(New Vector2(dx, dy))
+                    Me.AddVertex(New Vector2(dx, dy))
                 End If
-                CheckMove(bolArr, dx, dy, StepNum + 1)
+                CheckMove(bolArr, dx, dy, depth + 1)
                 NewStart = True
             End If
         Next
@@ -125,7 +123,7 @@ Public Class SequenceAI
     ''' 返回点权值
     ''' </summary>
     Private Function GetAroundValue(ByRef BolArr(,) As Integer, ByVal x As Integer, ByVal y As Integer) As Integer
-        Dim dx, dy, ResultValue As Integer
+        Dim dx, dy, result As Integer
         Dim xBound As Integer = BolArr.GetUpperBound(0)
         Dim yBound As Integer = BolArr.GetUpperBound(1)
         For i = 0 To 7
@@ -133,11 +131,11 @@ Public Class SequenceAI
             dy = y + yArray(i)
             If dx > 0 And dy > 0 And dx < xBound And dy < yBound Then
                 If BolArr(dx, dy) = 1 Then
-                    ResultValue += 1
+                    result += 1
                 End If
             End If
         Next
-        Return ResultValue
+        Return result
     End Function
 
 End Class

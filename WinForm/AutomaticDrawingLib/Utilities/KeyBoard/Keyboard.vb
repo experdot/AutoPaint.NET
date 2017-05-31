@@ -1,7 +1,27 @@
 ﻿Public Class Keyboard
+    Private Declare Sub mouse_event Lib "user32" (ByVal dwFlags As Int32, ByVal dx As Int32, ByVal dy As Int32, ByVal cButtons As Int32, ByVal dwExtraInfo As Int32)
+    Private Declare Function SetCursorPos Lib "user32" (ByVal x As Integer, ByVal y As Integer) As Integer
     Private Declare Sub keybd_event Lib "user32" (ByVal bVk As Byte, ByVal bScan As Byte, ByVal dwFlags As Integer, ByVal dwExtraInfo As Integer)
     Private Declare Function MapVirtualKey Lib "user32" Alias "MapVirtualKeyA" (ByVal wCode As Integer, ByVal wMapType As Integer) As Integer
     Private Declare Function GetAsyncKeyState Lib "user32 " (ByVal vKey As Integer) As Integer
+    ''' <summary>
+    ''' 鼠标左键按下或弹起
+    ''' </summary>
+    Public Shared Sub MouseDownOrUp(type As Boolean, interval As Integer)
+        If type Then '按下
+            mouse_event(&H2, 0, 0, 0, IntPtr.Zero)
+        Else '弹起
+            mouse_event(&H4, 0, 0, 0, IntPtr.Zero)
+        End If
+        System.Threading.Thread.Sleep(interval)
+    End Sub
+    ''' <summary>
+    ''' 鼠标移动
+    ''' </summary>
+    Public Shared Sub MouseMove(x As Integer, y As Integer, interval As Integer)
+        SetCursorPos(x, y)
+        System.Threading.Thread.Sleep(interval)
+    End Sub
     ''' <summary>
     ''' 发送一组按键
     ''' </summary>

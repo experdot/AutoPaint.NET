@@ -2,7 +2,6 @@
 ''' 虚拟键码枚举
 ''' </summary>
 Public Enum VirtualKey
-
     VK_LBUTTON = 1
     VK_RBUTTON = 2
     VK_CANCEL = 3
