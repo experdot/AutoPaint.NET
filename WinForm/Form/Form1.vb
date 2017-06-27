@@ -1,8 +1,10 @@
 ﻿Imports AutomaticDrawingLib
 
 Public Class Form1
-
-    Dim Machine As New Machine
+    ''' <summary>
+    ''' 绘图机器
+    ''' </summary>
+    Private Machine As Machine
 
     ''' <summary>
     ''' 窗体加载时
@@ -10,14 +12,14 @@ Public Class Form1
     Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Me.TopMost = True
         Machine = New Machine()
-        AddHandler Machine.Painter.UpdatePreviewImage, AddressOf RefreshPicturebox2
+        AddHandler Machine.Painter.UpdatePreview, AddressOf RefreshPicturebox2
     End Sub
     ''' <summary>
     ''' 复制屏幕
     ''' </summary>
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
         TabControl1.SelectedIndex = 0
-        Machine.Original = BitmapHelper.GetScreenImage(New Rectangle(TabPage1.PointToScreen(New Drawing.Point(0, 0)).X + 3, TabPage1.PointToScreen(New Drawing.Point(0, 0)).Y + 3, TabPage1.Width - 6, TabPage1.Height - 6))
+        Machine.CopyScreen(New Rectangle(TabPage1.PointToScreen(New Drawing.Point(0, 0)).X + 3, TabPage1.PointToScreen(New Drawing.Point(0, 0)).Y + 3, TabPage1.Width - 6, TabPage1.Height - 6))
         TabControl1.SelectedIndex = 1
         TrackBar_MouseUp(TrackBar1, e)
     End Sub
@@ -26,14 +28,14 @@ Public Class Form1
     ''' </summary>
     Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
         Me.Hide()
-        Machine.Start(TabPage1.PointToScreen(New Drawing.Point(0, 0)).X + 3, TabPage1.PointToScreen(New Drawing.Point(0, 0)).Y + 3)
+        Machine.Start(TabPage1.PointToScreen(New Point(0, 0)).X + 3, TabPage1.PointToScreen(New Point(0, 0)).Y + 3)
         Me.Show()
     End Sub
     ''' <summary>
     ''' 预览绘制
     ''' </summary>
     Private Sub Button3_Click(sender As System.Object, e As System.EventArgs) Handles Button3.Click
-        If Not Machine.Final Is Nothing Then
+        If Machine.Final IsNot Nothing Then
             TabControl1.SelectedIndex = 2
             Label1.Hide()
             Machine.Preview = New Bitmap(Machine.Final.Width, Machine.Final.Height)
@@ -114,13 +116,12 @@ Public Class Form1
     Private Sub CheckBox4_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox4.CheckedChanged
         TrackBar_MouseUp(If(RadioButton1.Checked, TrackBar1, TrackBar2), Nothing)
     End Sub
-
     ''' <summary>
     ''' 更新预览画布
     ''' </summary>
-    Private Sub RefreshPicturebox2(ePoint As Vertex, ePen As Pen)
+    Private Sub RefreshPicturebox2(sender As Object, e As UpdatePreviewEventArgs)
         Static Count As Integer = 0
-        ToolStripStatusLabel2.Text = "Position:[" & ePoint.X & "," & ePoint.Y & "]"
+        ToolStripStatusLabel2.Text = "Position:[" & e.Point.X & "," & e.Point.Y & "]"
         Count += 1
         If Count Mod 2 = 0 Then
             PictureBox2.Refresh()
@@ -132,7 +133,7 @@ Public Class Form1
     ''' 对图像更改时调用该方法
     ''' </summary>
     Private Sub ImageChanged()
-        If Machine.Current IsNot Nothing Then
+        If Machine?.Current IsNot Nothing Then
             Machine.Final = New Bitmap(Machine.Current)
             If CheckBox1.Checked Then
                 Machine.Final = BitmapHelper.GetAroundImage(Machine.Current)

@@ -5,9 +5,9 @@ Imports System.Windows.Forms
 ''' </summary>
 Public Class Painter
     ''' <summary>
-    ''' 预览图像更新时发生的事件
+    ''' 预览更新时发生的事件
     ''' </summary>
-    Public Event UpdatePreviewImage(ePoint As Vertex, ePen As Pen)
+    Public Event UpdatePreview(sender As Object, e As UpdatePreviewEventArgs)
     ''' <summary>
     ''' 绘图区域
     ''' </summary>
@@ -30,11 +30,11 @@ Public Class Painter
         Previewing(New SequenceAI(BitmapHelper.GetImageBol(bmp)), view)
     End Sub
 
-    Private Sub Painting(SequenceManager As SequenceAI, rect As Rectangle)
-        For Each SubSequence In SequenceManager.Lines
-            Keyboard.MouseMove(SubSequence.Vertices.First.X + rect.X, SubSequence.Vertices.First.Y + rect.Y, SleepTime)
+    Private Sub Painting(sequence As SequenceAI, rect As Rectangle)
+        For Each SubLine In sequence.Lines
+            Keyboard.MouseMove(SubLine.Vertices.First.X + rect.X, SubLine.Vertices.First.Y + rect.Y, SleepTime)
             Keyboard.MouseDownOrUp(True, SleepTime)
-            For Each SubPoint In SubSequence.Vertices
+            For Each SubPoint In SubLine.Vertices
                 Keyboard.MouseMove(SubPoint.X + rect.X, SubPoint.Y + rect.Y, SleepTime)
             Next
             Keyboard.MouseDownOrUp(False, SleepTime)
@@ -64,7 +64,7 @@ Public Class Painter
                     Dim mypen As New Pen(tempColor, 1 + penWidth)
                     pg.DrawEllipse(mypen, New RectangleF(SubPoint.X - penWidth / 2, SubPoint.Y - penWidth / 2, penWidth, penWidth))
                     'pg.DrawLine(mypen, SubPoint, SubSequence.PointList.First)
-                    RaiseEvent UpdatePreviewImage(SubPoint, mypen)
+                    RaiseEvent UpdatePreview(Me, New UpdatePreviewEventArgs(SubPoint))
                 Next
             Next
         End Using

@@ -12,10 +12,10 @@ Public Class Line
     ''' </summary>
     Public Sub CalcSize()
         If Vertices.Count > 0 Then
-            Dim Mid As Single
+            Dim mid As Single
             For i = 0 To Vertices.Count - 1
-                Mid = CSng(Math.Abs(i - Vertices.Count / 2))
-                Vertices(i).Size = CSng(Math.Log10(Mid)) / 2
+                mid = CSng(Math.Abs(i - Vertices.Count / 2))
+                Vertices(i).Size = CSng(Math.Log10(mid)) / 2
             Next
         End If
     End Sub

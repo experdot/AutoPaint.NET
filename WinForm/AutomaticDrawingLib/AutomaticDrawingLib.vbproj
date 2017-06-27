@@ -70,6 +70,7 @@
     <Compile Include="AI\Vertex.vb" />
     <Compile Include="AI\ScanMode.vb" />
     <Compile Include="AI\SequenceAI.vb" />
+    <Compile Include="Machine\Painter\EventArgs\UpdatePreviewEventArgs.vb" />
     <Compile Include="Utilities\Bitmap\BitmapHelper.vb" />
     <Compile Include="Machine\Machine.vb" />
     <Compile Include="Machine\Painter\Painter.vb" />

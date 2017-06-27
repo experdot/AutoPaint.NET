@@ -52,6 +52,11 @@ Public Class Machine
             RaiseEvent Notify(Me, New NotifyEventArgs("请先复制屏幕"))
         End If
     End Sub
-
+    ''' <summary>
+    ''' 截屏
+    ''' </summary>
+    Public Sub CopyScreen(rect As Rectangle)
+        Original = BitmapHelper.GetScreenImage(rect)
+    End Sub
 
 End Class

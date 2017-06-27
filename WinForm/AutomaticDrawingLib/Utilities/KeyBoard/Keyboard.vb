@@ -70,33 +70,32 @@
         VirtualKeyUp(vKey2)
     End Sub
     ''' <summary>
-    '''  获取A~Z的按键状态
+    '''  获取A~Z的激活按键
     ''' </summary>
     ''' <returns></returns>
-    Public Shared Function GetActiveKey() As Byte
-        For i = 65 To 90 'A~Z的ASICC码
+    Public Shared Function GetActiveLetterKey() As Byte
+        For i = 65 To 90
             If CurrentKeyState(i) = True Then Return i
         Next
         Return 0
     End Function
     ''' <summary>
-    ''' 获取键盘按键状态
+    ''' 获取指定按键的状态
     ''' </summary>
-    ''' <param name="KeyCode"></param>
-    Private Shared Function CurrentKeyState(ByVal KeyCode As Byte) As Boolean
-        Dim temp As Integer = GetAsyncKeyState(KeyCode)
+    Private Shared Function CurrentKeyState(ByVal keyCode As Byte) As Boolean
+        Dim temp As Integer = GetAsyncKeyState(keyCode)
         Return (IIf(temp = -32767, True, False))
     End Function
     ''' <summary>
     ''' 按下指定按键
     ''' </summary>
     Public Shared Sub VirtualKeyDown(vKey As VirtualKey)
-        keybd_event(vKey, MapVirtualKey(vKey, 0), &H1 Or 0, 0) '按下
+        keybd_event(vKey, MapVirtualKey(vKey, 0), &H1 Or 0, 0)
     End Sub
     ''' <summary>
     ''' 松开指定按键
     ''' </summary>
     Public Shared Sub VirtualKeyUp(vKey As VirtualKey)
-        keybd_event(vKey, MapVirtualKey(vKey, 0), &H1 Or &H2, 0) '弹起
+        keybd_event(vKey, MapVirtualKey(vKey, 0), &H1 Or &H2, 0)
     End Sub
 End Class
