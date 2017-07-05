@@ -89,6 +89,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Utilities\Bitmap\Extentions\BitmapExtensions.vb" />
+    <Compile Include="Utilities\Color\ColorHelper.vb" />
+    <Compile Include="Utilities\Color\PixelData\PixelData.vb" />
     <Compile Include="Utilities\KeyBoard\Keyboard.vb" />
     <Compile Include="Machine\EventArgs\NotifyEventArgs.vb" />
     <Compile Include="Utilities\KeyBoard\Enum\VirtualKey.vb" />

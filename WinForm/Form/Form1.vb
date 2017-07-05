@@ -55,21 +55,21 @@ Public Class Form1
         If Not Machine.Original Is Nothing Then
             If sender Is TrackBar1 Then
                 If CheckBox4.Checked Then
-                    Machine.Current = BitmapHelper.GetThresholdImage(Machine.Original, sender.Value / 255, True)
+                    Machine.Current = ColorHelper.GetThresholdPixelData(Machine.Original.GetPixelData, sender.Value / 255, True).CreateBitmap
                 Else
-                    Machine.Current = BitmapHelper.GetThresholdImage(Machine.Original, sender.Value)
+                    Machine.Current = ColorHelper.GetThresholdPixelData(Machine.Original.GetPixelData, sender.Value).CreateBitmap
                 End If
                 RadioButton1.Checked = True
             ElseIf sender Is TrackBar2 Then
-                Dim temp = If(CheckBox5.Checked, BitmapHelper.GetLumpImage(Machine.Original, TrackBar3.Value + 1), Machine.Original)
+                Dim temp As Bitmap = If(CheckBox5.Checked, ColorHelper.GetLumpPixelData(Machine.Original.GetPixelData, TrackBar3.Value + 1), Machine.Original)
                 If CheckBox4.Checked Then
-                    Machine.Current = BitmapHelper.GetOutLineImage(temp, sender.Value / 255 * Math.Sqrt(1), True)
+                    Machine.Current = ColorHelper.GetOutLinePixelData(temp.GetPixelData, sender.Value / 255 * Math.Sqrt(1), True).CreateBitmap
                 Else
-                    Machine.Current = BitmapHelper.GetOutLineImage(temp, 255 - sender.Value)
+                    Machine.Current = ColorHelper.GetOutLinePixelData(temp.GetPixelData, 255 - sender.Value).CreateBitmap
                 End If
                 RadioButton2.Checked = True
             Else
-                Machine.Current = BitmapHelper.GetLumpImage(Machine.Original, sender.Value + 1)
+                Machine.Current = ColorHelper.GetLumpPixelData(Machine.Original.GetPixelData, sender.Value + 1).CreateBitmap
             End If
             ImageChanged()
         Else
@@ -136,10 +136,10 @@ Public Class Form1
         If Machine?.Current IsNot Nothing Then
             Machine.Final = New Bitmap(Machine.Current)
             If CheckBox1.Checked Then
-                Machine.Final = BitmapHelper.GetAroundImage(Machine.Current)
+                Machine.Final = ColorHelper.GetHollowPixelData(Machine.Current.GetPixelData).CreateBitmap
             End If
             If CheckBox2.Checked Then
-                Machine.Final = BitmapHelper.GetInvertImage(Machine.Final)
+                Machine.Final = ColorHelper.GetInvertPixelData(Machine.Final.GetPixelData).CreateBitmap
             End If
             PictureBox1.Image = Machine.Final
         End If

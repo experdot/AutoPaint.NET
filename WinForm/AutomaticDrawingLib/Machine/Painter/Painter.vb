@@ -21,13 +21,13 @@ Public Class Painter
     ''' </summary>
     Public Sub StartPaint(bmp As Bitmap, x As Integer, y As Integer)
         Me.Rect = New Rectangle(x, y, bmp.Width, bmp.Height)
-        Painting(New SequenceAI(BitmapHelper.GetImageBol(bmp)), Me.Rect)
+        Painting(New SequenceAI(ColorHelper.GetPixelDataBools(bmp.GetPixelData)), Me.Rect)
     End Sub
     ''' <summary>
     ''' 预览
     ''' </summary>
     Public Sub StartPreview(bmp As Bitmap, view As Bitmap)
-        Previewing(New SequenceAI(BitmapHelper.GetImageBol(bmp)), view)
+        Previewing(New SequenceAI(ColorHelper.GetPixelDataBools(BitmapHelper.GetPixelDataFromBitmap(bmp))), view)
     End Sub
 
     Private Sub Painting(sequence As SequenceAI, rect As Rectangle)
