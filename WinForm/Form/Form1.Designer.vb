@@ -48,6 +48,7 @@ Partial Class Form1
         Me.TabPage3 = New System.Windows.Forms.TabPage()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
+        Me.ToolStripStatusLabel4 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.StatusStrip1.SuspendLayout()
         Me.Panel1.SuspendLayout()
         CType(Me.TrackBar3, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -63,7 +64,7 @@ Partial Class Form1
         'StatusStrip1
         '
         Me.StatusStrip1.GripMargin = New System.Windows.Forms.Padding(0)
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel1, Me.ToolStripStatusLabel2, Me.ToolStripStatusLabel3})
+        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel1, Me.ToolStripStatusLabel4, Me.ToolStripStatusLabel2, Me.ToolStripStatusLabel3})
         Me.StatusStrip1.Location = New System.Drawing.Point(0, 446)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Size = New System.Drawing.Size(814, 30)
@@ -275,7 +276,7 @@ Partial Class Form1
         Me.PictureBox1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PictureBox1.Location = New System.Drawing.Point(3, 3)
         Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(634, 392)
+        Me.PictureBox1.Size = New System.Drawing.Size(634, 414)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.PictureBox1.TabIndex = 11
         Me.PictureBox1.TabStop = False
@@ -308,7 +309,7 @@ Partial Class Form1
         Me.TabPage2.Location = New System.Drawing.Point(4, 22)
         Me.TabPage2.Name = "TabPage2"
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(640, 398)
+        Me.TabPage2.Size = New System.Drawing.Size(640, 420)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "Image"
         Me.TabPage2.UseVisualStyleBackColor = True
@@ -320,7 +321,7 @@ Partial Class Form1
         Me.TabPage3.Location = New System.Drawing.Point(4, 22)
         Me.TabPage3.Name = "TabPage3"
         Me.TabPage3.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage3.Size = New System.Drawing.Size(640, 398)
+        Me.TabPage3.Size = New System.Drawing.Size(640, 420)
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "Preview"
         Me.TabPage3.UseVisualStyleBackColor = True
@@ -340,10 +341,17 @@ Partial Class Form1
         Me.PictureBox2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PictureBox2.Location = New System.Drawing.Point(3, 3)
         Me.PictureBox2.Name = "PictureBox2"
-        Me.PictureBox2.Size = New System.Drawing.Size(634, 392)
+        Me.PictureBox2.Size = New System.Drawing.Size(634, 414)
         Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
         Me.PictureBox2.TabIndex = 0
         Me.PictureBox2.TabStop = False
+        '
+        'ToolStripStatusLabel4
+        '
+        Me.ToolStripStatusLabel4.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left
+        Me.ToolStripStatusLabel4.Name = "ToolStripStatusLabel4"
+        Me.ToolStripStatusLabel4.Size = New System.Drawing.Size(89, 25)
+        Me.ToolStripStatusLabel4.Text = "Preview:0%   "
         '
         'Form1
         '
@@ -402,4 +410,5 @@ Partial Class Form1
     Friend WithEvents CheckBox4 As CheckBox
     Friend WithEvents TrackBar3 As TrackBar
     Friend WithEvents CheckBox5 As CheckBox
+    Friend WithEvents ToolStripStatusLabel4 As ToolStripStatusLabel
 End Class

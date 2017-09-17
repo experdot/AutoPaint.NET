@@ -121,7 +121,8 @@ Public Class Form1
     ''' </summary>
     Private Sub RefreshPicturebox2(sender As Object, e As UpdatePreviewEventArgs)
         Static Count As Integer = 0
-        ToolStripStatusLabel2.Text = "Position:[" & e.Point.X & "," & e.Point.Y & "]"
+        ToolStripStatusLabel2.Text = $"Position:[{e.Point.X},{e.Point.Y}]"
+        ToolStripStatusLabel4.Text = $"Preview:{(e.Percent * 100).ToString("F2")}%"
         Count += 1
         If Count Mod 2 = 0 Then
             PictureBox2.Refresh()

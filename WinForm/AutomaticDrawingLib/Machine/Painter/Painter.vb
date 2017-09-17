@@ -48,7 +48,12 @@ Public Class Painter
         Dim tempColor As Color = Color.FromArgb(255, 0, 0, 0)
         Using pg As Graphics = Graphics.FromImage(view)
             pg.SmoothingMode = Drawing2D.SmoothingMode.HighQuality
+            Dim totalCount As Integer = sequence.Lines.SelectMany(Function(e As Line)
+                                                                      Return e.Vertices
+                                                                  End Function).Count
+            Dim current As Integer = 0
             For Each SubSequence In sequence.Lines
+                Dim seqIndex As Integer = sequence.Lines.IndexOf(SubSequence)
                 Dim TempR = Rnd.NextDouble * 255
                 Dim TempG = Rnd.NextDouble * 255
                 Dim TempB = Rnd.NextDouble * 255
@@ -67,7 +72,8 @@ Public Class Painter
                     Dim mypen As New Pen(tempColor, 1 + penWidth)
                     pg.DrawEllipse(mypen, New RectangleF(SubPoint.X - penWidth / 2, SubPoint.Y - penWidth / 2, penWidth, penWidth))
                     'pg.DrawLine(mypen, SubPoint, SubSequence.PointList.First)
-                    RaiseEvent UpdatePreview(Me, New UpdatePreviewEventArgs(SubPoint))
+                    current += 1
+                    RaiseEvent UpdatePreview(Me, New UpdatePreviewEventArgs(SubPoint, current / totalCount))
                 Next
             Next
         End Using
