@@ -92,9 +92,9 @@
     <Compile Include="Utilities\Bitmap\Extentions\BitmapExtensions.vb" />
     <Compile Include="Utilities\Color\ColorHelper.vb" />
     <Compile Include="Utilities\Color\PixelData\PixelData.vb" />
-    <Compile Include="Utilities\KeyBoard\Keyboard.vb" />
+    <Compile Include="Utilities\KeyBoard\VirtualKeyboard.vb" />
     <Compile Include="Machine\EventArgs\NotifyEventArgs.vb" />
-    <Compile Include="Utilities\KeyBoard\Enum\VirtualKey.vb" />
+    <Compile Include="Utilities\KeyBoard\Enum\VirtualKeys.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">

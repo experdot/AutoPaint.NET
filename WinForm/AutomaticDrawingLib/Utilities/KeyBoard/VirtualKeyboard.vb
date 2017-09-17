@@ -1,4 +1,4 @@
-﻿Public Class Keyboard
+﻿Public Class VirtualKeyboard
     Private Declare Sub mouse_event Lib "user32" (ByVal dwFlags As Int32, ByVal dx As Int32, ByVal dy As Int32, ByVal cButtons As Int32, ByVal dwExtraInfo As Int32)
     Private Declare Function SetCursorPos Lib "user32" (ByVal x As Integer, ByVal y As Integer) As Integer
     Private Declare Sub keybd_event Lib "user32" (ByVal bVk As Byte, ByVal bScan As Byte, ByVal dwFlags As Integer, ByVal dwExtraInfo As Integer)
@@ -42,7 +42,7 @@
     ''' <summary>
     ''' 发送一组扩展的按键
     ''' </summary>
-    Public Shared Sub SendStringEx(str As String, interval As Integer, ParamArray extra() As VirtualKey)
+    Public Shared Sub SendStringEx(str As String, interval As Integer, ParamArray extra() As VirtualKeys)
         For Each SubKey In extra
             VirtualKeyDown(SubKey)
         Next
@@ -54,7 +54,7 @@
     ''' <summary>
     ''' 发送单个按键
     ''' </summary>
-    Public Shared Sub SendKey(vKey As VirtualKey， interval As Integer)
+    Public Shared Sub SendKey(vKey As VirtualKeys, interval As Integer)
         VirtualKeyDown(vKey)
         System.Threading.Thread.Sleep(interval)
         VirtualKeyUp(vKey)
@@ -62,7 +62,7 @@
     ''' <summary>
     ''' 同时发送两个按键
     ''' </summary>
-    Public Shared Sub SendCouple(vKey1 As VirtualKey, vKey2 As VirtualKey, interval As Integer)
+    Public Shared Sub SendCouple(vKey1 As VirtualKeys, vKey2 As VirtualKeys, interval As Integer)
         VirtualKeyDown(vKey1)
         VirtualKeyDown(vKey2)
         System.Threading.Thread.Sleep(interval)
@@ -70,32 +70,44 @@
         VirtualKeyUp(vKey2)
     End Sub
     ''' <summary>
-    '''  获取A~Z的激活按键
+    '''  获取A~Z的按键状态
     ''' </summary>
-    ''' <returns></returns>
     Public Shared Function GetActiveLetterKey() As Byte
-        For i = 65 To 90
-            If CurrentKeyState(i) = True Then Return i
+        For i = 65 To 90 'A~Z的ASICC码
+            If CurrentKeyState(i) = True Then
+                Return i
+            End If
         Next
         Return 0
     End Function
     ''' <summary>
-    ''' 获取指定按键的状态
+    ''' 获取键盘按键状态
     ''' </summary>
-    Private Shared Function CurrentKeyState(ByVal keyCode As Byte) As Boolean
-        Dim temp As Integer = GetAsyncKeyState(keyCode)
-        Return (IIf(temp = -32767, True, False))
+    Private Shared Function CurrentKeyState(KeyCode As Byte) As Boolean
+        Static KeyState(255) As Boolean
+        Dim temp As Integer = GetAsyncKeyState(KeyCode)
+        If temp = 0 Then
+            KeyState(KeyCode) = False
+        Else
+            If KeyState(KeyCode) = False Then
+                KeyState(KeyCode) = True
+                Return True
+            End If
+            KeyState(KeyCode) = True
+            Return False
+        End If
+        Return False
     End Function
     ''' <summary>
     ''' 按下指定按键
     ''' </summary>
-    Public Shared Sub VirtualKeyDown(vKey As VirtualKey)
-        keybd_event(vKey, MapVirtualKey(vKey, 0), &H1 Or 0, 0)
+    Private Shared Sub VirtualKeyDown(vKey As VirtualKeys)
+        keybd_event(vKey, MapVirtualKey(vKey, 0), &H1 Or 0, 0) '按下
     End Sub
     ''' <summary>
     ''' 松开指定按键
     ''' </summary>
-    Public Shared Sub VirtualKeyUp(vKey As VirtualKey)
-        keybd_event(vKey, MapVirtualKey(vKey, 0), &H1 Or &H2, 0)
+    Private Shared Sub VirtualKeyUp(vKey As VirtualKeys)
+        keybd_event(vKey, MapVirtualKey(vKey, 0), &H1 Or &H2, 0) '弹起
     End Sub
 End Class

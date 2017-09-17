@@ -32,12 +32,15 @@ Public Class Painter
 
     Private Sub Painting(sequence As SequenceAI, rect As Rectangle)
         For Each SubLine In sequence.Lines
-            Keyboard.MouseMove(SubLine.Vertices.First.X + rect.X, SubLine.Vertices.First.Y + rect.Y, SleepTime)
-            Keyboard.MouseDownOrUp(True, SleepTime)
+            If CheckKey() = False Then
+                Return
+            End If
+            VirtualKeyboard.MouseMove(SubLine.Vertices.First.X + rect.X, SubLine.Vertices.First.Y + rect.Y, SleepTime)
+            VirtualKeyboard.MouseDownOrUp(True, SleepTime)
             For Each SubPoint In SubLine.Vertices
-                Keyboard.MouseMove(SubPoint.X + rect.X, SubPoint.Y + rect.Y, SleepTime)
+                VirtualKeyboard.MouseMove(SubPoint.X + rect.X, SubPoint.Y + rect.Y, SleepTime)
             Next
-            Keyboard.MouseDownOrUp(False, SleepTime)
+            VirtualKeyboard.MouseDownOrUp(False, SleepTime)
         Next
     End Sub
     Private Sub Previewing(sequence As SequenceAI, view As Bitmap)
@@ -69,4 +72,24 @@ Public Class Painter
             Next
         End Using
     End Sub
+
+    Private Function CheckKey() As Boolean
+        Dim key As Char = ChrW(VirtualKeyboard.GetActiveLetterKey())
+        If key = "P" Then
+            Debug.WriteLine("Pause")
+            Dim tempKey As Char
+            While Not tempKey = "R"
+                tempKey = ChrW(VirtualKeyboard.GetActiveLetterKey())
+                If tempKey = "S" Then
+                    Return False
+                End If
+                System.Threading.Thread.Sleep(10)
+            End While
+            Debug.WriteLine("Run")
+        ElseIf key = "S" Then
+            Debug.WriteLine("Stop")
+            Return False
+        End If
+        Return True
+    End Function
 End Class
