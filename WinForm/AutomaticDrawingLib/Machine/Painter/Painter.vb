@@ -78,14 +78,14 @@ Public Class Painter
         If key = "P" Then
             Debug.WriteLine("Pause")
             Dim tempKey As Char
-            While Not tempKey = "R"
+            While Not tempKey = "C"
                 tempKey = ChrW(VirtualKeyboard.GetActiveLetterKey())
                 If tempKey = "S" Then
                     Return False
                 End If
                 System.Threading.Thread.Sleep(10)
             End While
-            Debug.WriteLine("Run")
+            Debug.WriteLine("Continue")
         ElseIf key = "S" Then
             Debug.WriteLine("Stop")
             Return False
