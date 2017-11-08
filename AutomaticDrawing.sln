@@ -13,7 +13,7 @@ Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "AutomaticDrawing.Core", "Au
 EndProject
 Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "AutomaticDrawing.Utilities", "AutomaticDrawing.Utilities\AutomaticDrawing.Utilities.vbproj", "{F5582BF7-2A23-413A-BD5D-372C39818D75}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "AutomaticDrawing.Recognition.FastAI", "AutomaticDrawing.Recognition.FastAI\AutomaticDrawing.Recognition.FastAI.vbproj", "{7B4A0237-7E31-45F1-AF08-814EE960044A}"
+Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "AutomaticDrawing.Recognition.FastAI", "AutomaticDrawing.Recognition.FastAI\AutomaticDrawing.Recognition.FastAI.vbproj", "{7B4A0237-7E31-45F1-AF08-814EE960044A}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "AutomaticDrawing.Painter.BitmapAnimation", "AutomaticDrawing.Painter.BitmapAnimation\AutomaticDrawing.Painter.BitmapAnimation.vbproj", "{F2A0BD11-C7E0-4B4F-A78C-84165CE497EE}"
 EndProject
@@ -22,6 +22,8 @@ EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "AutomaticDrawing.Utilities.Bitmap", "AutomaticDrawing.Utilities.Bitmap\AutomaticDrawing.Utilities.Bitmap.vbproj", "{F8987A4A-A5FB-4DD3-9C01-BDADF772AC1F}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "AutomaticDrawing.Utilities.Keyboard", "AutomaticDrawing.Utilities.Keyboard\AutomaticDrawing.Utilities.Keyboard.vbproj", "{84A95E39-57A6-4F18-ACD3-63E78253F28C}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "AutomaticDrawing.Recognition.Clustering", "AutomaticDrawing.Recognition.Clustering\AutomaticDrawing.Recognition.Clustering.vbproj", "{43E01407-449C-45D8-9208-FC53079889D5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,6 +63,10 @@ Global
 		{84A95E39-57A6-4F18-ACD3-63E78253F28C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84A95E39-57A6-4F18-ACD3-63E78253F28C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{84A95E39-57A6-4F18-ACD3-63E78253F28C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43E01407-449C-45D8-9208-FC53079889D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43E01407-449C-45D8-9208-FC53079889D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43E01407-449C-45D8-9208-FC53079889D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43E01407-449C-45D8-9208-FC53079889D5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -74,6 +80,7 @@ Global
 		{0BC31C26-877B-4E28-9ABE-24BAA8173B96} = {E487432C-6413-42AB-A5AC-A6814E6AB0D2}
 		{F8987A4A-A5FB-4DD3-9C01-BDADF772AC1F} = {E487432C-6413-42AB-A5AC-A6814E6AB0D2}
 		{84A95E39-57A6-4F18-ACD3-63E78253F28C} = {E487432C-6413-42AB-A5AC-A6814E6AB0D2}
+		{43E01407-449C-45D8-9208-FC53079889D5} = {E487432C-6413-42AB-A5AC-A6814E6AB0D2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {603052D6-616D-4847-9A71-9F652B888F72}

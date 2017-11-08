@@ -67,7 +67,7 @@ Public Class Machine
     ''' 启动
     ''' </summary>
     Public Sub Run()
-        Painter.Start(Reconition.Recognize(BitmapHelper.GetPixelDataFromBitmap(Final)))
+        Painter.Start(Reconition.Recognize(BitmapHelper.GetPixelDataFromBitmap(Original)))
     End Sub
 
     ''' <summary>

@@ -2,6 +2,7 @@
 Imports AutomaticDrawing.Core
 Imports AutomaticDrawing.Painter.BitmapAnimation
 Imports AutomaticDrawing.Painter.MouseAnimation
+Imports AutomaticDrawing.Recognition.Clustering
 Imports AutomaticDrawing.Recognition.FastAI
 Imports AutomaticDrawing.Utilities
 Imports AutomaticDrawing.Utilities.Bitmap
@@ -17,7 +18,7 @@ Public Class Form1
     ''' </summary>
     Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Me.TopMost = True
-        Machine = New Machine(New FastRecognition, Nothing)
+        Machine = New Machine(New ClusteringRecognition, Nothing)
     End Sub
     ''' <summary>
     ''' 复制屏幕

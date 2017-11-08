@@ -8,7 +8,7 @@ Public Class SequenceAI
     ''' <summary>
     ''' 线条集
     ''' </summary>
-    Public Property Lines As List(Of ILine)
+    Public Property Lines As New List(Of ILine)
     ''' <summary>
     ''' 扫描方式
     ''' </summary>
@@ -39,7 +39,6 @@ Public Class SequenceAI
     Public Sub New(bools(,) As Integer, Optional mode As ScanMode = ScanMode.Rect, Optional isCheckAround As Boolean = False)
         Me.ScanMode = mode
         Me.IsCheckAround = isCheckAround
-        Lines = New List(Of ILine)
         CalculateSequence(bools)
     End Sub
 

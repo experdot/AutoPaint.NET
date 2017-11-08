@@ -138,6 +138,10 @@
       <Project>{0BC31C26-877B-4E28-9ABE-24BAA8173B96}</Project>
       <Name>AutomaticDrawing.Painter.MouseAnimation</Name>
     </ProjectReference>
+    <ProjectReference Include="..\AutomaticDrawing.Recognition.Clustering\AutomaticDrawing.Recognition.Clustering.vbproj">
+      <Project>{43e01407-449c-45d8-9208-fc53079889d5}</Project>
+      <Name>AutomaticDrawing.Recognition.Clustering</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AutomaticDrawing.Recognition.FastAI\AutomaticDrawing.Recognition.FastAI.vbproj">
       <Project>{7B4A0237-7E31-45F1-AF08-814EE960044A}</Project>
       <Name>AutomaticDrawing.Recognition.FastAI</Name>
