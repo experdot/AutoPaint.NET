@@ -76,7 +76,7 @@ Public Class GridHierarchy
 
         '合并为新簇
         For Each SubCluster In Clusters
-            Dim similar As Cluster = SubCluster.GetMostSimilar(GetNeighbours(SubCluster))
+            Dim similar As Cluster = SubCluster.GetMostSimilar(GetNeighbours(SubCluster)).First
             If similar IsNot Nothing Then
                 result.AddCluster(Cluster.Combine(SubCluster, similar))
             End If

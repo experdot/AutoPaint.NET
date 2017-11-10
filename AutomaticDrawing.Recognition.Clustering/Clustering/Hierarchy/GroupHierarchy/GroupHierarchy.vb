@@ -9,7 +9,7 @@ Public Class GroupHierarchy
         Dim result As New GroupHierarchy With {.Rank = Me.Rank + 1}
         Dim start As DateTime = DateTime.Now
         For Each SubCluster In Clusters
-            Dim similar As Cluster = SubCluster.GetMostSimilar(GetNeighbours(SubCluster))
+            Dim similar As Cluster = SubCluster.GetMostSimilar(GetNeighbours(SubCluster)).First
             If similar IsNot Nothing Then
                 result.AddCluster(Cluster.Combine(SubCluster, similar))
             End If
