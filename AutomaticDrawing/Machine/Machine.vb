@@ -42,13 +42,18 @@ Public Class Machine
     ''' 是否绘制签名
     ''' </summary>
     Public Property IsPaintSignature As Boolean
+    ''' <summary>
+    ''' 是否使用原始图像
+    ''' </summary>
+    Public Property IsUseOriginal As Boolean = False
 
     ''' <summary>
     ''' 创建并初始化一个实例
     ''' </summary>
-    Public Sub New(reconition As IRecognition, painter As IPainter)
+    Public Sub New(reconition As IRecognition, painter As IPainter, Optional isUseOriginal As Boolean = False)
         Me.Reconition = reconition
         Me.Painter = painter
+        Me.IsUseOriginal = isUseOriginal
     End Sub
 
     ''' <summary>
@@ -67,7 +72,8 @@ Public Class Machine
     ''' 启动
     ''' </summary>
     Public Sub Run()
-        Painter.Start(Reconition.Recognize(BitmapHelper.GetPixelDataFromBitmap(Original)))
+        Dim pixels As PixelData = BitmapHelper.GetPixelDataFromBitmap(If(IsUseOriginal, Original, Final))
+        Painter.Start(Reconition.Recognize(pixels))
     End Sub
 
     ''' <summary>

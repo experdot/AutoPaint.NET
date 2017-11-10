@@ -18,7 +18,8 @@ Public Class Form1
     ''' </summary>
     Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Me.TopMost = True
-        Machine = New Machine(New ClusteringRecognition, Nothing)
+        Machine = New Machine(New FastRecognition, Nothing, False)
+        'Machine = New Machine(New ClusteringRecognition, Nothing, True)
     End Sub
     ''' <summary>
     ''' 复制屏幕
@@ -34,7 +35,7 @@ Public Class Form1
     ''' </summary>
     Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
         Me.Hide()
-        Machine.ResetPainter(New MousePainter(New Vector2(TabPage1.PointToScreen(New Point(0, 0)).X + 3, TabPage1.PointToScreen(New Point(0, 0)).Y + 3)))
+        Machine.ResetPainter(New MousePainter(New Vector2(TabPage1.PointToScreen(New Point(0, 0)).X + 3, TabPage1.PointToScreen(New Point(0, 0)).Y + 3))})
         AddHandler Machine.Painter.UpdatePaint, AddressOf RefreshPicturebox2
         Machine.Run()
         Me.Show()

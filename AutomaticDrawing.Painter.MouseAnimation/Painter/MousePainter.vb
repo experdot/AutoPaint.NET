@@ -15,6 +15,10 @@ Public Class MousePainter
     ''' 绘制偏移
     ''' </summary>
     Public Property Offset As Vector2
+    ''' <summary>
+    ''' 是否检测Ctrl+Alt组合键
+    ''' </summary>
+    Public Property IsCheckCtrlAlKey As Boolean = True
 
     ''' <summary>
     ''' 创建并初始化一个实例
@@ -51,21 +55,23 @@ Public Class MousePainter
     End Sub
 
     Private Function CheckKey() As Boolean
-        Dim key As Char = ChrW(VirtualKeyboard.GetActiveLetterKey())
-        If key = StaticSource.HotKey_Pause Then
-            Debug.WriteLine("Pause")
-            Dim tempKey As Char
-            While Not tempKey = StaticSource.HotKey_Continue
-                tempKey = ChrW(VirtualKeyboard.GetActiveLetterKey())
-                If tempKey = StaticSource.HotKey_Stop Then
-                    Return False
-                End If
-                System.Threading.Thread.Sleep(10)
-            End While
-            Debug.WriteLine("Continue")
-        ElseIf key = StaticSource.HotKey_Stop Then
-            Debug.WriteLine("Stop")
-            Return False
+        If (Not IsCheckCtrlAlKey) OrElse (My.Computer.Keyboard.CtrlKeyDown AndAlso My.Computer.Keyboard.AltKeyDown) Then
+            Dim key As Char = ChrW(VirtualKeyboard.GetActiveLetterKey())
+            If key = StaticSource.HotKey_Pause Then
+                Debug.WriteLine("Pause")
+                Dim tempKey As Char
+                While Not tempKey = StaticSource.HotKey_Continue
+                    tempKey = ChrW(VirtualKeyboard.GetActiveLetterKey())
+                    If tempKey = StaticSource.HotKey_Stop Then
+                        Return False
+                    End If
+                    System.Threading.Thread.Sleep(10)
+                End While
+                Debug.WriteLine("Continue")
+            ElseIf key = StaticSource.HotKey_Stop Then
+                Debug.WriteLine("Stop")
+                Return False
+            End If
         End If
         Return True
     End Function
