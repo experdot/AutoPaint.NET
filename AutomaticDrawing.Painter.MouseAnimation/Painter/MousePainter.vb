@@ -57,18 +57,18 @@ Public Class MousePainter
     Private Function CheckKey() As Boolean
         If (Not IsCheckCtrlAlKey) OrElse (My.Computer.Keyboard.CtrlKeyDown AndAlso My.Computer.Keyboard.AltKeyDown) Then
             Dim key As Char = ChrW(VirtualKeyboard.GetActiveLetterKey())
-            If key = StaticSource.HotKey_Pause Then
+            If key = StaticResources.HotKey_Pause Then
                 Debug.WriteLine("Pause")
                 Dim tempKey As Char
-                While Not tempKey = StaticSource.HotKey_Continue
+                While Not tempKey = StaticResources.HotKey_Continue
                     tempKey = ChrW(VirtualKeyboard.GetActiveLetterKey())
-                    If tempKey = StaticSource.HotKey_Stop Then
+                    If tempKey = StaticResources.HotKey_Stop Then
                         Return False
                     End If
                     System.Threading.Thread.Sleep(10)
                 End While
                 Debug.WriteLine("Continue")
-            ElseIf key = StaticSource.HotKey_Stop Then
+            ElseIf key = StaticResources.HotKey_Stop Then
                 Debug.WriteLine("Stop")
                 Return False
             End If

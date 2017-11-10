@@ -1,7 +1,7 @@
 ﻿''' <summary>
 ''' 静态资源
 ''' </summary>
-Public Class StaticSource
+Public Class StaticResources
     ''' <summary>
     ''' 快捷键继续
     ''' </summary>
