@@ -1,5 +1,6 @@
 ﻿Imports System.Drawing
 Imports System.Numerics
+Imports AutomaticDrawing.Utilities
 ''' <summary>
 ''' 簇
 ''' </summary>
@@ -32,34 +33,6 @@ Public Class Cluster
             End If
         End Get
     End Property
-    ''' <summary>
-    ''' 子簇平均位置
-    ''' </summary>
-    Public ReadOnly Property AveragePostion As Vector2
-        Get
-            If Children.Count = 0 OrElse Not Position = Vector2.Zero Then
-                Return Position
-            Else
-                Dim postions As IEnumerable(Of Vector2) = GetAvearagePostionsOfChidren()
-                Position = GetAveratePosition(postions)
-                Return Position
-            End If
-        End Get
-    End Property
-    ''' <summary>
-    ''' 子簇平均颜色
-    ''' </summary>
-    Public ReadOnly Property AverageColor As Color
-        Get
-            If Children.Count = 0 Then
-                Return Color
-            Else
-                Dim colors As IEnumerable(Of Color) = GetAvearageColorOfChildren()
-                Return GetAverateColor(colors)
-            End If
-        End Get
-    End Property
-
 
     ''' <summary>
     ''' 合并簇
@@ -74,11 +47,9 @@ Public Class Cluster
             result = New Cluster
         End If
 
-        result.AddChild(cluster1)
-        result.AddChild(cluster2)
+        result.AddChild(cluster1, False)
+        result.AddChild(cluster2, False)
 
-        result.Position = (cluster1.Position + cluster2.Position) / 2
-        result.Color = GetAverateColor(cluster1.Color, cluster2.Color)
         Return result
     End Function
     ''' <summary>
@@ -96,7 +67,7 @@ Public Class Cluster
     Public Function GetMostSimilar(clusters As List(Of Cluster)) As Queue(Of Cluster)
         Dim result As New Queue(Of Cluster)
         Dim maxValue As Single = Single.MinValue
-
+        Dim temp As Cluster = Nothing
         If clusters.Count > 0 Then
             For i = 0 To clusters.Count - 1
                 Dim cluster = clusters(i)
@@ -104,43 +75,34 @@ Public Class Cluster
                     Dim value As Single = Compare(Me, cluster)
                     If value > maxValue Then
                         maxValue = value
-                        result.Enqueue(cluster)
+                        temp = cluster
                     End If
                 End If
             Next
         End If
-
+        result.Enqueue(temp)
         Return result
     End Function
-
-    Private Shared Function GetAverateColor(color1 As Color, color2 As Color) As Color
-        Dim result As Color
-        Dim a As Integer = (CInt(color1.A) + CInt(color2.A)) / 2
-        Dim r As Integer = (CInt(color1.R) + CInt(color2.R)) / 2
-        Dim g As Integer = (CInt(color1.G) + CInt(color2.G)) / 2
-        Dim b As Integer = (CInt(color1.B) + CInt(color2.B)) / 2
-        result = Color.FromArgb(a, r, g, b)
-        Return result
+    ''' <summary>
+    ''' 返回子簇的平均位置
+    ''' </summary>
+    Public Function GetAveragePosition() As Vector2
+        If Children.Count = 0 Then
+            Return Position
+        Else
+            Return VectorHelper.GetAveratePosition(GetPostionsOfChidren())
+        End If
     End Function
-    Private Shared Function GetAveratePosition(positions As IEnumerable(Of Vector2)) As Vector2
-        Dim result As Vector2
 
-        Dim x As Single = positions.Sum(Function(p As Vector2) p.X) / positions.Count
-        Dim y As Single = positions.Sum(Function(p As Vector2) p.Y) / positions.Count
-
-        result = New Vector2(x, y)
-        Return result
-    End Function
-    Private Shared Function GetAverateColor(colors As IEnumerable(Of Color)) As Color
-        Dim result As Color
-
-        Dim a As Integer = colors.Sum(Function(c As Color) c.A) / colors.Count
-        Dim r As Integer = colors.Sum(Function(c As Color) c.R) / colors.Count
-        Dim g As Integer = colors.Sum(Function(c As Color) c.G) / colors.Count
-        Dim b As Integer = colors.Sum(Function(c As Color) c.B) / colors.Count
-
-        result = Color.FromArgb(a, r, g, b)
-        Return result
+    ''' <summary>
+    ''' 返回子簇的平均颜色
+    ''' </summary>
+    Public Function GetAverageColor() As Color
+        If Children.Count = 0 Then
+            Return Color
+        Else
+            Return ColorHelper.GetAverageColor(GetAColorsOfChildren())
+        End If
     End Function
 
     Private Function Compare(cluster1 As Cluster, cluster2 As Cluster) As Single
@@ -150,8 +112,8 @@ Public Class Cluster
         'Dim p2 As Vector2 = cluster2.Position
         'Dim positionDistance As Single = 1 / (p1 - p2).Length
 
-        Dim color1 As Color = cluster1.AverageColor
-        Dim color2 As Color = cluster2.AverageColor
+        Dim color1 As Color = cluster1.Color()
+        Dim color2 As Color = cluster2.Color()
         Dim colorDistance As Single
 
         'Dim h1 As Single = color1.GetHue / 360
@@ -169,14 +131,13 @@ Public Class Cluster
         result = colorDistance 'positionDistance * colorDistance
         Return result
     End Function
-
     Private Function GetLeavesOfChildren() As List(Of Cluster)
         Return (Children.SelectMany(Of Cluster)(Function(c As Cluster) c.Leaves)).ToList
     End Function
-    Private Function GetAvearagePostionsOfChidren() As IEnumerable(Of Vector2)
-        Return From c As Cluster In Children Select c.AveragePostion
+    Private Function GetPostionsOfChidren() As IEnumerable(Of Vector2)
+        Return From c As Cluster In Children Select c.Position
     End Function
-    Private Function GetAvearageColorOfChildren() As IEnumerable(Of Color)
-        Return From c As Cluster In Children Select c.AverageColor
+    Private Function GetAColorsOfChildren() As IEnumerable(Of Color)
+        Return From c As Cluster In Children Select c.Color
     End Function
 End Class

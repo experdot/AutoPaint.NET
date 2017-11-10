@@ -56,7 +56,8 @@ Public Class GridHierarchy
                     .Color = pixels.Colors(i, j)
                 }
                 result.Grid(i, j).Add(cluster)
-                result.AddCluster(cluster)
+                result.Clusters.Add(cluster)
+                'result.AddCluster(cluster)'该方法存在性能问题
             Next
         Next
         Return result
@@ -72,32 +73,42 @@ Public Class GridHierarchy
         'Next
         Dim rate As Single = 2.0F
         Dim newSize As Single = Me.Size * rate
-        Dim result As New GridHierarchy(Math.Ceiling(Me.Width / rate) + 1, Math.Ceiling(Me.Height / rate) + 1, newSize) With {.Rank = Me.Rank + 1}
+        Dim result As New GridHierarchy(CInt(Math.Ceiling(Me.Width / rate) + 1), CInt(Math.Ceiling(Me.Height / rate) + 1), newSize) With {.Rank = Me.Rank + 1}
 
         '合并为新簇
         For Each SubCluster In Clusters
             Dim similar As Cluster = SubCluster.GetMostSimilar(GetNeighbours(SubCluster)).First
             If similar IsNot Nothing Then
-                result.AddCluster(Cluster.Combine(SubCluster, similar))
+                result.AddCluster(Cluster.Combine(SubCluster, similar), False)
             End If
+        Next
+        '设置属性
+        For Each SubCluster In result.Clusters
+            SubCluster.Position = SubCluster.GetAveragePosition()
+            SubCluster.Color = SubCluster.GetAverageColor()
         Next
         '分配至单元格
         For Each SubCluster In result.Clusters
-            Dim p As Vector2 = SubCluster.AveragePostion
-            Dim x As Integer = p.X / result.Size
-            Dim y As Integer = p.Y / result.Size
+            Dim p As Vector2 = SubCluster.Position
+            Dim x As Integer = CInt(p.X / result.Size)
+            Dim y As Integer = CInt(p.Y / result.Size)
             result.Grid(x, y).Add(SubCluster)
         Next
         Return result
     End Function
+
+    Public Overrides Function ToString() As String
+        Return $"Rank:{Rank}Clusters.Count:{Clusters.Count}"
+    End Function
+
 
     Private Function GetNeighbours(cluster As Cluster) As List(Of Cluster)
         Dim result As New List(Of Cluster)
         Dim xBound As Integer = Grid.GetUpperBound(0)
         Dim yBound As Integer = Grid.GetUpperBound(1)
         Dim dx, dy As Integer
-        Dim x As Integer = cluster.Position.X
-        Dim y As Integer = cluster.Position.Y
+        Dim x As Integer = CInt(cluster.Position.X / Size)
+        Dim y As Integer = CInt(cluster.Position.Y / Size)
         For i = 0 To 8
             dx = x + OffsetX(i)
             dy = y + OffsetY(i)

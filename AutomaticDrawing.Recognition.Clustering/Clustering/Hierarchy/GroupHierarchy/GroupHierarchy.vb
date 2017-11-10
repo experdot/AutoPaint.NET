@@ -13,7 +13,7 @@ Public Class GroupHierarchy
             If similar IsNot Nothing Then
                 result.AddCluster(Cluster.Combine(SubCluster, similar))
             End If
-            Dim progress As Single = (Clusters.IndexOf(SubCluster) + 1) / Clusters.Count
+            Dim progress As Single = CSng((Clusters.IndexOf(SubCluster) + 1) / Clusters.Count)
             'Dim total As Long = (DateTime.Now - start).TotalMilliseconds
             Debug.WriteLine($"{progress}")
         Next
@@ -27,7 +27,7 @@ Public Class GroupHierarchy
         Dim result As New List(Of Cluster)
         Dim array As New List(Of Cluster)
         array.AddRange(Clusters)
-        array.Sort(New ClusterCompare(cluster))
+        array.Sort(New ClusterPositionCompare(cluster))
         result.AddRange(array.Take(MaxCount))
         result.AddRange(array)
         Return result

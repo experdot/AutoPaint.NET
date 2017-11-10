@@ -41,6 +41,23 @@ Public Class BitmapPainter
     End Sub
 
     Private Sub PaintRaw(lines As List(Of ILine))
+        Using pg As Graphics = Graphics.FromImage(View)
+            pg.SmoothingMode = Drawing2D.SmoothingMode.HighQuality
+            Dim totalCount As Integer = lines.SelectMany(Function(e As ILine) e.Vertices).Count
+            Dim current As Integer = 0
+            For Each SubSequence In lines
+                For Each SubVertex In SubSequence.Vertices
+                    Dim penSize As Single = SubVertex.Size
+                    Dim brush As New SolidBrush(SubVertex.Color)
+                    pg.FillRectangle(brush, New RectangleF(SubVertex.X - penSize / 2, SubVertex.Y - penSize / 2, penSize, penSize))
+                    'pg.DrawLine(mypen, SubPoint, SubSequence.PointList.First)
+                    current += 1
+                    RaiseEvent UpdatePaint(Me, New UpdatePaintEventArgs(SubVertex, current / totalCount))
+                Next
+            Next
+        End Using
+    End Sub
+    Private Sub PaintColorful(lines As List(Of ILine))
         Dim tempColor As Color = Color.FromArgb(255, 0, 0, 0)
         Using pg As Graphics = Graphics.FromImage(View)
             pg.SmoothingMode = Drawing2D.SmoothingMode.HighQuality
@@ -52,40 +69,6 @@ Public Class BitmapPainter
                     Dim penSize As Single = SubPoint.Size
                     Dim mypen As New Pen(tempColor, 1 + penSize)
                     pg.DrawEllipse(mypen, New RectangleF(SubPoint.X - penSize / 2, SubPoint.Y - penSize / 2, penSize, penSize))
-                    'pg.DrawLine(mypen, SubPoint, SubSequence.PointList.First)
-                    current += 1
-                    RaiseEvent UpdatePaint(Me, New UpdatePaintEventArgs(SubPoint, current / totalCount))
-                Next
-            Next
-        End Using
-    End Sub
-    Private Sub PaintColorful(lines As List(Of ILine))
-        Dim tempColor As Color = Color.FromArgb(255, 0, 0, 0)
-        Using pg As Graphics = Graphics.FromImage(View)
-            pg.SmoothingMode = Drawing2D.SmoothingMode.HighQuality
-            Dim totalCount As Integer = lines.SelectMany(Function(e As ILine)
-                                                             Return e.Vertices
-                                                         End Function).Count
-            Dim current As Integer = 0
-            For Each SubSequence In lines
-                Dim seqIndex As Integer = lines.IndexOf(SubSequence)
-                Dim TempR = Rnd.NextDouble * 255
-                Dim TempG = Rnd.NextDouble * 255
-                Dim TempB = Rnd.NextDouble * 255
-                For Each SubPoint In SubSequence.Vertices
-                    Dim Index As Single = SubSequence.Vertices.IndexOf(SubPoint)
-                    Dim alpha As Integer = 255 - Index * 255 / SubSequence.Vertices.Count
-                    If alpha < 1 Then alpha = 1
-                    tempColor = Color.FromArgb(alpha, 0, 0, 0)
-                    'tempColor = Color.FromArgb(alpha, TempR, TempG, TempB)
-                    Dim Count As Single = SubSequence.Vertices.Count
-                    'Dim penWidth As Single = 0.01 + (Count / 2 - Math.Abs(Index - Count / 2)) / 20
-                    Dim penWidth As Single = 0.5 + Math.Abs(Index - Count) / 30
-                    Dim maxWidth As Single = 2
-                    If penWidth > maxWidth Then penWidth = maxWidth
-                    If penWidth > 2 AndAlso CInt(Index) Mod (maxWidth + 2 - CInt(penWidth)) = 0 Then Continue For
-                    Dim mypen As New Pen(tempColor, 1 + penWidth)
-                    pg.DrawEllipse(mypen, New RectangleF(SubPoint.X - penWidth / 2, SubPoint.Y - penWidth / 2, penWidth, penWidth))
                     'pg.DrawLine(mypen, SubPoint, SubSequence.PointList.First)
                     current += 1
                     RaiseEvent UpdatePaint(Me, New UpdatePaintEventArgs(SubPoint, current / totalCount))

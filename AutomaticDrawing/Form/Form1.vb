@@ -18,8 +18,8 @@ Public Class Form1
     ''' </summary>
     Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Me.TopMost = True
-        Machine = New Machine(New FastRecognition, Nothing, False)
-        'Machine = New Machine(New ClusteringRecognition, Nothing, True)
+        'Machine = New Machine(New FastRecognition, Nothing, False)
+        Machine = New Machine(New ClusteringRecognition, Nothing, True)
     End Sub
     ''' <summary>
     ''' 复制屏幕
@@ -49,7 +49,7 @@ Public Class Form1
             Label1.Hide()
             Machine.Preview = New Drawing.Bitmap(Machine.Final.Width, Machine.Final.Height)
             PictureBox2.Image = Machine.Preview
-            Machine.ResetPainter(New BitmapPainter(Machine.Preview))
+            Machine.ResetPainter(New BitmapPainter(Machine.Preview, True))
             AddHandler Machine.Painter.UpdatePaint, AddressOf RefreshPicturebox2
             Machine.Run()
             If CheckBox3.Checked Then
