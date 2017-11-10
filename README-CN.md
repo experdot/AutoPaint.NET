@@ -2,6 +2,16 @@ Translation：[English](./README.md)
 
 ## AutomaticDrawing是什么?
 一个实现自动绘图的程序，提供它一块画板与鼠标，就能为你画出美丽的图形
+
+- 快速识别
+
+![Compare](Documentation/Image/Compare.png)
+
+- 层次聚类
+
+![Preview](Documentation/Image/Preview_030.png)
+![Preview](Documentation/Image/Preview_070.png)
+![Preview](Documentation/Image/Preview_100.png)
 ## AutomaticDrawing有哪些功能？
 
 * 图像来源
@@ -23,7 +33,7 @@ Translation：[English](./README.md)
 * 演示4：[AutomaticDrawing_雄狮](http://v.youku.com/v_show/id_XMTUxNDk5OTgxNg==.html)
 
 ## 版本更新
-* 新的版本！全新的算法与更加高效的图形引擎，[点击查看](https://github.com/experdot/ExperDot.EDGameEngine/tree/master/EDGameEngine.Visuals/GameObject/Model/GameVisual/AutoDraw).
+* 新的版本！全新的算法与更加高效的图形引擎，[点击查看](https://github.com/experdot/ExperDot.EDGameEngine/tree/master/EDGameEngine.Visuals/GameObject/GameVisual/AutoDraw).
 
 ## 联系方式
 * 邮件：experdot@foxmail.com
