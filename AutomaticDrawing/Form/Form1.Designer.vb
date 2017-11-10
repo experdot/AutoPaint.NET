@@ -24,6 +24,7 @@ Partial Class Form1
     Private Sub InitializeComponent()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.ToolStripStatusLabel4 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripStatusLabel2 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripStatusLabel3 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.Button1 = New System.Windows.Forms.Button()
@@ -48,7 +49,6 @@ Partial Class Form1
         Me.TabPage3 = New System.Windows.Forms.TabPage()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
-        Me.ToolStripStatusLabel4 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.StatusStrip1.SuspendLayout()
         Me.Panel1.SuspendLayout()
         CType(Me.TrackBar3, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -80,6 +80,13 @@ Partial Class Form1
         Me.ToolStripStatusLabel1.Text = "Ready"
         Me.ToolStripStatusLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
+        'ToolStripStatusLabel4
+        '
+        Me.ToolStripStatusLabel4.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left
+        Me.ToolStripStatusLabel4.Name = "ToolStripStatusLabel4"
+        Me.ToolStripStatusLabel4.Size = New System.Drawing.Size(89, 25)
+        Me.ToolStripStatusLabel4.Text = "Preview:0%   "
+        '
         'ToolStripStatusLabel2
         '
         Me.ToolStripStatusLabel2.AutoSize = False
@@ -99,9 +106,9 @@ Partial Class Form1
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(38, 12)
+        Me.Button1.Location = New System.Drawing.Point(14, 12)
         Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(94, 38)
+        Me.Button1.Size = New System.Drawing.Size(66, 38)
         Me.Button1.TabIndex = 1
         Me.Button1.Text = "复制屏幕"
         Me.Button1.UseVisualStyleBackColor = True
@@ -166,9 +173,9 @@ Partial Class Form1
         '
         'Button3
         '
-        Me.Button3.Location = New System.Drawing.Point(68, 364)
+        Me.Button3.Location = New System.Drawing.Point(86, 13)
         Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(92, 37)
+        Me.Button3.Size = New System.Drawing.Size(68, 37)
         Me.Button3.TabIndex = 23
         Me.Button3.Text = "预览"
         Me.Button3.UseVisualStyleBackColor = True
@@ -345,13 +352,6 @@ Partial Class Form1
         Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
         Me.PictureBox2.TabIndex = 0
         Me.PictureBox2.TabStop = False
-        '
-        'ToolStripStatusLabel4
-        '
-        Me.ToolStripStatusLabel4.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left
-        Me.ToolStripStatusLabel4.Name = "ToolStripStatusLabel4"
-        Me.ToolStripStatusLabel4.Size = New System.Drawing.Size(89, 25)
-        Me.ToolStripStatusLabel4.Text = "Preview:0%   "
         '
         'Form1
         '

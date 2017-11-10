@@ -16,10 +16,11 @@ Public Class ClusterAI
     ''' <summary>
     ''' 创建并初始化一个实例
     ''' </summary>
-    Public Sub New(pixels As PixelData, Optional maxRank As Integer = 1)
+    Public Sub New(pixels As PixelData, Optional maxRank As Integer = 5)
         Hierarchies.Add(GridHierarchy.CreateFromPixels(pixels))
         For i = 0 To maxRank - 1
             Hierarchies.Add(Hierarchies.Last.Generate())
+            Debug.WriteLine($"Total:{maxRank},Current:{i + 1}")
         Next
         Lines = GenerateLines(Hierarchies.Last)
     End Sub

@@ -93,18 +93,23 @@ Public Class Cluster
     ''' <summary>
     ''' 返回最相似的簇
     ''' </summary>
-    Public Function GetMostSimilar(clusters As List(Of Cluster)) As Cluster
-        Dim result As New Cluster
+    Public Function GetMostSimilar(clusters As List(Of Cluster)) As Queue(Of Cluster)
+        Dim result As New Queue(Of Cluster)
         Dim maxValue As Single = Single.MinValue
-        For Each SubCluster In clusters
-            If SubCluster IsNot Me Then
-                Dim value As Single = Compare(Me, SubCluster)
-                If value > maxValue Then
-                    maxValue = value
-                    result = SubCluster
+
+        If clusters.Count > 0 Then
+            For i = 0 To clusters.Count - 1
+                Dim cluster = clusters(i)
+                If cluster IsNot Me Then
+                    Dim value As Single = Compare(Me, cluster)
+                    If value > maxValue Then
+                        maxValue = value
+                        result.Enqueue(cluster)
+                    End If
                 End If
-            End If
-        Next
+            Next
+        End If
+
         Return result
     End Function
 
