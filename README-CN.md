@@ -9,9 +9,8 @@ Translation：[English](./README.md)
 
 - 层次聚类
 
-![Preview](Documentation/Image/Preview_030.png)
-![Preview](Documentation/Image/Preview_070.png)
-![Preview](Documentation/Image/Preview_100.png)
+![Preview](Documentation/Image/Preview.png)
+
 ## AutomaticDrawing有哪些功能？
 
 * 图像来源

@@ -9,10 +9,7 @@ An automatic drawing program, it can control the mouse to draw beautiful images 
 
 - Clustering
 
-![Preview](Documentation/Image/Preview_030.png)
-![Preview](Documentation/Image/Preview_070.png)
-![Preview](Documentation/Image/Preview_100.png)
-
+![Preview](Documentation/Image/Preview.png)
 
 ## Features
 
