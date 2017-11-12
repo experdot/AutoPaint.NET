@@ -23,8 +23,10 @@ Public Class GridHierarchy
     ''' </summary>
     Public Property Size As Single
 
-    Private Shared OffsetX() As Integer = {0, -1, 0, 1, 1, 1, 0, -1, -1}
-    Private Shared OffsetY() As Integer = {0, -1, -1, -1, 0, 1, 1, 1, 0}
+    'Private Shared OffsetX() As Integer = {0, -1, 0, 1, 1, 1, 0, -1, -1}
+    'Private Shared OffsetY() As Integer = {0, -1, -1, -1, 0, 1, 1, 1, 0}
+    Private Shared OffsetX() As Integer = {0, -1, 1, 0, 0, -1, 1, -1, 1}
+    Private Shared OffsetY() As Integer = {0, 0, 0, -1, 1, -1, 1, 1, -1}
 
     ''' <summary>
     ''' 创建并初始化一个实例
@@ -79,7 +81,12 @@ Public Class GridHierarchy
         For Each SubCluster In Clusters
             Dim similar As Cluster = SubCluster.GetMostSimilar(GetNeighbours(SubCluster)).First
             If similar IsNot Nothing Then
-                result.AddCluster(Cluster.Combine(SubCluster, similar), False)
+                If SubCluster.Parent Is Nothing AndAlso similar.Parent Is Nothing Then
+                    result.Clusters.Add(Cluster.Combine(SubCluster, similar))
+                    'result.AddCluster(Cluster.Combine(SubCluster, similar), False) '该方法存在性能问题
+                Else
+                    Cluster.Combine(SubCluster, similar)
+                End If
             End If
         Next
         '设置属性
