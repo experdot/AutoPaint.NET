@@ -27,10 +27,9 @@ Translation：[English](./README.md)
 * 演示4：[AutomaticDrawing_雄狮](http://v.youku.com/v_show/id_XMTUxNDk5OTgxNg==.html)
 
 ## 版本更新
-- UWP版本，更高效的图形引擎，[点击查看](https://github.com/experdot/ExperDot.EDGameEngine/tree/master/EDGameEngine.Visuals/GameObject/GameVisual/AutoDraw).
-- 旧版
-
-![Compare](Documentation/Image/Compare.png)
+- UWP版本 [[Source](https://github.com/experdot/ExperDot.EDGameEngine/tree/master/EDGameEngine.Visuals/GameObject/GameVisual/AutoDraw)] [[Video](https://www.bilibili.com/video/av5973458/)] [Image]
+- 当前版本 [[Source](https://github.com/experdot/ExperDot.AutomaticDrawing/tree/master/AutomaticDrawing.Recognition.Clustering)] [Video][[Image](Documentation/Image/Preview.png)]
+- 旧的版本 [[Source](https://github.com/experdot/ExperDot.AutomaticDrawing/tree/master/AutomaticDrawing.Recognition.FastAI)] [[Video](https://www.bilibili.com/video/av11418289/)] [[Image](Documentation/Image/Compare.png)]
 
 ## 联系方式
 * 邮件：experdot@foxmail.com
