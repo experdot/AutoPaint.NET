@@ -22,11 +22,11 @@ Translation：[English](./README.md)
 
 ## 版本更新
 
-| 版本    | 平台 | 描述                    | 演示                                               | 预览                                    |
-|---------|----------|--------------------|-----------------------------------------------------|------------------------------------------|
-| V1      | WinForm  | 使用一种简单的算法   | [Video](https://www.bilibili.com/video/av11418289/) | -                                        |
-| V2      | WinForm  | 使用图像层次聚类算法 | -                                                   | [Image](Documentation/Image/Preview.png) |
-| V3      | UWP      | 使用更高效的图形引擎 | [Video](https://www.bilibili.com/video/av5973458/)  | [Image](Documentation/Image/Compare.png) |
+| 版本    | 平台 | 描述                    | 演示                                               | 预览                                       | 源码
+|---------|----------|--------------------|-----------------------------------------------------|------------------------------------------|-------------------------------------------------------------|
+| V1      | WinForm  | 使用一种简单的算法   | [Video](https://www.bilibili.com/video/av11418289/) | -                                        | [Source](AutomaticDrawing.Recognition.FastAI/)              |
+| V2      | WinForm  | 使用图像层次聚类算法 | -                                                   | [Image](Documentation/Image/Preview.png) | [Source](AutomaticDrawing.Recognition.Clustering/)          |
+| V3      | UWP      | 使用更高效的图形引擎 | [Video](https://www.bilibili.com/video/av5973458/)  | [Image](Documentation/Image/Compare.png) | [Source](https://github.com/experdot/ExperDot.EDGameEngine) |
 
 ## 联系方式
 * 邮件：experdot@foxmail.com
