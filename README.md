@@ -24,9 +24,9 @@ An automatic drawing program, it can control the mouse to draw beautiful images 
 
 | Version | Platform | Description                    | Video                                               | Image                                    | Source                                                      |
 |---------|----------|--------------------------------|-----------------------------------------------------|------------------------------------------|-------------------------------------------------------------|
-| V1      | WinForm  | using a simple algorithm       | [Video](https://www.bilibili.com/video/av11418289/) | -                                        | [Source](AutomaticDrawing.Recognition.FastAI/)              |
+| V1      | WinForm  | using a simple algorithm       | [Video](https://www.bilibili.com/video/av11418289/) | [Image](Documentation/Image/Compare.png) | [Source](AutomaticDrawing.Recognition.FastAI/)              |
 | V2      | WinForm  | using hierarchical clustering  | -                                                   | [Image](Documentation/Image/Preview.png) | [Source](AutomaticDrawing.Recognition.Clustering/)          |
-| V3      | UWP      | using a better graphics engine | [Video](https://www.bilibili.com/video/av5973458/)  | [Image](Documentation/Image/Compare.png) | [Source](https://github.com/experdot/ExperDot.EDGameEngine) |
+| V3      | UWP      | using a better graphics engine | [Video](https://www.bilibili.com/video/av5973458/)  | -                                        | [Source](https://github.com/experdot/ExperDot.EDGameEngine) |
 
 ## Feedback
 * Email：experdot@foxmail.com
