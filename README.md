@@ -3,12 +3,6 @@ Translation:[Simple-Chinese](./README-CN.md)(简体中文)
 ## What's AutomaticDrawing?
 An automatic drawing program, it can control the mouse to draw beautiful images on the screen.
 
-- FastAI
-
-![Compare](Documentation/Image/Compare.png)
-
-- Clustering
-
 ![Preview](Documentation/Image/Preview.png)
 
 ## Features
@@ -20,6 +14,7 @@ An automatic drawing program, it can control the mouse to draw beautiful images 
     *  Thresholding
     *  Contouring
     *  Hollowing
+    *  Clustering
 * Extras
     *  Add a signature
     *  Preview Drawing
@@ -32,7 +27,10 @@ An automatic drawing program, it can control the mouse to draw beautiful images 
 * Demo4：[AutomaticDrawing_Lion](http://v.youku.com/v_show/id_XMTUxNDk5OTgxNg==.html)
 
 ## Versions
-* There is an another version with the latest algorithms and better graphics engine ,[click me](https://github.com/experdot/ExperDot.EDGameEngine/tree/master/EDGameEngine.Visuals/GameObject/GameVisual/AutoDraw)!
+- UWP version with better graphics engine ,[click me](https://github.com/experdot/ExperDot.EDGameEngine/tree/master/EDGameEngine.Visuals/GameObject/GameVisual/AutoDraw)!
+- Earlier version
+
+![Compare](Documentation/Image/Compare.png)
 
 ## Feedback
 * Email：experdot@foxmail.com
