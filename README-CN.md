@@ -20,16 +20,13 @@ Translation：[English](./README.md)
     *  绘制预览
     *  一键绘图  
 
-## 视频演示
-* 演示1：[AutomaticDrawing_花鸟](http://v.youku.com/v_show/id_XMTUwNTI5MTAwMA==.html)
-* 演示2：[AutomaticDrawing_人物](http://v.youku.com/v_show/id_XMTUwNjI2NzkwOA==.html)
-* 演示3：[AutomaticDrawing_山水](http://v.youku.com/v_show/id_XMTUwODg2MTUxNg==.html)
-* 演示4：[AutomaticDrawing_雄狮](http://v.youku.com/v_show/id_XMTUxNDk5OTgxNg==.html)
-
 ## 版本更新
-- UWP版本 [[Source](https://github.com/experdot/ExperDot.EDGameEngine/tree/master/EDGameEngine.Visuals/GameObject/GameVisual/AutoDraw)] [[Video](https://www.bilibili.com/video/av5973458/)] [Image]
-- 当前版本 [[Source](https://github.com/experdot/ExperDot.AutomaticDrawing/tree/master/AutomaticDrawing.Recognition.Clustering)] [Video][[Image](Documentation/Image/Preview.png)]
-- 旧的版本 [[Source](https://github.com/experdot/ExperDot.AutomaticDrawing/tree/master/AutomaticDrawing.Recognition.FastAI)] [[Video](https://www.bilibili.com/video/av11418289/)] [[Image](Documentation/Image/Compare.png)]
+
+| 版本    | 平台 | 描述                    | 演示                                               | 预览                                    |
+|---------|----------|--------------------|-----------------------------------------------------|------------------------------------------|
+| V1      | WinForm  | 使用一种简单的算法   | [Video](https://www.bilibili.com/video/av11418289/) | -                                        |
+| V2      | WinForm  | 使用图像层次聚类算法 | -                                                   | [Image](Documentation/Image/Preview.png) |
+| V3      | UWP      | 使用更高效的图形引擎 | [Video](https://www.bilibili.com/video/av5973458/)  | [Image](Documentation/Image/Compare.png) |
 
 ## 联系方式
 * 邮件：experdot@foxmail.com
