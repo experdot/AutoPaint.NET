@@ -52,7 +52,7 @@ Public Class BitmapPainter
                     pg.FillRectangle(brush, New RectangleF(SubVertex.X - penSize / 2, SubVertex.Y - penSize / 2, penSize, penSize))
                     'pg.DrawLine(mypen, SubPoint, SubSequence.PointList.First)
                     current += 1
-                    RaiseEvent UpdatePaint(Me, New UpdatePaintEventArgs(SubVertex, current / totalCount))
+                    RaiseEvent UpdatePaint(Me, New UpdatePaintEventArgs(SubVertex, CSng(current / totalCount)))
                 Next
             Next
         End Using
@@ -64,14 +64,14 @@ Public Class BitmapPainter
             Dim totalCount As Integer = lines.SelectMany(Function(e As ILine) e.Vertices).Count
             Dim current As Integer = 0
             For Each SubSequence In lines
-                tempColor = Color.FromArgb(255, Rnd.NextDouble * 255, Rnd.NextDouble * 255, Rnd.NextDouble * 255)
+                tempColor = Color.FromArgb(255, CInt(Rnd.NextDouble * 255), CInt(Rnd.NextDouble * 255), CInt(Rnd.NextDouble * 255))
                 For Each SubPoint In SubSequence.Vertices
                     Dim penSize As Single = SubPoint.Size
                     Dim mypen As New Pen(tempColor, 1 + penSize)
                     pg.DrawEllipse(mypen, New RectangleF(SubPoint.X - penSize / 2, SubPoint.Y - penSize / 2, penSize, penSize))
                     'pg.DrawLine(mypen, SubPoint, SubSequence.PointList.First)
                     current += 1
-                    RaiseEvent UpdatePaint(Me, New UpdatePaintEventArgs(SubPoint, current / totalCount))
+                    RaiseEvent UpdatePaint(Me, New UpdatePaintEventArgs(SubPoint, CSng(current / totalCount)))
                 Next
             Next
         End Using
