@@ -49,6 +49,8 @@ Partial Class Form1
         Me.TabPage3 = New System.Windows.Forms.TabPage()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
+        Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.TrackBar4 = New System.Windows.Forms.TrackBar()
         Me.StatusStrip1.SuspendLayout()
         Me.Panel1.SuspendLayout()
         CType(Me.TrackBar3, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -59,6 +61,8 @@ Partial Class Form1
         Me.TabPage2.SuspendLayout()
         Me.TabPage3.SuspendLayout()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel2.SuspendLayout()
+        CType(Me.TrackBar4, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'StatusStrip1
@@ -325,6 +329,7 @@ Partial Class Form1
         '
         Me.TabPage3.Controls.Add(Me.Label1)
         Me.TabPage3.Controls.Add(Me.PictureBox2)
+        Me.TabPage3.Controls.Add(Me.Panel2)
         Me.TabPage3.Location = New System.Drawing.Point(4, 22)
         Me.TabPage3.Name = "TabPage3"
         Me.TabPage3.Padding = New System.Windows.Forms.Padding(3)
@@ -348,10 +353,33 @@ Partial Class Form1
         Me.PictureBox2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PictureBox2.Location = New System.Drawing.Point(3, 3)
         Me.PictureBox2.Name = "PictureBox2"
-        Me.PictureBox2.Size = New System.Drawing.Size(634, 414)
+        Me.PictureBox2.Size = New System.Drawing.Size(574, 414)
         Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
-        Me.PictureBox2.TabIndex = 0
+        Me.PictureBox2.TabIndex = 5
         Me.PictureBox2.TabStop = False
+        '
+        'Panel2
+        '
+        Me.Panel2.BackColor = System.Drawing.SystemColors.Control
+        Me.Panel2.Controls.Add(Me.TrackBar4)
+        Me.Panel2.Dock = System.Windows.Forms.DockStyle.Right
+        Me.Panel2.Location = New System.Drawing.Point(577, 3)
+        Me.Panel2.Name = "Panel2"
+        Me.Panel2.Size = New System.Drawing.Size(60, 414)
+        Me.Panel2.TabIndex = 3
+        '
+        'TrackBar4
+        '
+        Me.TrackBar4.Dock = System.Windows.Forms.DockStyle.Right
+        Me.TrackBar4.Location = New System.Drawing.Point(15, 0)
+        Me.TrackBar4.Maximum = 1000
+        Me.TrackBar4.Minimum = 1
+        Me.TrackBar4.Name = "TrackBar4"
+        Me.TrackBar4.Orientation = System.Windows.Forms.Orientation.Vertical
+        Me.TrackBar4.Size = New System.Drawing.Size(45, 414)
+        Me.TrackBar4.TabIndex = 2
+        Me.TrackBar4.TickFrequency = 10
+        Me.TrackBar4.Value = 1
         '
         'Form1
         '
@@ -380,6 +408,9 @@ Partial Class Form1
         Me.TabPage3.ResumeLayout(False)
         Me.TabPage3.PerformLayout()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel2.ResumeLayout(False)
+        Me.Panel2.PerformLayout()
+        CType(Me.TrackBar4, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -402,7 +433,6 @@ Partial Class Form1
     Friend WithEvents CheckBox3 As CheckBox
     Friend WithEvents TrackBar2 As TrackBar
     Friend WithEvents TabPage3 As TabPage
-    Friend WithEvents PictureBox2 As PictureBox
     Friend WithEvents Button3 As Button
     Friend WithEvents Label1 As Label
     Friend WithEvents ToolStripStatusLabel2 As ToolStripStatusLabel
@@ -411,4 +441,7 @@ Partial Class Form1
     Friend WithEvents TrackBar3 As TrackBar
     Friend WithEvents CheckBox5 As CheckBox
     Friend WithEvents ToolStripStatusLabel4 As ToolStripStatusLabel
+    Friend WithEvents TrackBar4 As TrackBar
+    Friend WithEvents Panel2 As Panel
+    Friend WithEvents PictureBox2 As PictureBox
 End Class

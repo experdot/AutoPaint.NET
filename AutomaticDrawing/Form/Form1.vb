@@ -13,6 +13,8 @@ Public Class Form1
     ''' </summary>
     Private Machine As Machine
 
+    Private PreviewSpeed As Integer = 1
+
     ''' <summary>
     ''' 窗体加载时
     ''' </summary>
@@ -108,7 +110,7 @@ Public Class Form1
     ''' <summary>
     ''' 画布大小改变时
     ''' </summary>
-    Private Sub PictureBox2_SizeChanged(sender As Object, e As EventArgs) Handles PictureBox2.SizeChanged
+    Private Sub PictureBox2_SizeChanged(sender As Object, e As EventArgs)
         ToolStripStatusLabel3.Text = "Size:" & PictureBox2.Width & "*" & PictureBox2.Height & "Pixel"
     End Sub
     ''' <summary>
@@ -132,12 +134,16 @@ Public Class Form1
     ''' </summary>
     Private Sub RefreshPicturebox2(sender As Object, e As UpdatePaintEventArgs)
         Static Count As Integer = 0
-        ToolStripStatusLabel2.Text = $"Position:[{e.Point.X},{e.Point.Y}]"
-        ToolStripStatusLabel4.Text = $"Preview:{(e.Percent * 100).ToString("F2")}%"
         Count += 1
-        If Count Mod 2 = 0 Then
-            PictureBox2.Refresh()
-            If Count > 1000 Then Count = 0
+        If Count Mod PreviewSpeed = 0 Then
+            Task.Run(Sub()
+                         Me.Invoke(Sub()
+                                       ToolStripStatusLabel2.Text = $"Position:[{e.Point.X},{e.Point.Y}]"
+                                       ToolStripStatusLabel4.Text = $"Preview:{(e.Percent * 100).ToString("F2")}%"
+                                       PictureBox2.Refresh()
+                                   End Sub)
+                     End Sub)
+            If Count > 10000 Then Count = 0
         End If
         Application.DoEvents()
     End Sub
@@ -157,4 +163,7 @@ Public Class Form1
         End If
     End Sub
 
+    Private Sub TrackBar4_Scroll(sender As Object, e As EventArgs) Handles TrackBar4.Scroll
+        PreviewSpeed = TrackBar4.Value
+    End Sub
 End Class
