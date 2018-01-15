@@ -37,6 +37,7 @@ Public Class Form1
     ''' </summary>
     Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
         Me.Hide()
+        Machine.ResetReconition(New FastRecognition)
         Machine.ResetPainter(New MousePainter(New Vector2(TabPage1.PointToScreen(New Point(0, 0)).X + 3, TabPage1.PointToScreen(New Point(0, 0)).Y + 3)))
         AddHandler Machine.Painter.UpdatePaint, AddressOf RefreshPicturebox2
         Machine.Run()
