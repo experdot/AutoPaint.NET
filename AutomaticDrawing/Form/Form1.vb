@@ -31,6 +31,7 @@ Public Class Form1
         Machine.CopyScreen(New Rectangle(TabPage1.PointToScreen(New Drawing.Point(0, 0)).X + 3, TabPage1.PointToScreen(New Drawing.Point(0, 0)).Y + 3, TabPage1.Width - 6, TabPage1.Height - 6))
         TabControl1.SelectedIndex = 1
         TrackBar_MouseUp(TrackBar1, e)
+        Panel4.Enabled = True
     End Sub
     ''' <summary>
     ''' 鼠标绘制
@@ -49,15 +50,11 @@ Public Class Form1
     Private Sub Button3_Click(sender As System.Object, e As System.EventArgs) Handles Button3.Click
         If Machine.Final IsNot Nothing Then
             TabControl1.SelectedIndex = 2
-            Label1.Hide()
             Machine.Preview = New Drawing.Bitmap(Machine.Final.Width, Machine.Final.Height)
             PictureBox2.Image = Machine.Preview
             Machine.ResetPainter(New BitmapPainter(Machine.Preview, True))
             AddHandler Machine.Painter.UpdatePaint, AddressOf RefreshPicturebox2
             Machine.Run()
-            If CheckBox3.Checked Then
-                Label1.Show()
-            End If
         Else
             MsgBox("请先复制屏幕")
         End If
@@ -65,48 +62,30 @@ Public Class Form1
     ''' <summary>
     ''' 滑动按钮松开时
     ''' </summary>
-    Private Sub TrackBar_MouseUp(sender As Object, e As MouseEventArgs) Handles TrackBar1.MouseUp, TrackBar2.MouseUp, TrackBar3.MouseUp
+    Private Sub TrackBar_MouseUp(sender As Object, e As MouseEventArgs) Handles TrackBar1.MouseUp
         If Not Machine.Original Is Nothing Then
-            If sender Is TrackBar1 Then
-                If CheckBox4.Checked Then
-                    Machine.Current = ColorHelper.GetThresholdPixelData(Machine.Original.GetPixelData, sender.Value / 255, True).CreateBitmap
-                Else
-                    Machine.Current = ColorHelper.GetThresholdPixelData(Machine.Original.GetPixelData, sender.Value).CreateBitmap
-                End If
-                RadioButton1.Checked = True
-            ElseIf sender Is TrackBar2 Then
-                Dim temp As Drawing.Bitmap = If(CheckBox5.Checked, ColorHelper.GetLumpPixelData(Machine.Original.GetPixelData, TrackBar3.Value + 1), Machine.Original)
-                If CheckBox4.Checked Then
-                    Machine.Current = ColorHelper.GetOutLinePixelData(temp.GetPixelData, sender.Value / 255 * Math.Sqrt(1), True).CreateBitmap
-                Else
-                    Machine.Current = ColorHelper.GetOutLinePixelData(temp.GetPixelData, 255 - sender.Value).CreateBitmap
-                End If
-                RadioButton2.Checked = True
+            Dim thresold As Single = sender.value
+            If RadioButton1.Checked Then
+                Machine.Current = ColorHelper.GetThresholdPixelData(Machine.Original.GetPixelData, thresold).CreateBitmap
             Else
-                Machine.Current = ColorHelper.GetLumpPixelData(Machine.Original.GetPixelData, sender.Value + 1).CreateBitmap
+                Machine.Current = ColorHelper.GetOutLinePixelData(Machine.Original.GetPixelData, thresold).CreateBitmap
             End If
             ImageChanged()
         Else
-            MsgBox("请先复制屏幕")
+            MsgBox("Please press Screenshot button.(请先复制屏幕)")
         End If
     End Sub
     ''' <summary>
     ''' 选择按钮状态改变时
     ''' </summary>
-    Private Sub CheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox1.CheckedChanged， CheckBox2.CheckedChanged
+    Private Sub CheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox2.CheckedChanged， CheckBox3.CheckedChanged
         ImageChanged()
     End Sub
     ''' <summary>
     ''' 单选按钮状态改变时
     ''' </summary>
-    Private Sub RadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton1.CheckedChanged, RadioButton2.CheckedChanged
+    Private Sub RadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton1.CheckedChanged
         ImageChanged()
-    End Sub
-    ''' <summary>
-    ''' 签名
-    ''' </summary>
-    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles TextBox1.TextChanged
-        Label1.Text = TextBox1.Text
     End Sub
     ''' <summary>
     ''' 画布大小改变时
@@ -124,12 +103,10 @@ Public Class Form1
             Panel1.Show()
         End If
     End Sub
-    ''' <summary>
-    ''' HSB颜色空间选择按钮状态改变时
-    ''' </summary>
-    Private Sub CheckBox4_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox4.CheckedChanged
-        TrackBar_MouseUp(If(RadioButton1.Checked, TrackBar1, TrackBar2), Nothing)
+    Private Sub TrackBar4_Scroll(sender As Object, e As EventArgs) Handles TrackBar4.Scroll
+        PreviewSpeed = TrackBar4.Value
     End Sub
+
     ''' <summary>
     ''' 更新预览画布
     ''' </summary>
@@ -154,17 +131,13 @@ Public Class Form1
     Private Sub ImageChanged()
         If Machine?.Current IsNot Nothing Then
             Machine.Final = New Drawing.Bitmap(Machine.Current)
-            If CheckBox1.Checked Then
+            If CheckBox2.Checked Then
                 Machine.Final = ColorHelper.GetHollowPixelData(Machine.Current.GetPixelData).CreateBitmap
             End If
-            If CheckBox2.Checked Then
+            If CheckBox3.Checked Then
                 Machine.Final = ColorHelper.GetInvertPixelData(Machine.Final.GetPixelData).CreateBitmap
             End If
             PictureBox1.Image = Machine.Final
         End If
-    End Sub
-
-    Private Sub TrackBar4_Scroll(sender As Object, e As EventArgs) Handles TrackBar4.Scroll
-        PreviewSpeed = TrackBar4.Value
     End Sub
 End Class

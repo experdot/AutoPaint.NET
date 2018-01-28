@@ -75,12 +75,10 @@ Public Class Machine
         Dim pixels As PixelData = BitmapHelper.GetPixelDataFromBitmap(If(IsUseOriginal, Original, Final))
         Painter.Start(Reconition.Recognize(pixels))
     End Sub
-
     ''' <summary>
     ''' 截屏
     ''' </summary>
     Public Sub CopyScreen(rect As Rectangle)
         Original = BitmapHelper.GetScreenImage(rect)
     End Sub
-
 End Class
