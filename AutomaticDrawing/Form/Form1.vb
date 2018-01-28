@@ -20,8 +20,7 @@ Public Class Form1
     ''' </summary>
     Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Me.TopMost = True
-        'Machine = New Machine(New FastRecognition, Nothing, False)
-        Machine = New Machine(New ClusteringRecognition, Nothing, True)
+        Machine = New Machine(Nothing, Nothing, True)
     End Sub
     ''' <summary>
     ''' 复制屏幕
@@ -35,28 +34,38 @@ Public Class Form1
     End Sub
     ''' <summary>
     ''' 鼠标绘制
-    ''' </summary>
+    ''' </summary>t
     Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
-        Me.Hide()
-        Machine.ResetReconition(New FastRecognition)
-        Machine.ResetPainter(New MousePainter(New Vector2(TabPage1.PointToScreen(New Point(0, 0)).X + 3, TabPage1.PointToScreen(New Point(0, 0)).Y + 3)))
-        AddHandler Machine.Painter.UpdatePaint, AddressOf RefreshPicturebox2
-        Machine.Run()
-        Me.Show()
+        If MessageBox.Show("Are you sure the window is on microsoft paint application?" + vbCrLf +
+                           "(Please remember the hot keys,it's useful.)", "Warning", MessageBoxButtons.YesNo) = DialogResult.Yes Then
+            Me.Hide()
+            Machine.ResetReconition(New FastRecognition)
+            Machine.ResetPainter(New MousePainter(New Vector2(TabPage1.PointToScreen(New Point(0, 0)).X + 3, TabPage1.PointToScreen(New Point(0, 0)).Y + 3)))
+            Machine.IsUseOriginal = False
+            AddHandler Machine.Painter.UpdatePaint, AddressOf RefreshPicturebox2
+            Machine.Run()
+            Me.Show()
+        End If
     End Sub
     ''' <summary>
     ''' 预览绘制
     ''' </summary>
     Private Sub Button3_Click(sender As System.Object, e As System.EventArgs) Handles Button3.Click
+        Static HasShownBox As Boolean = False
+        If Not HasShownBox Then
+            MessageBox.Show("The clustering algorithm may take serveral or dozens of seconds, please wait patiently.", "Info")
+        End If
         If Machine.Final IsNot Nothing Then
             TabControl1.SelectedIndex = 2
             Machine.Preview = New Drawing.Bitmap(Machine.Final.Width, Machine.Final.Height)
             PictureBox2.Image = Machine.Preview
+            Machine.ResetReconition(New ClusteringRecognition)
             Machine.ResetPainter(New BitmapPainter(Machine.Preview, True))
+            Machine.IsUseOriginal = True
             AddHandler Machine.Painter.UpdatePaint, AddressOf RefreshPicturebox2
             Machine.Run()
         Else
-            MsgBox("请先复制屏幕")
+            MsgBox("Please press Screenshot button.(请先复制屏幕)")
         End If
     End Sub
     ''' <summary>
@@ -90,8 +99,8 @@ Public Class Form1
     ''' <summary>
     ''' 画布大小改变时
     ''' </summary>
-    Private Sub PictureBox2_SizeChanged(sender As Object, e As EventArgs)
-        ToolStripStatusLabel3.Text = "Size:" & PictureBox2.Width & "*" & PictureBox2.Height & "Pixel"
+    Private Sub PictureBox1_SizeChanged(sender As Object, e As EventArgs) Handles PictureBox1.SizeChanged
+        ToolStripStatusLabel3.Text = "Size:" & PictureBox1.Width & "*" & PictureBox1.Height & "Pixel"
     End Sub
     ''' <summary>
     ''' 选项卡切换时
