@@ -31,3 +31,6 @@ An automatic drawing program, it can control the mouse to draw beautiful images 
 ## Feedback
 * Email：experdot@foxmail.com
 * Blog: [@ExperDot](http://www.cnblogs.com/experdot/)
+
+## License
+- [MIT](./LICENSE)
