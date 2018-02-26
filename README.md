@@ -1,6 +1,6 @@
 Translation:[Simple-Chinese](./README-CN.md)(简体中文)
 
-## What's AutomaticDrawing?
+## Introduction?
 An automatic drawing program, it can control the mouse to draw beautiful images on the screen.
 
 ![Preview](Documentation/Image/Preview.png)
