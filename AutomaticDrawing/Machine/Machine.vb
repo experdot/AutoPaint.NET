@@ -1,5 +1,5 @@
 ﻿Imports AutoPaint.Core
-Imports AutomaticDrawing.Utilities.Bitmap
+Imports AutoPaint.Utilities
 ''' <summary>
 ''' 绘图机器
 ''' </summary>

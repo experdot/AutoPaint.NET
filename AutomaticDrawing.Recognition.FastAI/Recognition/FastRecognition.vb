@@ -1,5 +1,5 @@
 ﻿Imports AutoPaint.Core
-Imports AutomaticDrawing.Utilities
+Imports AutoPaint.Utilities
 ''' <summary>
 ''' 使用快速模型的线条识别器
 ''' </summary>

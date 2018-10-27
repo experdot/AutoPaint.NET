@@ -52,6 +52,9 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Common, Version=4.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Drawing.Common.4.5.1\lib\net461\System.Drawing.Common.dll</HintPath>
+    </Reference>
     <Reference Include="System.Numerics" />
     <Reference Include="System.Numerics.Vectors, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Numerics.Vectors.4.4.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
@@ -126,14 +129,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AutomaticDrawing.Painter.BitmapAnimation\AutomaticDrawing.Painter.BitmapAnimation.vbproj">
-      <Project>{F2A0BD11-C7E0-4B4F-A78C-84165CE497EE}</Project>
-      <Name>AutomaticDrawing.Painter.BitmapAnimation</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\AutomaticDrawing.Painter.MouseAnimation\AutomaticDrawing.Painter.MouseAnimation.vbproj">
-      <Project>{0BC31C26-877B-4E28-9ABE-24BAA8173B96}</Project>
-      <Name>AutomaticDrawing.Painter.MouseAnimation</Name>
-    </ProjectReference>
     <ProjectReference Include="..\AutomaticDrawing.Recognition.Clustering\AutomaticDrawing.Recognition.Clustering.vbproj">
       <Project>{43e01407-449c-45d8-9208-fc53079889d5}</Project>
       <Name>AutomaticDrawing.Recognition.Clustering</Name>
@@ -142,17 +137,29 @@
       <Project>{7B4A0237-7E31-45F1-AF08-814EE960044A}</Project>
       <Name>AutomaticDrawing.Recognition.FastAI</Name>
     </ProjectReference>
-    <ProjectReference Include="..\AutomaticDrawing.Utilities.Bitmap\AutomaticDrawing.Utilities.Bitmap.vbproj">
-      <Project>{F8987A4A-A5FB-4DD3-9C01-BDADF772AC1F}</Project>
-      <Name>AutomaticDrawing.Utilities.Bitmap</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\AutomaticDrawing.Utilities\AutomaticDrawing.Utilities.vbproj">
-      <Project>{F5582BF7-2A23-413A-BD5D-372C39818D75}</Project>
-      <Name>AutomaticDrawing.Utilities</Name>
-    </ProjectReference>
     <ProjectReference Include="..\AutoPaint.Core\AutoPaint.Core.csproj">
       <Project>{b78ba26a-dba4-4a50-820d-3937c74e0aaf}</Project>
       <Name>AutoPaint.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AutoPaint.Painter.BitmapAnimation\AutoPaint.Painter.BitmapAnimation.csproj">
+      <Project>{3db9c568-33a8-49dc-a2f8-f00dc122f70b}</Project>
+      <Name>AutoPaint.Painter.BitmapAnimation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AutoPaint.Painter.MouseAnimation\AutoPaint.Painter.MouseAnimation.csproj">
+      <Project>{e7a05c29-a13a-4d25-bd50-d96eb22ab603}</Project>
+      <Name>AutoPaint.Painter.MouseAnimation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AutoPaint.Utilities.Bitmap\AutoPaint.Utilities.Bitmap.csproj">
+      <Project>{9934e28c-f1f3-4585-a3f6-0bcd624e47f1}</Project>
+      <Name>AutoPaint.Utilities.Bitmap</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AutoPaint.Utilities.Keyboard\AutoPaint.Utilities.Keyboard.csproj">
+      <Project>{7ef01e94-006e-4c7d-bd11-5c8855fc7715}</Project>
+      <Name>AutoPaint.Utilities.Keyboard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AutoPaint.Utilities\AutoPaint.Utilities.csproj">
+      <Project>{3c743bc0-8c1a-4997-86ab-cf01e2fdcf53}</Project>
+      <Name>AutoPaint.Utilities</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

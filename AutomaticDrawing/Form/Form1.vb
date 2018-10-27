@@ -1,11 +1,9 @@
 ﻿Imports System.Numerics
 Imports AutoPaint.Core
-Imports AutomaticDrawing.Painter.BitmapAnimation
-Imports AutomaticDrawing.Painter.MouseAnimation
+Imports AutoPaint.Painter
 Imports AutomaticDrawing.Recognition.Clustering
 Imports AutomaticDrawing.Recognition.FastAI
-Imports AutomaticDrawing.Utilities
-Imports AutomaticDrawing.Utilities.Bitmap
+Imports AutoPaint.Utilities
 
 Public Class Form1
     ''' <summary>

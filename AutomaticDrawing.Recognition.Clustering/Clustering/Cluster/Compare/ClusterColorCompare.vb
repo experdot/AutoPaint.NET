@@ -1,5 +1,5 @@
 ﻿Imports AutomaticDrawing.Recognition.Clustering
-Imports AutomaticDrawing.Utilities
+Imports AutoPaint.Utilities
 ''' <summary>
 ''' 颜色比较器
 ''' </summary>

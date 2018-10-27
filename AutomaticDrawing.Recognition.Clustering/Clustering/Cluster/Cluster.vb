@@ -1,6 +1,7 @@
 ﻿Imports System.Drawing
 Imports System.Numerics
-Imports AutomaticDrawing.Utilities
+Imports AutoPaint.Utilities
+
 ''' <summary>
 ''' 簇
 ''' </summary>

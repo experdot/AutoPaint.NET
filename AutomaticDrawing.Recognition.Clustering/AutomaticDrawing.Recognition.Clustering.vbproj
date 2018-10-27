@@ -16,8 +16,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AutomaticDrawing.Utilities\AutomaticDrawing.Utilities.vbproj" />
     <ProjectReference Include="..\AutoPaint.Core\AutoPaint.Core.csproj" />
+    <ProjectReference Include="..\AutoPaint.Utilities\AutoPaint.Utilities.csproj" />
   </ItemGroup>
 
 </Project>
