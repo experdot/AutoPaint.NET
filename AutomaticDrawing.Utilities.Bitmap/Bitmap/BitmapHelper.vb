@@ -1,5 +1,5 @@
 ﻿Imports System.Drawing
-Imports AutomaticDrawing.Core
+Imports AutoPaint.Core
 ''' <summary>
 ''' 位图帮助类，提供对位图图像和颜色的一系列操作的对象
 ''' </summary>

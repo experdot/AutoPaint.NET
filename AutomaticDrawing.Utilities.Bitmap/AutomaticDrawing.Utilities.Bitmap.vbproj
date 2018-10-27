@@ -102,13 +102,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AutomaticDrawing.Core\AutomaticDrawing.Core.vbproj">
-      <Project>{C6B2083C-476C-4E1E-B863-D608DC2CC495}</Project>
-      <Name>AutomaticDrawing.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\AutomaticDrawing.Utilities\AutomaticDrawing.Utilities.vbproj">
       <Project>{f5582bf7-2a23-413a-bd5d-372c39818d75}</Project>
       <Name>AutomaticDrawing.Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AutoPaint.Core\AutoPaint.Core.csproj">
+      <Project>{b78ba26a-dba4-4a50-820d-3937c74e0aaf}</Project>
+      <Name>AutoPaint.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

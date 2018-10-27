@@ -1,5 +1,5 @@
 ﻿Imports System.Numerics
-Imports AutomaticDrawing.Core
+Imports AutoPaint.Core
 ''' <summary>
 ''' 自动循迹并生成绘制序列的AI
 ''' </summary>

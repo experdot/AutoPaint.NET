@@ -1,5 +1,5 @@
 ﻿Imports System.Numerics
-Imports AutomaticDrawing.Core
+Imports AutoPaint.Core
 Imports AutomaticDrawing.Recognition.Clustering
 ''' <summary>
 ''' 由单元格表示的层

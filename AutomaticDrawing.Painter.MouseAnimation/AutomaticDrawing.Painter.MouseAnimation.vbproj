@@ -106,13 +106,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AutomaticDrawing.Core\AutomaticDrawing.Core.vbproj">
-      <Project>{c6b2083c-476c-4e1e-b863-d608dc2cc495}</Project>
-      <Name>AutomaticDrawing.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\AutomaticDrawing.Utilities.Keyboard\AutomaticDrawing.Utilities.Keyboard.vbproj">
       <Project>{84a95e39-57a6-4f18-acd3-63e78253f28c}</Project>
       <Name>AutomaticDrawing.Utilities.Keyboard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AutoPaint.Core\AutoPaint.Core.csproj">
+      <Project>{b78ba26a-dba4-4a50-820d-3937c74e0aaf}</Project>
+      <Name>AutoPaint.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

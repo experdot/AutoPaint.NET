@@ -1,12 +1,14 @@
 ﻿Imports System.Numerics
-Imports AutomaticDrawing.Core
+Imports AutoPaint.Core
 Imports AutomaticDrawing.Utilities.Keyboard
 ''' <summary>
 ''' 提供鼠标控制的绘图器
 ''' </summary>
 Public Class MousePainter
     Implements IPainter
-    Public Event UpdatePaint As IPainter.UpdatePaintEventHandler Implements IPainter.UpdatePaint
+
+    Public Event UpdatePaint As EventHandler(Of UpdatePaintEventArgs) Implements IPainter.UpdatePaint
+
     ''' <summary>
     ''' 鼠标事件间隔
     ''' </summary>
@@ -53,6 +55,7 @@ Public Class MousePainter
     Public Sub [Stop]() Implements IPainter.Stop
         Throw New NotImplementedException()
     End Sub
+
 
     Private Function CheckKey() As Boolean
         If (Not IsCheckCtrlAlKey) OrElse (My.Computer.Keyboard.CtrlKeyDown AndAlso My.Computer.Keyboard.AltKeyDown) Then

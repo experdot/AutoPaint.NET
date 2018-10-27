@@ -1,5 +1,5 @@
 ﻿Imports System.Numerics
-Imports AutomaticDrawing.Core
+Imports AutoPaint.Core
 Imports AutomaticDrawing.Painter.BitmapAnimation
 Imports AutomaticDrawing.Painter.MouseAnimation
 Imports AutomaticDrawing.Recognition.Clustering

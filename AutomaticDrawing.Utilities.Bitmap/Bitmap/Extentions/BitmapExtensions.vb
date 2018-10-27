@@ -1,6 +1,6 @@
 ﻿Imports System.Drawing
 Imports System.Runtime.CompilerServices
-Imports AutomaticDrawing.Core
+Imports AutoPaint.Core
 
 Public Module BitmapExtensions
     ''' <summary>

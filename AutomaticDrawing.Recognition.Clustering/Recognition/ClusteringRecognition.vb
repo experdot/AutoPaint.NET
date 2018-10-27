@@ -1,4 +1,4 @@
-﻿Imports AutomaticDrawing.Core
+﻿Imports AutoPaint.Core
 ''' <summary>
 ''' 使用聚类模型的线条识别器
 ''' </summary>

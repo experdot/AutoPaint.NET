@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AutomaticDrawing.Core\AutomaticDrawing.Core.vbproj" />
     <ProjectReference Include="..\AutomaticDrawing.Utilities\AutomaticDrawing.Utilities.vbproj" />
+    <ProjectReference Include="..\AutoPaint.Core\AutoPaint.Core.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,4 @@
-﻿Imports AutomaticDrawing.Core
+﻿Imports AutoPaint.Core
 Imports AutomaticDrawing.Utilities.Bitmap
 ''' <summary>
 ''' 绘图机器

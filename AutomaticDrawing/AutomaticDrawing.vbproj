@@ -126,10 +126,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AutomaticDrawing.Core\AutomaticDrawing.Core.vbproj">
-      <Project>{C6B2083C-476C-4E1E-B863-D608DC2CC495}</Project>
-      <Name>AutomaticDrawing.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\AutomaticDrawing.Painter.BitmapAnimation\AutomaticDrawing.Painter.BitmapAnimation.vbproj">
       <Project>{F2A0BD11-C7E0-4B4F-A78C-84165CE497EE}</Project>
       <Name>AutomaticDrawing.Painter.BitmapAnimation</Name>
@@ -153,6 +149,10 @@
     <ProjectReference Include="..\AutomaticDrawing.Utilities\AutomaticDrawing.Utilities.vbproj">
       <Project>{F5582BF7-2A23-413A-BD5D-372C39818D75}</Project>
       <Name>AutomaticDrawing.Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AutoPaint.Core\AutoPaint.Core.csproj">
+      <Project>{b78ba26a-dba4-4a50-820d-3937c74e0aaf}</Project>
+      <Name>AutoPaint.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

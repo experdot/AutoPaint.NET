@@ -1,11 +1,12 @@
 ﻿Imports System.Drawing
-Imports AutomaticDrawing.Core
+Imports AutoPaint.Core
 ''' <summary>
 ''' 提供位图动画的绘制器
 ''' </summary>
 Public Class BitmapPainter
     Implements IPainter
-    Public Event UpdatePaint As IPainter.UpdatePaintEventHandler Implements IPainter.UpdatePaint
+
+    Public Event UpdatePaint As EventHandler(Of UpdatePaintEventArgs) Implements IPainter.UpdatePaint
     ''' <summary>
     ''' 视图
     ''' </summary>

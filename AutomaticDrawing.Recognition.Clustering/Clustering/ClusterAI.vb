@@ -1,6 +1,6 @@
 ﻿Imports System.Drawing
 Imports System.Numerics
-Imports AutomaticDrawing.Core
+Imports AutoPaint.Core
 ''' <summary>
 ''' 聚类AI
 ''' </summary>
