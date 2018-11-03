@@ -174,6 +174,8 @@ namespace AutoPaint.Utilities
         /// </summary>
         public static PixelData GetHollowPixelData(PixelData pixels)
         {
+            return Thin.Solve2(pixels);
+
             var colors = pixels.GetColorsClone();
             int[,] bools = GetPixelDataBools(pixels);
             for (var i = 0; i <= pixels.Width - 1; i++)
