@@ -7,17 +7,18 @@ namespace AutoPaint.Core
     public class UpdatePaintEventArgs
     {
         /// <summary>
-        /// 新的绘制点
+        /// Gets the vertex being draw.
         /// </summary>
-        public Vertex Point { get; set; }
+        public Vertex NewVertex { get; }
+
         /// <summary>
-        ///  绘制进度
+        /// Gets the progress of painting.
         /// </summary>
-        public float Percent { get; set; }
+        public float Percent { get; }
 
         public UpdatePaintEventArgs(Vertex point, float percent)
         {
-            this.Point = point;
+            this.NewVertex = point;
             this.Percent = percent;
         }
     }

@@ -58,7 +58,7 @@ Public Class Form1
             Machine.Preview = New Drawing.Bitmap(Machine.Final.Width, Machine.Final.Height)
             PictureBox2.Image = Machine.Preview
             Machine.ResetReconition(New ClusteringRecognition)
-            Machine.ResetPainter(New BitmapPainter(Machine.Preview, True))
+            Machine.ResetPainter(New BitmapPainter(Machine.Preview))
             Machine.IsUseOriginal = True
             AddHandler Machine.Painter.UpdatePaint, AddressOf RefreshPicturebox2
             Machine.Run()
@@ -85,7 +85,7 @@ Public Class Form1
     ''' <summary>
     ''' 选择按钮状态改变时
     ''' </summary>
-    Private Sub CheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox2.CheckedChanged， CheckBox3.CheckedChanged
+    Private Sub CheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox1.CheckedChanged, CheckBox2.CheckedChanged， CheckBox3.CheckedChanged
         ImageChanged()
     End Sub
     ''' <summary>
@@ -123,7 +123,7 @@ Public Class Form1
         If Count Mod PreviewSpeed = 0 Then
             Task.Run(Sub()
                          Me.Invoke(Sub()
-                                       ToolStripStatusLabel2.Text = $"Position:[{e.Point.X},{e.Point.Y}]"
+                                       ToolStripStatusLabel2.Text = $"Position:[{e.NewVertex.X},{e.NewVertex.Y}]"
                                        ToolStripStatusLabel4.Text = $"Preview:{(e.Percent * 100).ToString("F2")}%"
                                        PictureBox2.Refresh()
                                    End Sub)
@@ -138,8 +138,11 @@ Public Class Form1
     Private Sub ImageChanged()
         If Machine?.Current IsNot Nothing Then
             Machine.Final = New Drawing.Bitmap(Machine.Current)
+            If CheckBox1.Checked Then
+                Machine.Final = ColorHelper.GetThinPixelData(Machine.Current.GetPixelData).CreateBitmap
+            End If
             If CheckBox2.Checked Then
-                Machine.Final = ColorHelper.GetHollowPixelData(Machine.Current.GetPixelData).CreateBitmap
+                Machine.Final = ColorHelper.GetHollowPixelData(Machine.Final.GetPixelData).CreateBitmap
             End If
             If CheckBox3.Checked Then
                 Machine.Final = ColorHelper.GetInvertPixelData(Machine.Final.GetPixelData).CreateBitmap

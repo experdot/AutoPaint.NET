@@ -91,7 +91,7 @@ Public Class Cluster
         If Children.Count = 0 Then
             Return Position
         Else
-            Return VectorHelper.GetAveratePosition(GetPostionsOfChidren())
+            Return VectorHelper.GetAveragePosition(GetPostionsOfChidren())
         End If
     End Function
 

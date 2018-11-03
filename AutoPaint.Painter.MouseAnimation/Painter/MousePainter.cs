@@ -49,12 +49,16 @@ namespace AutoPaint.Painter
                 {
                     VirtualKeyboard.MouseMove((int)(SubPoint.X + Offset.X), (int)(SubPoint.Y + Offset.Y), SleepTime);
                     current += 1;
-                    UpdatePaint?.Invoke(this, new UpdatePaintEventArgs(SubPoint, current / totalCount));
+                    UpdatePaint?.Invoke(this, new UpdatePaintEventArgs(SubPoint, current / (float)totalCount));
                 }
                 VirtualKeyboard.MouseDownOrUp(false, SleepTime);
             }
         }
         public void Pause()
+        {
+            throw new NotImplementedException();
+        }
+        public void Resume()
         {
             throw new NotImplementedException();
         }

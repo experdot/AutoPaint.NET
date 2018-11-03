@@ -66,7 +66,7 @@ namespace AutoPaint.Utilities
             return PixelData.CreateFromColors(colors);
         }
 
-        public static PixelData Solve2(PixelData pixels)
+        public static PixelData Solve2(PixelData pixels, int depth = 50)
         {
             PixelData p = pixels;
             int[,] bools = ColorHelper.GetPixelDataBools(pixels);
@@ -74,7 +74,7 @@ namespace AutoPaint.Utilities
             int w = pixels.Width;
             int h = pixels.Height;
 
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < depth; i++)
             {
                 iThin = VThin(iThin, w, h);
                 iThin = HThin(iThin, w, h);

@@ -23,6 +23,7 @@ namespace AutoPaint.Utilities
             result = Color.FromArgb(a, r, g, b);
             return result;
         }
+
         /// <summary>
         /// 返回两个颜色的平均颜色
         /// </summary>
@@ -36,6 +37,7 @@ namespace AutoPaint.Utilities
             result = Color.FromArgb(a, r, g, b);
             return result;
         }
+
         /// <summary>
         /// 返回两个颜色的相似度
         /// </summary>
@@ -47,6 +49,7 @@ namespace AutoPaint.Utilities
             result = 1 / (1 + (vec1 - vec2).LengthSquared());
             return result;
         }
+
         /// <summary> 
         /// 基于RGB判断两个颜色是否相似
         /// </summary>
@@ -61,6 +64,7 @@ namespace AutoPaint.Utilities
             else
                 return false;
         }
+
         /// <summary> 
         /// 基于HSB判断两个颜色是否相似
         /// </summary>
@@ -89,6 +93,7 @@ namespace AutoPaint.Utilities
             else
                 return false;
         }
+
         /// <summary> 
         /// 返回指定颜色的灰度值
         /// </summary>
@@ -120,6 +125,7 @@ namespace AutoPaint.Utilities
             }
             return PixelData.CreateFromColors(colors);
         }
+
         /// <summary>
         /// 返回指定像素数据的二值化变换
         /// </summary>
@@ -137,6 +143,7 @@ namespace AutoPaint.Utilities
             }
             return PixelData.CreateFromColors(colors);
         }
+
         /// <summary>
         /// 返回指定位图的轮廓图像
         /// </summary>
@@ -169,13 +176,12 @@ namespace AutoPaint.Utilities
             }
             return PixelData.CreateFromColors(colors);
         }
+
         /// <summary>
-        /// 返回指定二值化像素数据的空心变换
+        /// 返回指定像素数据的空心变换
         /// </summary>
         public static PixelData GetHollowPixelData(PixelData pixels)
         {
-            return Thin.Solve2(pixels);
-
             var colors = pixels.GetColorsClone();
             int[,] bools = GetPixelDataBools(pixels);
             for (var i = 0; i <= pixels.Width - 1; i++)
@@ -190,6 +196,15 @@ namespace AutoPaint.Utilities
             }
             return PixelData.CreateFromColors(colors);
         }
+
+        /// <summary>
+        /// 返回指定像素数据的细化图像
+        /// </summary>
+        public static PixelData GetThinPixelData(PixelData pixels)
+        {
+            return Thin.Solve2(pixels);
+        }
+
         /// <summary>
         /// 返回指定二值化像素数据的反相变换
         /// </summary>
@@ -209,6 +224,7 @@ namespace AutoPaint.Utilities
             }
             return PixelData.CreateFromColors(colors);
         }
+
         /// <summary>
         /// 返回指定二值化像素数据的的布尔数组
         /// </summary>
@@ -229,7 +245,6 @@ namespace AutoPaint.Utilities
             return result;
         }
 
-
         public static int[] OffsetX = new[] { 0, 1, 0, -1 };
         public static int[] OffsetY = new[] { -1, 0, 1, 0 };
         /// <summary>
@@ -246,6 +261,7 @@ namespace AutoPaint.Utilities
             }
             return true;
         }
+
         /// <summary>
         /// 返回指定数组索引是否越界
         /// </summary>

@@ -4,18 +4,16 @@ using System.Text;
 
 namespace AutoPaint.Core
 {
-    /// <summary>
-    /// 绘制器接口
-    /// </summary>
     public interface IPainter
     {
         /// <summary>
-        /// 绘制点更新时发生的事件
+        /// Gets the event that occur when a drawing point happens to update.
         /// </summary>
         event EventHandler<UpdatePaintEventArgs> UpdatePaint;
 
         void Start(List<ILine> lines);
         void Pause();
+        void Resume();
         void Stop();
     }
 }

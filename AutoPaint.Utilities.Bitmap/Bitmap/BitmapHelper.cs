@@ -92,5 +92,4 @@ namespace AutoPaint.Utilities
             return result;
         }
     }
-
 }

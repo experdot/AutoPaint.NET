@@ -31,6 +31,7 @@ Partial Class Form1
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.Label3 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Button2 = New System.Windows.Forms.Button()
         Me.Button3 = New System.Windows.Forms.Button()
@@ -48,7 +49,7 @@ Partial Class Form1
         Me.TrackBar4 = New System.Windows.Forms.TrackBar()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.Label3 = New System.Windows.Forms.Label()
+        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.StatusStrip1.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.Panel4.SuspendLayout()
@@ -87,7 +88,7 @@ Partial Class Form1
         '
         Me.ToolStripStatusLabel4.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left
         Me.ToolStripStatusLabel4.Name = "ToolStripStatusLabel4"
-        Me.ToolStripStatusLabel4.Size = New System.Drawing.Size(89, 25)
+        Me.ToolStripStatusLabel4.Size = New System.Drawing.Size(80, 25)
         Me.ToolStripStatusLabel4.Text = "Preview:0%   "
         '
         'ToolStripStatusLabel2
@@ -103,7 +104,7 @@ Partial Class Form1
         '
         Me.ToolStripStatusLabel3.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left
         Me.ToolStripStatusLabel3.Name = "ToolStripStatusLabel3"
-        Me.ToolStripStatusLabel3.Size = New System.Drawing.Size(96, 25)
+        Me.ToolStripStatusLabel3.Size = New System.Drawing.Size(85, 25)
         Me.ToolStripStatusLabel3.Text = "1280*720 Pixel"
         Me.ToolStripStatusLabel3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -130,6 +131,7 @@ Partial Class Form1
         '
         'Panel4
         '
+        Me.Panel4.Controls.Add(Me.CheckBox1)
         Me.Panel4.Controls.Add(Me.GroupBox1)
         Me.Panel4.Controls.Add(Me.Button2)
         Me.Panel4.Controls.Add(Me.Button3)
@@ -149,12 +151,22 @@ Partial Class Form1
         Me.GroupBox1.Controls.Add(Me.Label1)
         Me.GroupBox1.Font = New System.Drawing.Font("宋体", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
         Me.GroupBox1.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.GroupBox1.Location = New System.Drawing.Point(5, 224)
+        Me.GroupBox1.Location = New System.Drawing.Point(5, 235)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(155, 132)
         Me.GroupBox1.TabIndex = 25
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Hot keys"
+        '
+        'Label3
+        '
+        Me.Label3.Font = New System.Drawing.Font("宋体", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
+        Me.Label3.ForeColor = System.Drawing.SystemColors.GrayText
+        Me.Label3.Location = New System.Drawing.Point(6, 97)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(140, 26)
+        Me.Label3.TabIndex = 25
+        Me.Label3.Text = "(Actived when paint on screen)"
         '
         'Label1
         '
@@ -200,9 +212,7 @@ Partial Class Form1
         'CheckBox2
         '
         Me.CheckBox2.AutoSize = True
-        Me.CheckBox2.Checked = True
-        Me.CheckBox2.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.CheckBox2.Location = New System.Drawing.Point(11, 164)
+        Me.CheckBox2.Location = New System.Drawing.Point(11, 178)
         Me.CheckBox2.Name = "CheckBox2"
         Me.CheckBox2.Size = New System.Drawing.Size(60, 16)
         Me.CheckBox2.TabIndex = 15
@@ -212,7 +222,7 @@ Partial Class Form1
         'CheckBox3
         '
         Me.CheckBox3.AutoSize = True
-        Me.CheckBox3.Location = New System.Drawing.Point(11, 186)
+        Me.CheckBox3.Location = New System.Drawing.Point(11, 200)
         Me.CheckBox3.Name = "CheckBox3"
         Me.CheckBox3.Size = New System.Drawing.Size(84, 16)
         Me.CheckBox3.TabIndex = 18
@@ -340,15 +350,17 @@ Partial Class Form1
         Me.Label2.TabIndex = 0
         Me.Label2.Text = "Speed"
         '
-        'Label3
+        'CheckBox1
         '
-        Me.Label3.Font = New System.Drawing.Font("宋体", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(134, Byte))
-        Me.Label3.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.Label3.Location = New System.Drawing.Point(6, 97)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(140, 26)
-        Me.Label3.TabIndex = 25
-        Me.Label3.Text = "(Actived when paint on screen)"
+        Me.CheckBox1.AutoSize = True
+        Me.CheckBox1.Checked = True
+        Me.CheckBox1.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.CheckBox1.Location = New System.Drawing.Point(11, 156)
+        Me.CheckBox1.Name = "CheckBox1"
+        Me.CheckBox1.Size = New System.Drawing.Size(48, 16)
+        Me.CheckBox1.TabIndex = 26
+        Me.CheckBox1.Text = "Thin"
+        Me.CheckBox1.UseVisualStyleBackColor = True
         '
         'Form1
         '
@@ -413,4 +425,5 @@ Partial Class Form1
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents Label1 As Label
     Friend WithEvents Label3 As Label
+    Friend WithEvents CheckBox1 As CheckBox
 End Class

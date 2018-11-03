@@ -1,22 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Diagnostics;
+using System.Globalization;
+using System.IO;
+using System.Linq;
 
 namespace AutoPaint.Utilities
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.Globalization;
-    using System.IO;
-    using System.Linq;
-    using System.Reflection;
-    using System.Runtime.CompilerServices;
-    using System.Security;
-    using System.Text;
-    using System.Threading.Tasks;
-    using Microsoft.VisualBasic;
-
     public class VirtualKeyboard
     {
         [System.Runtime.InteropServices.DllImport("user32")]
@@ -48,6 +39,7 @@ namespace AutoPaint.Utilities
             SetCursorPos(x, y);
             System.Threading.Thread.Sleep(interval);
         }
+
         /// <summary>
         /// 发送一组按键
         /// </summary>
@@ -67,6 +59,7 @@ namespace AutoPaint.Utilities
                     }
             }
         }
+
         /// <summary>
         /// 发送一组扩展的按键
         /// </summary>
@@ -78,6 +71,7 @@ namespace AutoPaint.Utilities
             foreach (var SubKey in extra)
                 VirtualKeyUp(SubKey);
         }
+
         /// <summary>
         /// 发送单个按键
         /// </summary>
@@ -87,6 +81,7 @@ namespace AutoPaint.Utilities
             System.Threading.Thread.Sleep(interval);
             VirtualKeyUp(vKey);
         }
+
         /// <summary>
         /// 同时发送两个按键
         /// </summary>
@@ -98,6 +93,7 @@ namespace AutoPaint.Utilities
             VirtualKeyUp(vKey1);
             VirtualKeyUp(vKey2);
         }
+
         /// <summary>
         /// 获取A~Z的按键状态
         /// </summary>
@@ -132,6 +128,7 @@ namespace AutoPaint.Utilities
             }
             return false;
         }
+
         /// <summary>
         /// 按下指定按键
         /// </summary>
@@ -139,6 +136,7 @@ namespace AutoPaint.Utilities
         {
             keybd_event((byte)vKey, (byte)MapVirtualKey((int)vKey, 0), 0x1 | 0, 0); // 按下
         }
+
         /// <summary>
         /// 松开指定按键
         /// </summary>

@@ -11,7 +11,7 @@ namespace AutoPaint.Utilities
         /// <summary>
         /// 返回向量集合的平均位置
         /// </summary>
-        public static Vector2 GetAveratePosition(IEnumerable<Vector2> positions)
+        public static Vector2 GetAveragePosition(IEnumerable<Vector2> positions)
         {
             Vector2 result;
             float x = positions.Sum(p => p.X) / positions.Count();

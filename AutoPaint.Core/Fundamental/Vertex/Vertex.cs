@@ -7,7 +7,7 @@ using System.Text;
 namespace AutoPaint.Core
 {
     /// <summary>
-    /// 表示具有位置、颜色和大小的顶点
+    /// Represents a vertex with position, color, and size properties.
     /// </summary>
     public class Vertex
     {
