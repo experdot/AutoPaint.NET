@@ -9,21 +9,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "App", "App", "{078A76AE-9BFF-4C9B-9AFB-F148912593B1}"
 EndProject
-Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "AutomaticDrawing.Recognition.FastAI", "AutomaticDrawing.Recognition.FastAI\AutomaticDrawing.Recognition.FastAI.vbproj", "{7B4A0237-7E31-45F1-AF08-814EE960044A}"
-EndProject
 Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "AutomaticDrawing.Recognition.Clustering", "AutomaticDrawing.Recognition.Clustering\AutomaticDrawing.Recognition.Clustering.vbproj", "{43E01407-449C-45D8-9208-FC53079889D5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoPaint.Core", "AutoPaint.Core\AutoPaint.Core.csproj", "{B78BA26A-DBA4-4A50-820D-3937C74E0AAF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoPaint.Painter.BitmapAnimation", "AutoPaint.Painter.BitmapAnimation\AutoPaint.Painter.BitmapAnimation.csproj", "{3DB9C568-33A8-49DC-A2F8-F00DC122F70B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoPaint.Painter.BitmapAnimation", "AutoPaint.Painter.BitmapAnimation\AutoPaint.Painter.BitmapAnimation.csproj", "{3DB9C568-33A8-49DC-A2F8-F00DC122F70B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoPaint.Painter.MouseAnimation", "AutoPaint.Painter.MouseAnimation\AutoPaint.Painter.MouseAnimation.csproj", "{E7A05C29-A13A-4D25-BD50-D96EB22AB603}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoPaint.Painter.MouseAnimation", "AutoPaint.Painter.MouseAnimation\AutoPaint.Painter.MouseAnimation.csproj", "{E7A05C29-A13A-4D25-BD50-D96EB22AB603}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoPaint.Utilities", "AutoPaint.Utilities\AutoPaint.Utilities.csproj", "{3C743BC0-8C1A-4997-86AB-CF01E2FDCF53}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoPaint.Utilities", "AutoPaint.Utilities\AutoPaint.Utilities.csproj", "{3C743BC0-8C1A-4997-86AB-CF01E2FDCF53}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoPaint.Utilities.Bitmap", "AutoPaint.Utilities.Bitmap\AutoPaint.Utilities.Bitmap.csproj", "{9934E28C-F1F3-4585-A3F6-0BCD624E47F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoPaint.Utilities.Bitmap", "AutoPaint.Utilities.Bitmap\AutoPaint.Utilities.Bitmap.csproj", "{9934E28C-F1F3-4585-A3F6-0BCD624E47F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoPaint.Utilities.Keyboard", "AutoPaint.Utilities.Keyboard\AutoPaint.Utilities.Keyboard.csproj", "{7EF01E94-006E-4C7D-BD11-5C8855FC7715}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoPaint.Utilities.Keyboard", "AutoPaint.Utilities.Keyboard\AutoPaint.Utilities.Keyboard.csproj", "{7EF01E94-006E-4C7D-BD11-5C8855FC7715}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoPaint.Recognition.FastAI", "AutoPaint.Recognition.FastAI\AutoPaint.Recognition.FastAI.csproj", "{A905B676-3DA6-4571-A8A9-EF510C979EED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +35,6 @@ Global
 		{32691263-3086-4B38-984C-0CFAF8469ADA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32691263-3086-4B38-984C-0CFAF8469ADA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32691263-3086-4B38-984C-0CFAF8469ADA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7B4A0237-7E31-45F1-AF08-814EE960044A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7B4A0237-7E31-45F1-AF08-814EE960044A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7B4A0237-7E31-45F1-AF08-814EE960044A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7B4A0237-7E31-45F1-AF08-814EE960044A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{43E01407-449C-45D8-9208-FC53079889D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{43E01407-449C-45D8-9208-FC53079889D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{43E01407-449C-45D8-9208-FC53079889D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -67,13 +63,16 @@ Global
 		{7EF01E94-006E-4C7D-BD11-5C8855FC7715}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7EF01E94-006E-4C7D-BD11-5C8855FC7715}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7EF01E94-006E-4C7D-BD11-5C8855FC7715}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A905B676-3DA6-4571-A8A9-EF510C979EED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A905B676-3DA6-4571-A8A9-EF510C979EED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A905B676-3DA6-4571-A8A9-EF510C979EED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A905B676-3DA6-4571-A8A9-EF510C979EED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{32691263-3086-4B38-984C-0CFAF8469ADA} = {078A76AE-9BFF-4C9B-9AFB-F148912593B1}
-		{7B4A0237-7E31-45F1-AF08-814EE960044A} = {E487432C-6413-42AB-A5AC-A6814E6AB0D2}
 		{43E01407-449C-45D8-9208-FC53079889D5} = {E487432C-6413-42AB-A5AC-A6814E6AB0D2}
 		{B78BA26A-DBA4-4A50-820D-3937C74E0AAF} = {E487432C-6413-42AB-A5AC-A6814E6AB0D2}
 		{3DB9C568-33A8-49DC-A2F8-F00DC122F70B} = {E487432C-6413-42AB-A5AC-A6814E6AB0D2}
@@ -81,6 +80,7 @@ Global
 		{3C743BC0-8C1A-4997-86AB-CF01E2FDCF53} = {E487432C-6413-42AB-A5AC-A6814E6AB0D2}
 		{9934E28C-F1F3-4585-A3F6-0BCD624E47F1} = {E487432C-6413-42AB-A5AC-A6814E6AB0D2}
 		{7EF01E94-006E-4C7D-BD11-5C8855FC7715} = {E487432C-6413-42AB-A5AC-A6814E6AB0D2}
+		{A905B676-3DA6-4571-A8A9-EF510C979EED} = {E487432C-6413-42AB-A5AC-A6814E6AB0D2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {603052D6-616D-4847-9A71-9F652B888F72}

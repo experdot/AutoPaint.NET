@@ -1,9 +1,9 @@
 ﻿Imports System.Numerics
 Imports AutoPaint.Core
 Imports AutoPaint.Painter
-Imports AutomaticDrawing.Recognition.Clustering
-Imports AutomaticDrawing.Recognition.FastAI
 Imports AutoPaint.Utilities
+Imports AutoPaint.Recognition
+Imports AutomaticDrawing.Recognition.Clustering
 
 Public Class Form1
     ''' <summary>
@@ -37,7 +37,7 @@ Public Class Form1
         If MessageBox.Show("Are you sure the window is on microsoft paint application?" + vbCrLf +
                            "(Please remember the hot keys,it's useful.)", "Warning", MessageBoxButtons.YesNo) = DialogResult.Yes Then
             Me.Hide()
-            Machine.ResetReconition(New FastRecognition)
+            Machine.ResetReconition(New FastRecognition())
             Machine.ResetPainter(New MousePainter(New Vector2(TabPage1.PointToScreen(New Point(0, 0)).X + 3, TabPage1.PointToScreen(New Point(0, 0)).Y + 3)))
             Machine.IsUseOriginal = False
             AddHandler Machine.Painter.UpdatePaint, AddressOf RefreshPicturebox2

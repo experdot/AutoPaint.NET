@@ -133,10 +133,6 @@
       <Project>{43e01407-449c-45d8-9208-fc53079889d5}</Project>
       <Name>AutomaticDrawing.Recognition.Clustering</Name>
     </ProjectReference>
-    <ProjectReference Include="..\AutomaticDrawing.Recognition.FastAI\AutomaticDrawing.Recognition.FastAI.vbproj">
-      <Project>{7B4A0237-7E31-45F1-AF08-814EE960044A}</Project>
-      <Name>AutomaticDrawing.Recognition.FastAI</Name>
-    </ProjectReference>
     <ProjectReference Include="..\AutoPaint.Core\AutoPaint.Core.csproj">
       <Project>{b78ba26a-dba4-4a50-820d-3937c74e0aaf}</Project>
       <Name>AutoPaint.Core</Name>
@@ -148,6 +144,10 @@
     <ProjectReference Include="..\AutoPaint.Painter.MouseAnimation\AutoPaint.Painter.MouseAnimation.csproj">
       <Project>{e7a05c29-a13a-4d25-bd50-d96eb22ab603}</Project>
       <Name>AutoPaint.Painter.MouseAnimation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AutoPaint.Recognition.FastAI\AutoPaint.Recognition.FastAI.csproj">
+      <Project>{a905b676-3da6-4571-a8a9-ef510c979eed}</Project>
+      <Name>AutoPaint.Recognition.FastAI</Name>
     </ProjectReference>
     <ProjectReference Include="..\AutoPaint.Utilities.Bitmap\AutoPaint.Utilities.Bitmap.csproj">
       <Project>{9934e28c-f1f3-4585-a3f6-0bcd624e47f1}</Project>
