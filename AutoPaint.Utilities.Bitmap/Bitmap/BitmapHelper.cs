@@ -8,9 +8,6 @@ namespace AutoPaint.Utilities
 {
     public class BitmapHelper
     {
-        /// <summary>
-        /// 返回指定矩形区域的屏幕图像
-        /// </summary>
         public static Bitmap GetScreenImage(Rectangle rect)
         {
             Bitmap result = new Bitmap(rect.Width, rect.Height);
@@ -21,9 +18,6 @@ namespace AutoPaint.Utilities
             return result;
         }
 
-        /// <summary>
-        /// 返回指定文字生成的位图
-        /// </summary>
         public static Bitmap GetTextImage(string text, Font font, int width, int height)
         {
             Bitmap result = new Bitmap(width, height);
@@ -35,9 +29,6 @@ namespace AutoPaint.Utilities
             return result;
         }
 
-        /// <summary>
-        /// 返回指定位图包含的像素数据
-        /// </summary>
         public static PixelData GetPixelDataFromBitmap(Bitmap bmp)
         {
             Color[,] colors = new Color[bmp.Width - 1 + 1, bmp.Height - 1 + 1];
@@ -50,17 +41,12 @@ namespace AutoPaint.Utilities
             }
             return PixelData.CreateFromColors(colors);
         }
-        /// <summary>
-        /// 返回指定颜色数组生成的位图
-        /// </summary>
+
         public static Bitmap GetBitmapFromPixelData(PixelData pixels)
         {
             return GetBitmapFromColors(pixels.Colors);
         }
 
-        /// <summary>
-        /// 返回指定位图包含的颜色数组
-        /// </summary>
         public static Color[,] GetColorsFromBitmap(Bitmap bmp)
         {
             Color[,] result = new Color[bmp.Width - 1 + 1, bmp.Height - 1 + 1];
@@ -74,9 +60,6 @@ namespace AutoPaint.Utilities
             return result;
         }
 
-        /// <summary>
-        /// 返回指定颜色数组生成的位图
-        /// </summary>
         public static Bitmap GetBitmapFromColors(Color[,] colors)
         {
             int w = colors.GetUpperBound(0) + 1;

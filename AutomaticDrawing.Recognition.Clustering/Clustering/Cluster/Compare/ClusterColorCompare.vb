@@ -1,8 +1,6 @@
 ﻿Imports AutomaticDrawing.Recognition.Clustering
 Imports AutoPaint.Utilities
-''' <summary>
-''' 颜色比较器
-''' </summary>
+
 Public Class ClusterColorCompare
     Implements IComparer(Of Cluster)
     Public Property Target As Cluster

@@ -6,6 +6,6 @@ namespace AutoPaint.Core
 {
     public class Painting : IPainting
     {
-        public IEnumerable<ILine> Lines { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public IEnumerable<ILine> Lines { get; set; }
     }
 }

@@ -13,22 +13,10 @@ namespace AutoPaint.Painter
     {
         public event EventHandler<OnPaintingUpdatedEventArgs> OnPaintingUpdated;
 
-        /// <summary>
-        ///     ''' 鼠标事件间隔
-        ///     ''' </summary>
         public int SleepTime { get; set; }
-        /// <summary>
-        ///     ''' 绘制偏移
-        ///     ''' </summary>
         public Vector2 Offset { get; set; }
-        /// <summary>
-        ///     ''' 是否检测Ctrl+Alt组合键
-        ///     ''' </summary>
         public bool IsCheckCtrlAlKey { get; set; } = true;
 
-        /// <summary>
-        ///     ''' 创建并初始化一个实例
-        ///     ''' </summary>
         public MousePainter(Vector2 offset, int sleepTime = 3)
         {
             this.SleepTime = sleepTime;
@@ -45,14 +33,14 @@ namespace AutoPaint.Painter
                 if (CheckKey() == false)
                     return;
                 VirtualKeyboard.MouseMove((int)(line.Vertices.First().X + Offset.X), (int)(line.Vertices.First().Y + Offset.Y), SleepTime);
-                VirtualKeyboard.MouseDownOrUp(true, SleepTime);
+                VirtualKeyboard.MouseDown(SleepTime);
                 foreach (var SubPoint in line.Vertices)
                 {
                     VirtualKeyboard.MouseMove((int)(SubPoint.X + Offset.X), (int)(SubPoint.Y + Offset.Y), SleepTime);
                     current += 1;
                     OnPaintingUpdated?.Invoke(this, new OnPaintingUpdatedEventArgs(SubPoint, current / (float)totalCount));
                 }
-                VirtualKeyboard.MouseDownOrUp(false, SleepTime);
+                VirtualKeyboard.MouseUp(SleepTime);
             }
         }
         public void Pause()

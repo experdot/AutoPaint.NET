@@ -7,34 +7,13 @@ using System.Text;
 
 namespace AutoPaint.Recognition
 {
-    /// <summary>
-    /// 自动循迹并生成绘制序列的AI
-    /// </summary>
     public class FastAI : IDisposable
     {
-        /// <summary>
-        /// 线条集
-        /// </summary>
         public List<ILine> Lines { get; set; } = new List<ILine>();
-        /// <summary>
-        /// 扫描方式
-        /// </summary>
         public ScanMode ScanMode { get; set; } = ScanMode.Rect;
-        /// <summary>
-        /// 最大搜索深度
-        /// </summary>
         public int DepthMax { get; set; } = 1000;
-        /// <summary>
-        /// 是否检查边界权值
-        /// </summary>
         public bool IsCheckAround { get; set; } = false;
-        /// <summary>
-        /// 边界权值下界
-        /// </summary>
         public int AroundLower { get; set; } = 3;
-        /// <summary>
-        /// 边界权值上界
-        /// </summary>
         public int AroundUpper { get; set; } = 7;
 
         private static readonly int[] OffsetX = new[] { -1, 0, 1, 1, 1, 0, -1, -1 };
@@ -48,23 +27,16 @@ namespace AutoPaint.Recognition
             CalculateSequence(bools);
         }
 
-        /// <summary>
-        /// 新增一个序列
-        /// </summary>
         private void CreateNewSequence()
         {
             Lines.Add(new Line());
         }
-        /// <summary>
-        /// 在序列List末尾项新增一个点
-        /// </summary>
+
         private void AddPoint(Vector2 position)
         {
             Lines.Last().Vertices.Add(new Vertex() { Position = position, Size = 1 });
         }
-        /// <summary>
-        /// 计算序列
-        /// </summary>
+
         private void CalculateSequence(int[,] bools)
         {
             if (ScanMode == ScanMode.Rect)
@@ -72,9 +44,7 @@ namespace AutoPaint.Recognition
             else
                 ScanCircle(bools);
         }
-        /// <summary>
-        /// 圆形扫描
-        /// </summary>
+
         private void ScanCircle(int[,] bools)
         {
             int xlength = bools.GetLength(0);
@@ -101,9 +71,7 @@ namespace AutoPaint.Recognition
                 }
             }
         }
-        /// <summary>
-        /// 矩形扫描
-        /// </summary>
+
         private void ScanRect(int[,] BolArr)
         {
             int xCount = BolArr.GetUpperBound(0);
@@ -129,9 +97,7 @@ namespace AutoPaint.Recognition
                 }
             }
         }
-        /// <summary>
-        /// 递归循迹
-        /// </summary>
+
         private void MoveNext(int[,] bools, int x, int y, int depth)
         {
             if (depth > DepthMax)
@@ -167,9 +133,7 @@ namespace AutoPaint.Recognition
                 }
             }
         }
-        /// <summary>
-        /// 返回点权值
-        /// </summary>
+
         private int GetAroundValue(int[,] bools, int x, int y)
         {
             int dx, dy, result = 0;

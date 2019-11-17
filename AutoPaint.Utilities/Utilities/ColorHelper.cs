@@ -10,9 +10,6 @@ namespace AutoPaint.Utilities
 {
     public class ColorHelper
     {
-        /// <summary>
-        /// 返回颜色集合的平均颜色
-        /// </summary>
         public static Color GetAverageColor(IEnumerable<Color> colors)
         {
             Color result;
@@ -24,9 +21,6 @@ namespace AutoPaint.Utilities
             return result;
         }
 
-        /// <summary>
-        /// 返回两个颜色的平均颜色
-        /// </summary>
         public static Color GetAverageColor(Color color1, Color color2)
         {
             Color result;
@@ -38,9 +32,6 @@ namespace AutoPaint.Utilities
             return result;
         }
 
-        /// <summary>
-        /// 返回两个颜色的相似度
-        /// </summary>
         public static float GetColorSimilarity(Color color1, Color color2)
         {
             float result = 0;
@@ -50,9 +41,6 @@ namespace AutoPaint.Utilities
             return result;
         }
 
-        /// <summary> 
-        /// 基于RGB判断两个颜色是否相似
-        /// </summary>
         public static bool CompareBaseRGB(Color color1, Color color2, float distance)
         {
             int r = System.Convert.ToInt32(color1.R) - System.Convert.ToInt32(color2.R);
@@ -65,12 +53,9 @@ namespace AutoPaint.Utilities
                 return false;
         }
 
-        /// <summary> 
-        /// 基于HSB判断两个颜色是否相似
-        /// </summary>
         public static bool CompareBaseHSB(Color color1, Color color2, float distance)
         {
-            // 向量距离
+            // Vector distance
             // Dim h As Single = (Color1.GetHue - Color2.GetHue) / 360
             // Dim s As Single = Color1.GetSaturation - Color2.GetSaturation
             // Dim b As Single = Color1.GetBrightness - Color2.GetBrightness
@@ -80,7 +65,7 @@ namespace AutoPaint.Utilities
             // Else
             // Return False
             // End If
-            // 向量夹角
+            // Vector Angle
             float h1 = color1.GetHue() / 360;
             float s1 = color1.GetSaturation();
             float b1 = color1.GetBrightness();
@@ -94,9 +79,6 @@ namespace AutoPaint.Utilities
                 return false;
         }
 
-        /// <summary> 
-        /// 返回指定颜色的灰度值
-        /// </summary>
         public static int GetGrayOfColor(Color color)
         {
             int mid, r, g, b;
@@ -107,9 +89,6 @@ namespace AutoPaint.Utilities
             return mid;
         }
 
-        /// <summary>
-        /// 返回指定像素数据的块变换
-        /// </summary>
         public static PixelData GetLumpPixelData(PixelData pixels, int range = 10)
         {
             Color[,] colors = pixels.GetColorsClone();
@@ -126,9 +105,6 @@ namespace AutoPaint.Utilities
             return PixelData.CreateFromColors(colors);
         }
 
-        /// <summary>
-        /// 返回指定像素数据的二值化变换
-        /// </summary>
         public static PixelData GetThresholdPixelData(PixelData pixels, float threshold, bool isHSB = false)
         {
             Color[,] colors = pixels.GetColorsClone();
@@ -144,9 +120,6 @@ namespace AutoPaint.Utilities
             return PixelData.CreateFromColors(colors);
         }
 
-        /// <summary>
-        /// 返回指定位图的轮廓图像
-        /// </summary>
         public static PixelData GetOutLinePixelData(PixelData pixels, float distance, bool isHSB = false)
         {
             Func<Color, Color, float, bool> CompareColor = (Color c1, Color c2, float d) =>
@@ -177,9 +150,6 @@ namespace AutoPaint.Utilities
             return PixelData.CreateFromColors(colors);
         }
 
-        /// <summary>
-        /// 返回指定像素数据的空心变换
-        /// </summary>
         public static PixelData GetHollowPixelData(PixelData pixels)
         {
             var colors = pixels.GetColorsClone();
@@ -197,17 +167,11 @@ namespace AutoPaint.Utilities
             return PixelData.CreateFromColors(colors);
         }
 
-        /// <summary>
-        /// 返回指定像素数据的细化图像
-        /// </summary>
         public static PixelData GetThinPixelData(PixelData pixels)
         {
             return Thin.Solve2(pixels);
         }
 
-        /// <summary>
-        /// 返回指定二值化像素数据的反相变换
-        /// </summary>
         public static PixelData GetInvertPixelData(PixelData pixels)
         {
             var colors = pixels.GetColorsClone();
@@ -225,9 +189,6 @@ namespace AutoPaint.Utilities
             return PixelData.CreateFromColors(colors);
         }
 
-        /// <summary>
-        /// 返回指定二值化像素数据的的布尔数组
-        /// </summary>
         public static int[,] GetPixelDataBools(PixelData pixels)
         {
             int[,] result = new int[pixels.Width - 1 + 1, pixels.Height - 1 + 1];
@@ -247,25 +208,20 @@ namespace AutoPaint.Utilities
 
         public static int[] OffsetX = new[] { 0, 1, 0, -1 };
         public static int[] OffsetY = new[] { -1, 0, 1, 0 };
-        /// <summary>
-        /// 返回指定索引位置是否被包围
-        /// </summary>
+
         private static bool IsBesieged(int[,] bools, int x, int y)
         {
             for (var i = 0; i <= 3; i++)
             {
                 int dx = x + OffsetX[i];
                 int dy = y + OffsetY[i];
-                if (IsIndexOverFlow(bools, dx, dy) || bools[dx, dy] == 0)
+                if (IsIndexOverFlowArrayBound(bools, dx, dy) || bools[dx, dy] == 0)
                     return false;
             }
             return true;
         }
 
-        /// <summary>
-        /// 返回指定数组索引是否越界
-        /// </summary>
-        private static bool IsIndexOverFlow(Array array, int x, int y)
+        private static bool IsIndexOverFlowArrayBound(Array array, int x, int y)
         {
             int w = array.GetUpperBound(0);
             int h = array.GetUpperBound(1);
