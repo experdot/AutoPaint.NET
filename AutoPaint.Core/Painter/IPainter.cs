@@ -7,11 +7,11 @@ namespace AutoPaint.Core
     public interface IPainter
     {
         /// <summary>
-        /// Gets the event that occur when a drawing point happens to update.
+        /// Gets the event that occur when a painting happens to update.
         /// </summary>
-        event EventHandler<UpdatePaintEventArgs> UpdatePaint;
+        event EventHandler<OnPaintingUpdatedEventArgs> OnPaintingUpdated;
 
-        void Start(List<ILine> lines);
+        void Start(IPainting painting);
         void Pause();
         void Resume();
         void Stop();

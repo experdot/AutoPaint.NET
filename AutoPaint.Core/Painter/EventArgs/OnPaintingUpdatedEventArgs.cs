@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AutoPaint.Core
 {
-    public class UpdatePaintEventArgs
+    public class OnPaintingUpdatedEventArgs
     {
         /// <summary>
         /// Gets the vertex being draw.
@@ -16,7 +16,7 @@ namespace AutoPaint.Core
         /// </summary>
         public float Percent { get; }
 
-        public UpdatePaintEventArgs(Vertex point, float percent)
+        public OnPaintingUpdatedEventArgs(Vertex point, float percent)
         {
             this.NewVertex = point;
             this.Percent = percent;

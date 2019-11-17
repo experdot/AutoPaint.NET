@@ -4,8 +4,8 @@ using System.Text;
 
 namespace AutoPaint.Core
 {
-    public interface IRecognition
+    public interface IPainting
     {
-        IPainting Recognize(PixelData pixels);
+        IEnumerable<ILine> Lines { get; set; }
     }
 }

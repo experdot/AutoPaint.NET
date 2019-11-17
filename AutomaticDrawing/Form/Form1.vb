@@ -40,7 +40,7 @@ Public Class Form1
             Machine.ResetReconition(New FastRecognition())
             Machine.ResetPainter(New MousePainter(New Vector2(TabPage1.PointToScreen(New Point(0, 0)).X + 3, TabPage1.PointToScreen(New Point(0, 0)).Y + 3)))
             Machine.IsUseOriginal = False
-            AddHandler Machine.Painter.UpdatePaint, AddressOf RefreshPicturebox2
+            AddHandler Machine.Painter.OnPaintingUpdated, AddressOf RefreshPicturebox2
             Machine.Run()
             Me.Show()
         End If
@@ -60,7 +60,7 @@ Public Class Form1
             Machine.ResetReconition(New ClusteringRecognition)
             Machine.ResetPainter(New BitmapPainter(Machine.Preview))
             Machine.IsUseOriginal = True
-            AddHandler Machine.Painter.UpdatePaint, AddressOf RefreshPicturebox2
+            AddHandler Machine.Painter.OnPaintingUpdated, AddressOf RefreshPicturebox2
             Machine.Run()
         Else
             MsgBox("Please press Screenshot button.(请先复制屏幕)")
@@ -117,7 +117,7 @@ Public Class Form1
     ''' <summary>
     ''' 更新预览画布
     ''' </summary>
-    Private Sub RefreshPicturebox2(sender As Object, e As UpdatePaintEventArgs)
+    Private Sub RefreshPicturebox2(sender As Object, e As OnPaintingUpdatedEventArgs)
         Static Count As Integer = 0
         Count += 1
         If Count Mod PreviewSpeed = 0 Then

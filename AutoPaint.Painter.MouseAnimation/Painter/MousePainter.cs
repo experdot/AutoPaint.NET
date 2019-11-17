@@ -11,7 +11,7 @@ namespace AutoPaint.Painter
 {
     public class MousePainter : IPainter
     {
-        public event EventHandler<UpdatePaintEventArgs> UpdatePaint;
+        public event EventHandler<OnPaintingUpdatedEventArgs> OnPaintingUpdated;
 
         /// <summary>
         ///     ''' 鼠标事件间隔
@@ -35,21 +35,22 @@ namespace AutoPaint.Painter
             this.Offset = offset;
         }
 
-        public void Start(List<ILine> lines)
+        public void Start(IPainting painting)
         {
+            var lines = painting.Lines;
             int totalCount = lines.SelectMany(e => e.Vertices).Count();
             int current = 0;
-            foreach (var SubLine in lines)
+            foreach (var line in lines)
             {
                 if (CheckKey() == false)
                     return;
-                VirtualKeyboard.MouseMove((int)(SubLine.Vertices.First().X + Offset.X), (int)(SubLine.Vertices.First().Y + Offset.Y), SleepTime);
+                VirtualKeyboard.MouseMove((int)(line.Vertices.First().X + Offset.X), (int)(line.Vertices.First().Y + Offset.Y), SleepTime);
                 VirtualKeyboard.MouseDownOrUp(true, SleepTime);
-                foreach (var SubPoint in SubLine.Vertices)
+                foreach (var SubPoint in line.Vertices)
                 {
                     VirtualKeyboard.MouseMove((int)(SubPoint.X + Offset.X), (int)(SubPoint.Y + Offset.Y), SleepTime);
                     current += 1;
-                    UpdatePaint?.Invoke(this, new UpdatePaintEventArgs(SubPoint, current / (float)totalCount));
+                    OnPaintingUpdated?.Invoke(this, new OnPaintingUpdatedEventArgs(SubPoint, current / (float)totalCount));
                 }
                 VirtualKeyboard.MouseDownOrUp(false, SleepTime);
             }

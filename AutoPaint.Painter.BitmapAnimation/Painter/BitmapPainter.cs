@@ -9,17 +9,17 @@ namespace AutoPaint.Painter
 {
     public class BitmapPainter : IPainter
     {
-        public event EventHandler<UpdatePaintEventArgs> UpdatePaint;
-        public Bitmap TargetBitmap { get; set; }
+        public event EventHandler<OnPaintingUpdatedEventArgs> OnPaintingUpdated;
+        public Bitmap SourceBitmap { get; set; }
 
         public BitmapPainter(Bitmap targetBitmap)
         {
-            this.TargetBitmap = targetBitmap;
+            this.SourceBitmap = targetBitmap;
         }
 
-        public void Start(List<ILine> lines)
+        public void Start(IPainting painting)
         {
-            PaintRaw(lines);
+            PaintRaw(painting.Lines);
         }
 
         public void Pause()
@@ -33,12 +33,11 @@ namespace AutoPaint.Painter
         public void Stop()
         {
             throw new NotImplementedException();
-
         }
 
-        private void PaintRaw(List<ILine> lines)
+        private void PaintRaw(IEnumerable<ILine> lines)
         {
-            using (Graphics pg = Graphics.FromImage(TargetBitmap))
+            using (Graphics pg = Graphics.FromImage(SourceBitmap))
             {
                 pg.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
                 int totalCount = lines.SelectMany(e => e.Vertices).Count();
@@ -52,7 +51,7 @@ namespace AutoPaint.Painter
                         SolidBrush brush = new SolidBrush(vertex.Color);
                         pg.FillRectangle(brush, new RectangleF(vertex.X - halfSize, vertex.Y - halfSize, penSize, penSize));
                         current += 1;
-                        UpdatePaint?.Invoke(this, new UpdatePaintEventArgs(vertex, current / (float)totalCount));
+                        OnPaintingUpdated?.Invoke(this, new OnPaintingUpdatedEventArgs(vertex, current / (float)totalCount));
                     }
                 }
             }

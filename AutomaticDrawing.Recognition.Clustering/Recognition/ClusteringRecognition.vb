@@ -4,8 +4,9 @@
 ''' </summary>
 Public Class ClusteringRecognition
     Implements IRecognition
-    Public Function Recognize(pixels As PixelData) As List(Of ILine) Implements IRecognition.Recognize
+
+    Private Function IRecognition_Recognize(pixels As PixelData) As IPainting Implements IRecognition.Recognize
         Dim clusterAI As New ClusterAI(pixels)
-        Return clusterAI.Lines
+        Return New Painting() With {.Lines = clusterAI.Lines}
     End Function
 End Class
