@@ -3,7 +3,7 @@ Imports AutoPaint.Core
 Imports AutoPaint.Painter
 Imports AutoPaint.Utilities
 Imports AutoPaint.Recognition
-Imports AutomaticDrawing.Recognition.Clustering
+Imports AutoPaint.Recognition.Clustering.Recognition
 
 Public Class Form1
     ''' <summary>
