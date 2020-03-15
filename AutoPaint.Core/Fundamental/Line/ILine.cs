@@ -6,6 +6,6 @@ namespace AutoPaint.Core
 {
     public interface ILine
     {
-        List<Vertex> Vertices { get; set; }
+        IList<Vertex> Vertices { get; set; }
     }
 }

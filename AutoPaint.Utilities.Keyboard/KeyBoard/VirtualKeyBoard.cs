@@ -83,7 +83,7 @@ namespace AutoPaint.Utilities
 
         public static int GetActiveLetterKey()
         {
-            for (var i = 65; i <= 90; i++) // A~Z的ASICC码
+            for (var i = 65; i <= 90; i++)
             {
                 if (CurrentKeyState(i) == true)
                     return i;
@@ -112,12 +112,12 @@ namespace AutoPaint.Utilities
 
         private static void VirtualKeyDown(VirtualKeys vKey)
         {
-            keybd_event((byte)vKey, (byte)MapVirtualKey((int)vKey, 0), 0x1 | 0, 0); // 按下
+            keybd_event((byte)vKey, (byte)MapVirtualKey((int)vKey, 0), 0x1 | 0, 0);
         }
 
         private static void VirtualKeyUp(VirtualKeys vKey)
         {
-            keybd_event((byte)vKey, (byte)MapVirtualKey((int)vKey, 0), 0x1 | 0x2, 0); // 弹起
+            keybd_event((byte)vKey, (byte)MapVirtualKey((int)vKey, 0), 0x1 | 0x2, 0);
         }
     }
 }

@@ -13,7 +13,7 @@ namespace AutoPaint.Core
 
         public PixelData(int w, int h)
         {
-            Colors = new Color[w - 1 + 1, h - 1 + 1];
+            Colors = new Color[w, h];
             this.Width = w;
             this.Height = h;
         }

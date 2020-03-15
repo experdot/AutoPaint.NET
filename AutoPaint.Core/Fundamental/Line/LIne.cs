@@ -6,6 +6,6 @@ namespace AutoPaint.Core
 {
     public class Line : ILine
     {
-        public List<Vertex> Vertices { get; set; } = new List<Vertex>();
+        public IList<Vertex> Vertices { get; set; } = new List<Vertex>();
     }
 }
