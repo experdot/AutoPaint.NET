@@ -81,6 +81,11 @@ namespace AutoPaint.Utilities
             VirtualKeyUp(vKey2);
         }
 
+        public static bool IsKeyDown(VirtualKeys vKey)
+        {
+            return CurrentKeyState((byte)vKey);
+        }
+
         public static int GetActiveLetterKey()
         {
             for (var i = 65; i <= 90; i++)

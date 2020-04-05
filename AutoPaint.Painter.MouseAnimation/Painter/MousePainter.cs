@@ -59,8 +59,7 @@ namespace AutoPaint.Painter
 
         private bool CheckKey()
         {
-            // if ((!IsCheckCtrlAlKey) || (My.Computer.Keyboard.CtrlKeyDown && My.Computer.Keyboard.AltKeyDown)) TODO
-            if ((!IsCheckCtrlAlKey))
+            if ((!IsCheckCtrlAlKey) || (VirtualKeyboard.IsKeyDown(VirtualKeys.VK_CONTROL) && VirtualKeyboard.IsKeyDown(VirtualKeys.VK_MENU)))
             {
                 char key = (char)VirtualKeyboard.GetActiveLetterKey();
                 if (key == StaticResources.HotKey_Pause)
