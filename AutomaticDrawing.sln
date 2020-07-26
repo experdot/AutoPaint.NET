@@ -31,7 +31,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Painter", "Painter", "{60C2
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utilities", "Utilities", "{AEF990E1-B4CE-4B29-879A-E0491B1103CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoPaint.Recognition.Clustering", "AutoPaint.Recognition.Clustering\AutoPaint.Recognition.Clustering.csproj", "{2BD22758-FE39-4DF1-B093-07145A0477E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoPaint.Recognition.Clustering", "AutoPaint.Recognition.Clustering\AutoPaint.Recognition.Clustering.csproj", "{2BD22758-FE39-4DF1-B093-07145A0477E6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoPaint.App", "AutoPaint.App\AutoPaint.App.csproj", "{4055C16C-6F1E-4761-A384-6D728848A6BA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +77,10 @@ Global
 		{2BD22758-FE39-4DF1-B093-07145A0477E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2BD22758-FE39-4DF1-B093-07145A0477E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2BD22758-FE39-4DF1-B093-07145A0477E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4055C16C-6F1E-4761-A384-6D728848A6BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4055C16C-6F1E-4761-A384-6D728848A6BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4055C16C-6F1E-4761-A384-6D728848A6BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4055C16C-6F1E-4761-A384-6D728848A6BA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -93,6 +99,7 @@ Global
 		{60C2BF48-ADF7-440B-9612-B10EAE8865A0} = {E487432C-6413-42AB-A5AC-A6814E6AB0D2}
 		{AEF990E1-B4CE-4B29-879A-E0491B1103CD} = {E487432C-6413-42AB-A5AC-A6814E6AB0D2}
 		{2BD22758-FE39-4DF1-B093-07145A0477E6} = {159B08C3-0A23-4B55-9CFC-F4F7F8274C57}
+		{4055C16C-6F1E-4761-A384-6D728848A6BA} = {078A76AE-9BFF-4C9B-9AFB-F148912593B1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {603052D6-616D-4847-9A71-9F652B888F72}
