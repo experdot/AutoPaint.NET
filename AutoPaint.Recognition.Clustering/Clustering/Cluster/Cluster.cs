@@ -14,6 +14,15 @@ namespace AutoPaint.Recognition.Clustering
         public List<Cluster> Children { get; set; } = new List<Cluster>();
         public Vector2 Position { get; set; }
         public Color Color { get; set; }
+        public Vector3 ColorDirection { get; set; }
+
+        public Vector3 ColorVector
+        {
+            get
+            {
+                return new Vector3(Color.R, Color.G, Color.B);
+            }
+        }
 
         public List<Cluster> Leaves
         {
@@ -103,19 +112,28 @@ namespace AutoPaint.Recognition.Clustering
                 return ColorHelper.GetAverageColor(GetAColorsOfChildren());
         }
 
+        public Vector3 GetAverageColorDirection()
+        {
+            if (Children.Count == 0)
+                return ColorDirection;
+            else
+                return VectorHelper.GetAveragePosition(GetColorDirectionOfChidren());
+        }
+
         private float Compare(Cluster cluster1, Cluster cluster2)
         {
             float result;
 
             Color color1 = cluster1.Color;
             Color color2 = cluster2.Color;
-            float colorDistance;
-
             Vector3 vec1 = new Vector3(color1.R, color1.G, color1.B);
             Vector3 vec2 = new Vector3(color2.R, color2.G, color2.B);
-            colorDistance = 1 / (float)(1 + (vec1 - vec2).LengthSquared());
 
-            result = colorDistance; // positionDistance * colorDistance
+            // TODO
+            float colorDistance = 1 / (float)(1 + (vec1 - vec2).LengthSquared());
+            float directionDistance = 1 / (float)(1 + (cluster1.ColorDirection - cluster2.ColorDirection).LengthSquared());
+
+            result = directionDistance * colorDistance;
             return result;
         }
 
@@ -126,14 +144,17 @@ namespace AutoPaint.Recognition.Clustering
 
         private IEnumerable<Vector2> GetPostionsOfChidren()
         {
-            return from c in Children
-                   select c.Position;
+            return from c in Children select c.Position;
         }
 
         private IEnumerable<Color> GetAColorsOfChildren()
         {
-            return from c in Children
-                   select c.Color;
+            return from c in Children select c.Color;
+        }
+
+        private IEnumerable<Vector3> GetColorDirectionOfChidren()
+        {
+            return from c in Children select c.ColorDirection;
         }
     }
 

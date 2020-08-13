@@ -1,4 +1,5 @@
 ﻿using AutoPaint.Core;
+using AutoPaint.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -24,30 +25,53 @@ namespace AutoPaint.Recognition.Clustering
             {
                 start = DateTime.Now;
                 Hierarchies.Add(Hierarchies.Last().Generate());
-                Debug.WriteLine($"Total:{maxRank},Current:{i + 1},Time Consuming:{DateTime.Now - start},Hierarchy[{Hierarchies.Last().ToString()}]");
+                Debug.WriteLine($"Total:{maxRank},Current:{i + 1},Time Consuming:{DateTime.Now - start},Hierarchy[{Hierarchies.Last()}]");
             }
             Debug.WriteLine(pixels.Colors.Length);
-            for (var i = maxRank - 1; i >= 0; i += -1)
+
+            int mid = 6;
+            for (var i = maxRank - 1; i >= mid; i += -1)
                 Lines.AddRange(GenerateLines(Hierarchies[i]));
+
+            //Lines.AddRange(DeepGenerateLines(Hierarchies[mid].Clusters, Hierarchies[mid].Rank));
         }
 
         private List<ILine> GenerateLines(IHierarchy hierarchy)
         {
             List<ILine> result = new List<ILine>();
             int count = 0;
-            foreach (var SubCluster in hierarchy.Clusters)
+
+            //var averagePosition = VectorHelper.GetAveragePosition(hierarchy.Clusters.Select(v => v.Position));
+            //hierarchy.Clusters.Sort((a, b) => -Math.Sign((a.Position - averagePosition).LengthSquared() - (b.Position - averagePosition).LengthSquared()));
+            foreach (var cluster in hierarchy.Clusters)
             {
                 Line line = new Line();
-                foreach (var SubLeaf in SubCluster.Leaves)
+                foreach (var leaf in cluster.Leaves)
                 {
-                    Color c = SubCluster.Color;
+                    Color c = cluster.Color;
                     Color p = Color.FromArgb(System.Convert.ToInt32(c.A / (double)(hierarchy.Rank + 1.0F)), c.R, c.G, c.B);
-                    line.Vertices.Add(new Vertex() { Color = SubCluster.Color, Position = SubLeaf.Position, Size = hierarchy.Rank + 1.0F });
+                    line.Vertices.Add(new Vertex() { Color = p, Position = leaf.Position, Size = hierarchy.Rank + 1.0F });
                 }
                 result.Add(line);
                 count += line.Vertices.Count;
             }
-            Debug.WriteLine(count);
+            return result;
+        }
+
+
+        private List<ILine> DeepGenerateLines(List<Cluster> clusters, int rank)
+        {
+            List<ILine> result = new List<ILine>();
+            foreach (var cluster in clusters)
+            {
+                Line line = new Line();
+                foreach (var leaf in cluster.Leaves)
+                {
+                    line.Vertices.Add(new Vertex() { Color = cluster.Color, Position = leaf.Position, Size = 1 });
+                }
+                result.Add(line);
+                result.AddRange(DeepGenerateLines(cluster.Children, rank - 1));
+            }
             return result;
         }
     }

@@ -4,8 +4,13 @@ Imports AutoPaint.Painter
 Imports AutoPaint.Utilities
 Imports AutoPaint.Recognition
 Imports AutoPaint.Recognition.Clustering.Recognition
+Imports System.Runtime.InteropServices
 
 Public Class Form1
+    <DllImport("user32.dll")>
+    Private Shared Function SetProcessDPIAware() As Boolean
+    End Function
+
     ''' <summary>
     ''' 绘图机器
     ''' </summary>
@@ -17,6 +22,7 @@ Public Class Form1
     ''' 窗体加载时
     ''' </summary>
     Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        SetProcessDPIAware()
         Me.TopMost = True
         Machine = New Machine(Nothing, Nothing, True)
     End Sub
@@ -25,7 +31,9 @@ Public Class Form1
     ''' </summary>
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
         TabControl1.SelectedIndex = 0
-        Machine.CopyScreen(New Rectangle(TabPage1.PointToScreen(New Drawing.Point(0, 0)).X + 3, TabPage1.PointToScreen(New Drawing.Point(0, 0)).Y + 3, TabPage1.Width - 6, TabPage1.Height - 6))
+        Dim x = TabPage1.PointToScreen(New Drawing.Point(0, 0)).X
+        Dim y = TabPage1.PointToScreen(New Drawing.Point(0, 0)).Y
+        Machine.CopyScreen(New Rectangle(x + 3, y + 3, TabPage1.Width - 6, TabPage1.Height - 6))
         TabControl1.SelectedIndex = 1
         TrackBar_MouseUp(TrackBar1, e)
         Panel4.Enabled = True

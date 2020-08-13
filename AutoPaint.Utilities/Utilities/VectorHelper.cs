@@ -19,5 +19,18 @@ namespace AutoPaint.Utilities
             result = new Vector2(x, y);
             return result;
         }
+
+        /// <summary>
+        /// 返回3D向量集合的平均位置
+        /// </summary>
+        public static Vector3 GetAveragePosition(IEnumerable<Vector3> positions)
+        {
+            Vector3 result;
+            float x = positions.Sum(p => p.X) / positions.Count();
+            float y = positions.Sum(p => p.Y) / positions.Count();
+            float z = positions.Sum(p => p.Z) / positions.Count();
+            result = new Vector3(x, y, z);
+            return result;
+        }
     }
 }
