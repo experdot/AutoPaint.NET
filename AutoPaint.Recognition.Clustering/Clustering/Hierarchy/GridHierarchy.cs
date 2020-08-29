@@ -87,6 +87,10 @@ namespace AutoPaint.Recognition.Clustering
                     else
                         Cluster.Combine(cluster, similar);
                 }
+                else
+                {
+                    result.Clusters.Add(cluster);
+                }
             }
             // Initialize properties
             foreach (var cluster in result.Clusters)

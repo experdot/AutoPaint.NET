@@ -29,8 +29,8 @@ namespace AutoPaint.Recognition.Clustering
             }
             Debug.WriteLine(pixels.Colors.Length);
 
-            int mid = 6;
-            for (var i = maxRank - 1; i >= mid; i += -1)
+            int mid = 3;
+            for (var i = maxRank - 1; i >= mid; i += -2)
                 Lines.AddRange(GenerateLines(Hierarchies[i]));
 
             //Lines.AddRange(DeepGenerateLines(Hierarchies[mid].Clusters, Hierarchies[mid].Rank));
@@ -43,6 +43,9 @@ namespace AutoPaint.Recognition.Clustering
 
             //var averagePosition = VectorHelper.GetAveragePosition(hierarchy.Clusters.Select(v => v.Position));
             //hierarchy.Clusters.Sort((a, b) => -Math.Sign((a.Position - averagePosition).LengthSquared() - (b.Position - averagePosition).LengthSquared()));
+
+            hierarchy.Clusters.Sort((a, b) => -Math.Sign(a.Leaves.Count - b.Leaves.Count));
+
             foreach (var cluster in hierarchy.Clusters)
             {
                 Line line = new Line();
