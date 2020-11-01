@@ -9,4 +9,16 @@
     <ProjectReference Include="..\AutoPaint.Utilities\AutoPaint.Utilities.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="MIConvexHull">
+      <HintPath>Lib\MIConvexHull.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Lib\MIConvexHull.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

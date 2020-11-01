@@ -7,5 +7,6 @@ namespace AutoPaint.Core
     public class Line : ILine
     {
         public IList<Vertex> Vertices { get; set; } = new List<Vertex>();
+        public bool IsOutline { get; set; }
     }
 }

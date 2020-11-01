@@ -74,7 +74,7 @@ namespace AutoPaint.Recognition.Clustering
         public Queue<Cluster> GetMostSimilar(List<Cluster> clusters)
         {
             Queue<Cluster> result = new Queue<Cluster>();
-            float maxValue = float.MinValue;
+            float maxValue = 0.001f;
             Cluster temp = null;
             if (clusters.Count > 0)
             {

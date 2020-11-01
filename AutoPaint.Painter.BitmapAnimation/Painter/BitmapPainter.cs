@@ -19,7 +19,7 @@ namespace AutoPaint.Painter
 
         public void Start(IPainting painting)
         {
-            PaintRaw(painting.Lines);
+            PaintLines(painting.Lines);
         }
 
         public void Pause()
@@ -35,26 +35,48 @@ namespace AutoPaint.Painter
             throw new NotImplementedException();
         }
 
-        private void PaintRaw(IEnumerable<ILine> lines)
+        private void PaintLines(IEnumerable<ILine> lines)
         {
             using (Graphics pg = Graphics.FromImage(SourceBitmap))
             {
                 pg.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-                int totalCount = lines.SelectMany(e => e.Vertices).Count();
+                int totalCount = lines.Count();
                 int current = 0;
-                foreach (var sequence in lines)
+                foreach (Line line in lines)
                 {
-                    foreach (var vertex in sequence.Vertices)
+                    if (line.IsOutline)
                     {
-                        float penSize = vertex.Size;
-                        float halfSize = penSize / 2;
-                        SolidBrush brush = new SolidBrush(vertex.Color);
-                        pg.FillRectangle(brush, new RectangleF(vertex.X - halfSize, vertex.Y - halfSize, penSize, penSize));
-                        current += 1;
-                        OnPaintingUpdated?.Invoke(this, new OnPaintingUpdatedEventArgs(vertex, current / (float)totalCount));
+                        PaintOutline(pg, line);
                     }
+                    else
+                    {
+                        PaintLine(pg, line);
+                    }
+                    current += 1;
+                    OnPaintingUpdated?.Invoke(this, new OnPaintingUpdatedEventArgs(line.Vertices.FirstOrDefault(), current / (float)totalCount));
                 }
             }
+        }
+
+        private static void PaintLine(Graphics pg, ILine line)
+        {
+            foreach (var vertex in line.Vertices)
+            {
+                float penSize = vertex.Size;
+                float halfSize = penSize / 2;
+                SolidBrush brush = new SolidBrush(vertex.Color);
+                pg.FillRectangle(brush, new RectangleF(vertex.X - halfSize, vertex.Y - halfSize, penSize, penSize));
+            }
+        }
+
+        private static void PaintOutline(Graphics pg, ILine line)
+        {
+            var vertex = line.Vertices[0];
+            float penSize = 1;
+            //float penSize = vertex.Size;
+            SolidBrush brush = new SolidBrush(vertex.Color);
+            var points = line.Vertices.Select(v => new PointF(v.X, v.Y)).ToArray();
+            pg.DrawLines(new Pen(brush, penSize), points);
         }
     }
 }
