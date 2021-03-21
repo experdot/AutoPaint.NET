@@ -40,7 +40,8 @@ namespace AutoPaint.Recognition.Clustering
 
             //var index = 8;
             //Lines.AddRange(GenerateLines(Hierarchies[index]));
-            //Lines.AddRange(DeepGenerateLines(Hierarchies[mid].Clusters, Hierarchies[mid].Rank));
+            var deepIndex = 9;
+            Lines.AddRange(DeepGenerateLines(Hierarchies[deepIndex].Clusters, Hierarchies[deepIndex].Rank));
         }
 
         private List<ILine> GenerateLines(IHierarchy hierarchy)
@@ -48,14 +49,14 @@ namespace AutoPaint.Recognition.Clustering
             List<ILine> result = new List<ILine>();
             int count = 0;
 
-            //var averagePosition = VectorHelper.GetAveragePosition(hierarchy.Clusters.Select(v => v.Position));
-            //hierarchy.Clusters.Sort((a, b) => -Math.Sign((a.Position - averagePosition).LengthSquared() - (b.Position - averagePosition).LengthSquared()));
+            var averagePosition = VectorHelper.GetAveragePosition(hierarchy.Clusters.Select(v => v.Position));
+            hierarchy.Clusters.Sort((a, b) => -Math.Sign((a.Position - averagePosition).LengthSquared() - (b.Position - averagePosition).LengthSquared()));
 
-            hierarchy.Clusters.Sort((a, b) => -Math.Sign(a.Leaves.Count - b.Leaves.Count));
+            //hierarchy.Clusters.Sort((a, b) => -Math.Sign(a.Leaves.Count - b.Leaves.Count));
 
             foreach (var cluster in hierarchy.Clusters)
             {
-                result.AddRange(GenerateOutlines(cluster.Children, hierarchy.Rank));
+                //result.AddRange(GenerateOutlines(cluster.Children, hierarchy.Rank));
 
                 Line line = new Line();
                 var leaves = cluster.Leaves.Select(v => v.Position).ToList();
@@ -115,10 +116,10 @@ namespace AutoPaint.Recognition.Clustering
                 Line line = new Line();
                 foreach (var leaf in cluster.Leaves)
                 {
-                    line.Vertices.Add(new Vertex() { Color = cluster.Color, Position = leaf.Position, Size = 1 });
+                    line.Vertices.Add(new Vertex() { Color = leaf.Color, Position = leaf.Position, Size = 1 });
                 }
                 result.Add(line);
-                result.AddRange(DeepGenerateLines(cluster.Children, rank - 1));
+                //result.AddRange(DeepGenerateLines(cluster.Children, rank - 1));
             }
             return result;
         }

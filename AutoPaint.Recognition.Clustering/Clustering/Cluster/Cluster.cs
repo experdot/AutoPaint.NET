@@ -39,6 +39,46 @@ namespace AutoPaint.Recognition.Clustering
             }
         }
 
+        public float Percent
+        {
+            get
+            {
+                var counts = Children.Select(v => v.LeavesCount + 1.0f).ToList();
+
+                if (counts.Count <= 1)
+                {
+                    return 0;
+                }
+
+                counts.Sort();
+                var value = counts.Aggregate((v1, v2) => v1 / v2);
+                return value;
+            }
+        }
+
+        private int _leavesCountCache;
+        public int LeavesCount
+        {
+            get
+            {
+                if (_leavesCountCache > 0)
+                {
+                    return _leavesCountCache;
+                }
+
+                if (Children.Count == 0)
+                {
+                    _leavesCountCache = 1;
+                }
+                else
+                {
+                    _leavesCountCache = Children.Sum(v => v.LeavesCount);
+                }
+
+                return _leavesCountCache;
+            }
+        }
+
         public static Cluster Combine(Cluster cluster1, Cluster cluster2)
         {
             Cluster result;
@@ -132,7 +172,7 @@ namespace AutoPaint.Recognition.Clustering
             // TODO
             float colorDistance = 1 / (float)(1 + (vec1 - vec2).LengthSquared());
             float directionDistance = 1 / (float)(1 + (cluster1.ColorDirection - cluster2.ColorDirection).LengthSquared());
-
+            float percentDistance = 1 / (1 + Math.Abs(cluster1.Percent - cluster2.Percent));
             result = directionDistance * colorDistance;
             return result;
         }
