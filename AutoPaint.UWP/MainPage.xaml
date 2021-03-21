@@ -5,11 +5,12 @@
     xmlns:local="using:AutoPaint.UWP"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:canvas="using:Microsoft.Graphics.Canvas.UI.Xaml"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <local:DrawingBoard></local:DrawingBoard>
-        <Button>Start</Button>
+        <canvas:CanvasAnimatedControl x:Name="CanvasControl" Draw="CanvasAnimatedControl_Draw" HorizontalAlignment="Center" VerticalAlignment="Center"></canvas:CanvasAnimatedControl>
+        <Button Click="Button_Click">Start</Button>
     </Grid>
 </Page>
