@@ -173,7 +173,7 @@ namespace AutoPaint.Recognition.Clustering
             float colorDistance = 1 / (float)(1 + (vec1 - vec2).LengthSquared());
             float directionDistance = 1 / (float)(1 + (cluster1.ColorDirection - cluster2.ColorDirection).LengthSquared());
             float percentDistance = 1 / (1 + Math.Abs(cluster1.Percent - cluster2.Percent));
-            result = directionDistance * colorDistance;
+            result = directionDistance * colorDistance* percentDistance;
             return result;
         }
 

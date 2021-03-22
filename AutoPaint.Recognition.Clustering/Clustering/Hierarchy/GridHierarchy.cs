@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace AutoPaint.Recognition.Clustering
 {
@@ -77,7 +78,23 @@ namespace AutoPaint.Recognition.Clustering
             GridHierarchy result = new GridHierarchy(System.Convert.ToInt32(Math.Ceiling(this.Width / (double)rate) + 1), System.Convert.ToInt32(Math.Ceiling(this.Height / (double)rate) + 1), newSize) { Rank = this.Rank + 1 };
 
             // Combine to a new cluster
-            foreach (var cluster in Clusters)
+            //foreach (var cluster in Clusters)
+            //{
+            //    Cluster similar = cluster.GetMostSimilar(GetNeighbours(cluster)).FirstOrDefault();
+            //    if (similar != null)
+            //    {
+            //        if (cluster.Parent == null && similar.Parent == null)
+            //            result.Clusters.Add(Cluster.Combine(cluster, similar));
+            //        else
+            //            Cluster.Combine(cluster, similar);
+            //    }
+            //    else
+            //    {
+            //        result.Clusters.Add(cluster);
+            //    }
+            //}
+
+            Parallel.ForEach(Clusters, cluster =>
             {
                 Cluster similar = cluster.GetMostSimilar(GetNeighbours(cluster)).FirstOrDefault();
                 if (similar != null)
@@ -91,29 +108,32 @@ namespace AutoPaint.Recognition.Clustering
                 {
                     result.Clusters.Add(cluster);
                 }
-            }
+            });
+
             // Initialize properties
-            foreach (var cluster in result.Clusters)
+            Parallel.ForEach(result.Clusters, cluster =>
             {
                 cluster.Position = cluster.GetAveragePosition();
                 cluster.Color = cluster.GetAverageColor();
                 //cluster.ColorDirection = cluster.GetAverageColorDirection();
-            }
+            });
+
             // Locate to cell
-            foreach (var SubCluster in result.Clusters)
+            Parallel.ForEach(result.Clusters, cluster =>
             {
-                Vector2 p = SubCluster.Position;
+                Vector2 p = cluster.Position;
                 int x = System.Convert.ToInt32(p.X / (double)result.Size);
                 int y = System.Convert.ToInt32(p.Y / (double)result.Size);
-                result.Grid[x, y].Add(SubCluster);
-            }
+                result.Grid[x, y].Add(cluster);
+            });
 
-            foreach (var cluster in result.Clusters)
+            // Calculate color direction
+            Parallel.ForEach(result.Clusters, cluster =>
             {
                 var neighbours = result.GetNeighbours(cluster);
                 var colorDirection = VectorHelper.GetAveragePosition(neighbours.Select(v => v.ColorVector - cluster.ColorVector));
                 cluster.ColorDirection = colorDirection;
-            }
+            });
 
             return result;
         }
