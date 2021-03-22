@@ -18,9 +18,6 @@ namespace AutoPaint.Recognition.Clustering
                 {
                     result.AddCluster(Cluster.Combine(SubCluster, similar));
                 }
-
-                float progress = System.Convert.ToSingle((Clusters.IndexOf(SubCluster) + 1) / (double)Clusters.Count);
-                Debug.WriteLine($"{progress}");
             }
 
             return result;

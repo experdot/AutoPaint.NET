@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Foundation;
 using Windows.UI;
 
 
@@ -26,10 +27,18 @@ namespace AutoPaint.Painter.Win2DAnimation
             ForegroundSession.Clear(Colors.Transparent);
         }
 
-        public void FillCircle(Vertex point, int layerIndex)
+        public void FillCircle(Vertex vertex)
         {
-            Sessions[layerIndex].FillCircle(point.Position, point.Size, point.Color.ToUIColor());
-            ForegroundSession.FillCircle(point.Position, point.Size, Colors.Black);
+            var index = Sessions.Length - 1 - vertex.LayerIndex;
+            if (vertex.Size == 1)
+            {
+                Sessions[index].FillRectangle(new Rect(vertex.Position.X, vertex.Position.Y, 1, 1), vertex.Color.ToUIColor());
+            }
+            else
+            {
+                Sessions[index].FillCircle(vertex.Position, vertex.Size, vertex.Color.ToUIColor());
+            }
+            ForegroundSession.FillCircle(vertex.Position, vertex.Size, Colors.Black);
         }
 
         private bool disposedValue;

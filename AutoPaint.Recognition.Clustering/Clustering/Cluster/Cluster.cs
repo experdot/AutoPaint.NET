@@ -5,16 +5,17 @@ using System.Drawing;
 using System.Linq;
 using System.Numerics;
 using System.Text;
+using System.Collections.Concurrent;
 
 namespace AutoPaint.Recognition.Clustering
 {
     public class Cluster
     {
         public Cluster Parent { get; set; }
-        public List<Cluster> Children { get; set; } = new List<Cluster>();
+        public ConcurrentBag<Cluster> Children { get; set; } = new ConcurrentBag<Cluster>();
         public Vector2 Position { get; set; }
         public Color Color { get; set; }
-        public Vector3 ColorDirection { get; set; }
+        public int LayerIndex { get; set; }
 
         public Vector3 ColorVector
         {
@@ -93,7 +94,7 @@ namespace AutoPaint.Recognition.Clustering
             }
             else
             {
-                result = new Cluster();
+                result = new Cluster() { LayerIndex = cluster1.LayerIndex + 1 };
             }
 
             result.AddChild(cluster1, false);
@@ -111,9 +112,9 @@ namespace AutoPaint.Recognition.Clustering
             }
         }
 
-        public Queue<Cluster> GetMostSimilar(List<Cluster> clusters)
+        public List<Cluster> GetMostSimilar(List<Cluster> clusters)
         {
-            Queue<Cluster> result = new Queue<Cluster>();
+            List<Cluster> result = new List<Cluster>();
             float maxValue = 0.001f;
             Cluster temp = null;
             if (clusters.Count > 0)
@@ -132,7 +133,7 @@ namespace AutoPaint.Recognition.Clustering
                     }
                 }
             }
-            result.Enqueue(temp);
+            result.Add(temp);
             return result;
         }
 
@@ -152,14 +153,6 @@ namespace AutoPaint.Recognition.Clustering
                 return ColorHelper.GetAverageColor(GetAColorsOfChildren());
         }
 
-        public Vector3 GetAverageColorDirection()
-        {
-            if (Children.Count == 0)
-                return ColorDirection;
-            else
-                return VectorHelper.GetAveragePosition(GetColorDirectionOfChidren());
-        }
-
         private float Compare(Cluster cluster1, Cluster cluster2)
         {
             float result;
@@ -171,9 +164,8 @@ namespace AutoPaint.Recognition.Clustering
 
             // TODO
             float colorDistance = 1 / (float)(1 + (vec1 - vec2).LengthSquared());
-            float directionDistance = 1 / (float)(1 + (cluster1.ColorDirection - cluster2.ColorDirection).LengthSquared());
             float percentDistance = 1 / (1 + Math.Abs(cluster1.Percent - cluster2.Percent));
-            result = directionDistance * colorDistance* percentDistance;
+            result = colorDistance * percentDistance;
             return result;
         }
 
@@ -190,11 +182,6 @@ namespace AutoPaint.Recognition.Clustering
         private IEnumerable<Color> GetAColorsOfChildren()
         {
             return from c in Children select c.Color;
-        }
-
-        private IEnumerable<Vector3> GetColorDirectionOfChidren()
-        {
-            return from c in Children select c.ColorDirection;
         }
     }
 

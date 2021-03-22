@@ -86,7 +86,7 @@ namespace AutoPaint.UWP
 
                 CanvasControl.Width = pixelData.Width;
                 CanvasControl.Height = pixelData.Height;
-                Machine.Painter.Canvas = new Painter.Win2DAnimation.LayerCanvas(CanvasControl, new Size(pixelData.Width, pixelData.Height), 1);
+                Machine.Painter.Canvas = new Painter.Win2DAnimation.LayerCanvas(CanvasControl, new Size(pixelData.Width, pixelData.Height), 10);
                 await Task.Run(() =>
                 {
                     Machine.Run(pixelData);

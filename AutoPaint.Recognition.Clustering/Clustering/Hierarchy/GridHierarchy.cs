@@ -2,6 +2,7 @@
 using AutoPaint.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.Linq;
 using System.Numerics;
 using System.Text;
@@ -11,7 +12,7 @@ namespace AutoPaint.Recognition.Clustering
 {
     public class GridHierarchy : HierarchyBase
     {
-        public List<Cluster>[,] Grid { get; set; }
+        public ConcurrentBag<Cluster>[,] Grid { get; set; }
 
         public int Width { get; set; }
         public int Height { get; set; }
@@ -36,11 +37,11 @@ namespace AutoPaint.Recognition.Clustering
             this.Height = h;
             this.Size = size;
 
-            Grid = new List<Cluster>[w - 1 + 1, h - 1 + 1];
+            Grid = new ConcurrentBag<Cluster>[w - 1 + 1, h - 1 + 1];
             for (var i = 0; i <= w - 1; i++)
             {
                 for (var j = 0; j <= h - 1; j++)
-                    Grid[i, j] = new List<Cluster>();
+                    Grid[i, j] = new ConcurrentBag<Cluster>();
             }
         }
 
@@ -59,13 +60,6 @@ namespace AutoPaint.Recognition.Clustering
                     result.Grid[i, j].Add(cluster);
                     result.Clusters.Add(cluster);
                 }
-            }
-
-            foreach (var cluster in result.Clusters)
-            {
-                var neighbours = result.GetNeighbours(cluster);
-                var colorDirection = VectorHelper.GetAveragePosition(neighbours.Select(v => v.ColorVector - cluster.ColorVector));
-                cluster.ColorDirection = colorDirection;
             }
 
             return result;
@@ -115,7 +109,6 @@ namespace AutoPaint.Recognition.Clustering
             {
                 cluster.Position = cluster.GetAveragePosition();
                 cluster.Color = cluster.GetAverageColor();
-                //cluster.ColorDirection = cluster.GetAverageColorDirection();
             });
 
             // Locate to cell
@@ -128,12 +121,12 @@ namespace AutoPaint.Recognition.Clustering
             });
 
             // Calculate color direction
-            Parallel.ForEach(result.Clusters, cluster =>
-            {
-                var neighbours = result.GetNeighbours(cluster);
-                var colorDirection = VectorHelper.GetAveragePosition(neighbours.Select(v => v.ColorVector - cluster.ColorVector));
-                cluster.ColorDirection = colorDirection;
-            });
+            //Parallel.ForEach(result.Clusters, cluster =>
+            //{
+            //    var neighbours = result.GetNeighbours(cluster);
+            //    var colorDirection = VectorHelper.GetAveragePosition(neighbours.Select(v => v.ColorVector - cluster.ColorVector));
+            //    cluster.ColorDirection = colorDirection;
+            //});
 
             return result;
         }
@@ -145,13 +138,13 @@ namespace AutoPaint.Recognition.Clustering
 
         public List<Cluster> GetNeighbours(Cluster cluster)
         {
-            List<Cluster> result = new List<Cluster>();
+            List<Cluster> result = new List<Cluster>(9);
             int xBound = Grid.GetUpperBound(0);
             int yBound = Grid.GetUpperBound(1);
             int dx, dy;
             int x = System.Convert.ToInt32(cluster.Position.X / (double)Size);
             int y = System.Convert.ToInt32(cluster.Position.Y / (double)Size);
-            for (var i = 0; i <= 8; i++)
+            for (var i = 0; i < 9; i++)
             {
                 dx = x + OffsetX[i];
                 dy = y + OffsetY[i];

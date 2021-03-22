@@ -31,8 +31,8 @@ namespace AutoPaint.Recognition.Clustering
             }
             Debug.WriteLine(pixels.Colors.Length);
 
-            int mid = 4;
-            for (var i = maxRank - 1; i >= mid; i += -2)
+            int mid = 1;
+            for (var i = maxRank - 1; i >= mid; i += -3)
             {
                 //Lines.AddRange(GenerateOutlines(Hierarchies[i]));
                 Lines.AddRange(GenerateLines(Hierarchies[i]));
@@ -41,7 +41,7 @@ namespace AutoPaint.Recognition.Clustering
             //var index = 8;
             //Lines.AddRange(GenerateLines(Hierarchies[index]));
             var deepIndex = 9;
-            Lines.AddRange(DeepGenerateLines(Hierarchies[deepIndex].Clusters, Hierarchies[deepIndex].Rank));
+            Lines.AddRange(DeepGenerateLines(Hierarchies[deepIndex].Clusters));
         }
 
         private List<ILine> GenerateLines(IHierarchy hierarchy)
@@ -49,8 +49,8 @@ namespace AutoPaint.Recognition.Clustering
             List<ILine> result = new List<ILine>();
             int count = 0;
 
-            var averagePosition = VectorHelper.GetAveragePosition(hierarchy.Clusters.Select(v => v.Position));
-            hierarchy.Clusters.Sort((a, b) => -Math.Sign((a.Position - averagePosition).LengthSquared() - (b.Position - averagePosition).LengthSquared()));
+            //var averagePosition = VectorHelper.GetAveragePosition(hierarchy.Clusters.Select(v => v.Position));
+            //hierarchy.Clusters.Sort((a, b) => -Math.Sign((a.Position - averagePosition).LengthSquared() - (b.Position - averagePosition).LengthSquared()));
 
             //hierarchy.Clusters.Sort((a, b) => -Math.Sign(a.Leaves.Count - b.Leaves.Count));
 
@@ -63,8 +63,8 @@ namespace AutoPaint.Recognition.Clustering
                 foreach (var leaf in leaves)
                 {
                     Color c = cluster.Color;
-                    Color p = Color.FromArgb(System.Convert.ToInt32(c.A / (double)(hierarchy.Rank + 1.0F)), c.R, c.G, c.B);
-                    line.Vertices.Add(new Vertex() { Color = p, Position = leaf, Size = hierarchy.Rank + 1.0F });
+                    Color p = Color.FromArgb(System.Convert.ToInt32(c.A / (double)(hierarchy.Rank * 2 + 1.0F)), c.R, c.G, c.B);
+                    line.Vertices.Add(new Vertex() { Color = p, Position = leaf, Size = hierarchy.Rank + 1.0F, LayerIndex = hierarchy.Rank });
                 }
                 result.Add(line);
                 count += line.Vertices.Count;
@@ -72,16 +72,16 @@ namespace AutoPaint.Recognition.Clustering
             return result;
         }
 
-        private List<ILine> GenerateOutlines(List<Cluster> clusters, int rank)
+        private List<ILine> GenerateOutlines(IEnumerable<Cluster> clusters, int rank)
         {
             List<ILine> result = new List<ILine>();
 
-            if (clusters.Count <= 1)
+            if (clusters.Count() <= 1)
             {
                 return result;
             }
 
-            clusters.Sort((a, b) => -Math.Sign(a.Leaves.Count - b.Leaves.Count));
+            //clusters.Sort((a, b) => -Math.Sign(a.Leaves.Count - b.Leaves.Count));
 
 
             foreach (var cluster in clusters)
@@ -108,7 +108,7 @@ namespace AutoPaint.Recognition.Clustering
             return result;
         }
 
-        private List<ILine> DeepGenerateLines(List<Cluster> clusters, int rank)
+        private List<ILine> DeepGenerateLines(IEnumerable<Cluster> clusters)
         {
             List<ILine> result = new List<ILine>();
             foreach (var cluster in clusters)
@@ -116,10 +116,12 @@ namespace AutoPaint.Recognition.Clustering
                 Line line = new Line();
                 foreach (var leaf in cluster.Leaves)
                 {
-                    line.Vertices.Add(new Vertex() { Color = leaf.Color, Position = leaf.Position, Size = 1 });
+                    Color c = cluster.Color;
+                    Color p = Color.FromArgb(System.Convert.ToInt32(c.A / (double)(cluster.LayerIndex * 2 + 1.0F)), c.R, c.G, c.B);
+                    line.Vertices.Add(new Vertex() { Color = p, Position = leaf.Position, Size = 1, LayerIndex = cluster.LayerIndex });
                 }
                 result.Add(line);
-                //result.AddRange(DeepGenerateLines(cluster.Children, rank - 1));
+                result.AddRange(DeepGenerateLines(cluster.Children));
             }
             return result;
         }

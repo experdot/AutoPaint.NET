@@ -17,7 +17,7 @@ namespace AutoPaint.Painter.Win2DAnimation
         public LayerCanvas(ICanvasResourceCreatorWithDpi resourceCreator, Size size, int count)
         {
             Canvas = new CanvasRenderTarget[count];
-            for (int i = 0, loopTo = Canvas.Length - 1; i <= loopTo; i++)
+            for (int i = 0; i < Canvas.Length; i++)
             {
                 Canvas[i] = new CanvasRenderTarget(resourceCreator, size);
                 using (var ds = Canvas[i].CreateDrawingSession())
@@ -36,7 +36,7 @@ namespace AutoPaint.Painter.Win2DAnimation
 
         public void OnDraw(CanvasDrawingSession session)
         {
-            for (int i = 0, loopTo = Canvas.Length - 1; i <= loopTo; i++)
+            for (int i = 0; i < Canvas.Length; i++)
             {
                 session.DrawImage(Canvas[i]);
             }
