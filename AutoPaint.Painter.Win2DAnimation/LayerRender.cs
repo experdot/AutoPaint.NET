@@ -27,16 +27,21 @@ namespace AutoPaint.Painter.Win2DAnimation
             ForegroundSession.Clear(Colors.Transparent);
         }
 
+        public Vertex LastVertex { get; set; }
+
         public void FillCircle(Vertex vertex)
         {
             var index = Sessions.Length - 1 - vertex.LayerIndex;
-            if (vertex.Size == 1)
+            if (vertex.Size == 1000)
             {
+
                 Sessions[index].FillRectangle(new Rect(vertex.Position.X, vertex.Position.Y, 1, 1), vertex.Color.ToUIColor());
             }
             else
             {
-                Sessions[index].FillCircle(vertex.Position, vertex.Size, vertex.Color.ToUIColor());
+                Sessions[index].DrawLine((LastVertex ?? vertex).Position, vertex.Position, vertex.Color.ToUIColor(), vertex.Size);
+                LastVertex = vertex;
+                //Sessions[index].FillCircle(vertex.Position, vertex.Size, vertex.Color.ToUIColor());
             }
             ForegroundSession.FillCircle(vertex.Position, vertex.Size, Colors.Black);
         }

@@ -52,19 +52,19 @@ namespace AutoPaint.Recognition.Clustering
             for (int i = 0; i < clusters.Count; i++)
             {
                 BuildResult(result, clusters[i]);
-                if (i >= 0)
+                if (i < 0)
                 {
-                    continue;
+                    for (int j = i + 1; j < clusters.Count; j++)
+                    {
+                        BuildResult2(result, clusters[j], clusters[i].Color);
+                    }
                 }
-                for (int j = i + 1; j < clusters.Count; j++)
-                {
-                    BuildResult2(result, clusters[j], clusters[i].Color);
-                }
+                result.AddRange(GenerateLines(clusters[i].Children.ToList()));
             }
 
             for (int i = 0; i < clusters.Count; i++)
             {
-                result.AddRange(GenerateLines(clusters[i].Children.ToList()));
+
             }
 
             //var averagePosition = VectorHelper.GetAveragePosition(hierarchy.Clusters.Select(v => v.Position));
@@ -77,11 +77,13 @@ namespace AutoPaint.Recognition.Clustering
         {
             Line line = new Line();
             var leaves = cluster.Leaves.Select(v => v.Position).ToList();
-            foreach (var leaf in leaves)
+            var step = cluster.LayerIndex * 10 + 1;
+            for (int i = 0; i < leaves.Count; i += step)
             {
+                var leaf = leaves[i];
                 Color c = cluster.Color;
-                Color p = Color.FromArgb((int)(c.A / (double)(cluster.LayerIndex * 2 + 1.0F)), c.R, c.G, c.B);
-                line.Vertices.Add(new Vertex() { Color = p, Position = leaf, Size = cluster.LayerIndex + 1.0F, LayerIndex = cluster.LayerIndex });
+                Color p = Color.FromArgb((int)(0 + 255 / (double)(cluster.LayerIndex * 4 + 2F)), c.R, c.G, c.B);
+                line.Vertices.Add(new Vertex() { Color = p, Position = leaf, Size = cluster.LayerIndex * 8f + 1.0F, LayerIndex = cluster.LayerIndex });
             }
             result.Add(line);
         }
@@ -90,12 +92,15 @@ namespace AutoPaint.Recognition.Clustering
         {
             Line line = new Line();
             var leaves = cluster.Leaves.Select(v => v.Position).ToList();
-            foreach (var leaf in leaves)
+            var step = cluster.LayerIndex * 10 + 1;
+            for (int i = 0; i < leaves.Count; i += step)
             {
+                var leaf = leaves[i];
                 Color c = color;
-                Color p = Color.FromArgb((int)(c.A / (double)(cluster.LayerIndex * 2 + 1.0F)), c.R, c.G, c.B);
-                line.Vertices.Add(new Vertex() { Color = p, Position = leaf, Size = cluster.LayerIndex + 1.0F, LayerIndex = cluster.LayerIndex });
+                Color p = Color.FromArgb((int)(0 + 255 / (double)(cluster.LayerIndex * 4 + 2F)), c.R, c.G, c.B);
+                line.Vertices.Add(new Vertex() { Color = p, Position = leaf, Size = cluster.LayerIndex * 8f + 1.0F, LayerIndex = cluster.LayerIndex });
             }
+
             result.Add(line);
         }
 
