@@ -44,7 +44,7 @@ namespace AutoPaint.Recognition.Clustering
         {
             get
             {
-                var counts = Children.Select(v => v.LeavesCount + 1.0f).ToList();
+                var counts = Children.Select(v => v.Children.Count() + 1.0f).ToList();
 
                 if (counts.Count <= 1)
                 {

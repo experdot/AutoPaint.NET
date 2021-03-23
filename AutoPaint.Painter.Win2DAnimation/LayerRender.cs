@@ -1,5 +1,6 @@
 ﻿using AutoPaint.Core;
 using Microsoft.Graphics.Canvas;
+using Microsoft.Graphics.Canvas.Geometry;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,18 +33,19 @@ namespace AutoPaint.Painter.Win2DAnimation
         public void FillCircle(Vertex vertex)
         {
             var index = Sessions.Length - 1 - vertex.LayerIndex;
-            if (vertex.Size == 1000)
-            {
 
-                Sessions[index].FillRectangle(new Rect(vertex.Position.X, vertex.Position.Y, 1, 1), vertex.Color.ToUIColor());
-            }
-            else
+            if (LastVertex != null && (LastVertex.Position - vertex.Position).LengthSquared() > 10000.0f)
             {
-                Sessions[index].DrawLine((LastVertex ?? vertex).Position, vertex.Position, vertex.Color.ToUIColor(), vertex.Size);
-                LastVertex = vertex;
-                //Sessions[index].FillCircle(vertex.Position, vertex.Size, vertex.Color.ToUIColor());
+                LastVertex = null;
             }
-            ForegroundSession.FillCircle(vertex.Position, vertex.Size, Colors.Black);
+
+            Sessions[index].DrawLine((LastVertex ?? vertex).Position, vertex.Position, vertex.Color.ToUIColor(), vertex.Size);
+            //Sessions[index].FillCircle(vertex.Position, vertex.Size, vertex.Color.ToUIColor());
+            //Sessions[index].FillRectangle(new Rect(vertex.Position.X, vertex.Position.Y, vertex.Size, vertex.Size), vertex.Color.ToUIColor());
+
+            ForegroundSession.FillCircle(vertex.Position, vertex.Size / 5.0f, Colors.Black);
+
+            LastVertex = vertex;
         }
 
         private bool disposedValue;
