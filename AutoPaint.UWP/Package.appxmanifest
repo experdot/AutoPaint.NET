@@ -9,7 +9,7 @@
   <Identity
     Name="0b204e5a-36c8-4129-be2d-f3dceabb89af"
     Publisher="CN=ExperDot"
-    Version="1.0.0.0" />
+    Version="1.0.1.0" />
 
   <mp:PhoneIdentity PhoneProductId="0b204e5a-36c8-4129-be2d-f3dceabb89af" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 

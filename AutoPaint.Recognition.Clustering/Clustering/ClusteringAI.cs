@@ -57,7 +57,7 @@ namespace AutoPaint.Recognition.Clustering
         {
             Line line = new Line();
             var leaves = cluster.Leaves.Select(v => v.Position).ToList();
-            var step = cluster.LayerIndex * 10 + 1;
+            var step = cluster.LayerIndex * 8 + 1;
             for (int i = 0; i < leaves.Count; i += step)
             {
                 var leaf = leaves[i];

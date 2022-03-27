@@ -41,7 +41,7 @@ namespace AutoPaint.Painter.Win2DAnimation
         {
             using (var render = new LayerRender(Canvas))
             {
-                for (int i = 0; i < 300; i++)
+                for (int i = 0; i < 200; i++)
                 {
                     if (CurrentPoints.TryDequeue(out Vertex result))
                     {

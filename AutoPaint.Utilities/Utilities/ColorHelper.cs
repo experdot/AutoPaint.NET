@@ -34,7 +34,7 @@ namespace AutoPaint.Utilities
 
         public static float GetColorSimilarity(Color color1, Color color2)
         {
-            float result = 0;
+            float result;
             Vector3 vec1 = new Vector3(color1.R, color1.G, color1.B);
             Vector3 vec2 = new Vector3(color2.R, color2.G, color2.B);
             result = 1 / (1 + (vec1 - vec2).LengthSquared());

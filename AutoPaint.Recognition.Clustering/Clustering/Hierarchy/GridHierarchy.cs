@@ -18,8 +18,11 @@ namespace AutoPaint.Recognition.Clustering
         public int Height { get; set; }
         public float Size { get; set; }
 
-        private static readonly int[] OffsetX = new[] { 0, -1, 1, 0, 0, -1, 1, -1, 1 };
-        private static readonly int[] OffsetY = new[] { 0, 0, 0, -1, 1, -1, 1, 1, -1 };
+        private static readonly int[] OffsetX9 = new[] { 0, -1, 1, 0, 0, -1, 1, -1, 1 };
+        private static readonly int[] OffsetY9 = new[] { 0, 0, 0, -1, 1, -1, 1, 1, -1 };
+
+        private static readonly int[] OffsetX4 = new[] { 0, 1, 0, -1 };
+        private static readonly int[] OffsetY4 = new[] { -1, 0, 1, 0 };
 
         public GridHierarchy(int w, int h, float size)
         {
@@ -120,13 +123,11 @@ namespace AutoPaint.Recognition.Clustering
                 result.Grid[x, y].Add(cluster);
             });
 
-            // Calculate color direction
-            //Parallel.ForEach(result.Clusters, cluster =>
-            //{
-            //    var neighbours = result.GetNeighbours(cluster);
-            //    var colorDirection = VectorHelper.GetAveragePosition(neighbours.Select(v => v.ColorVector - cluster.ColorVector));
-            //    cluster.ColorDirection = colorDirection;
-            //});
+            // Calculate edge vector
+            Parallel.ForEach(result.Clusters, cluster =>
+            {
+                cluster.EdgeVector = result.GetNeighboursEdgeVector(cluster); ;
+            });
 
             return result;
         }
@@ -146,8 +147,8 @@ namespace AutoPaint.Recognition.Clustering
             int y = System.Convert.ToInt32(cluster.Position.Y / (double)Size);
             for (var i = 0; i < 9; i++)
             {
-                dx = x + OffsetX[i];
-                dy = y + OffsetY[i];
+                dx = x + OffsetX9[i];
+                dy = y + OffsetY9[i];
                 if ((dx >= 0 && dy >= 0 && dx <= xBound && dy <= yBound))
                     result.AddRange(Grid[dx, dy]);
                 else
@@ -155,6 +156,40 @@ namespace AutoPaint.Recognition.Clustering
             }
             result.Remove(cluster);
             return result;
+        }
+
+        public Vector4 GetNeighboursEdgeVector(Cluster cluster)
+        {
+            float[] floats = new float[4];
+            int xBound = Grid.GetUpperBound(0);
+            int yBound = Grid.GetUpperBound(1);
+            int dx, dy;
+            int x = System.Convert.ToInt32(cluster.Position.X / (double)Size);
+            int y = System.Convert.ToInt32(cluster.Position.Y / (double)Size);
+
+            for (var i = 0; i < 4; i++)
+            {
+                dx = x + OffsetX9[i];
+                dy = y + OffsetY9[i];
+                if ((dx >= 0 && dy >= 0 && dx <= xBound && dy <= yBound))
+                {
+                    if(Grid[dx, dy].Count == 0)
+                    {
+                        floats[i] = 0.0f;
+                    }
+                    else
+                    {
+                        var neighbourColor = ColorHelper.GetAverageColor(Grid[dx, dy].Select(v => v.Color));
+                        floats[i] = ColorHelper.GetColorSimilarity(cluster.Color, neighbourColor);
+                    }
+                }
+                else
+                {
+                    floats[i] = 0.0f;
+                }
+            }
+
+            return new Vector4(floats[0], floats[1], floats[2], floats[3]);
         }
     }
 }
