@@ -159,19 +159,15 @@ namespace AutoPaint.Recognition.Clustering
         {
             float result;
 
-            Color color1 = cluster1.Color;
-            Color color2 = cluster2.Color;
-            Vector3 vec1 = new Vector3(color1.R, color1.G, color1.B);
-            Vector3 vec2 = new Vector3(color2.R, color2.G, color2.B);
+            Vector3 color1 = cluster1.ColorVector;
+            Vector3 color2 = cluster2.ColorVector;
 
             Vector4 edge1 = cluster1.EdgeVector;
             Vector4 edge2 = cluster2.EdgeVector;
 
-            // TODO
-            float colorDistance = 1 / (float)(1 + (vec1 - vec2).LengthSquared());
-            float percentDistance = 1;// / (1 + Math.Abs(cluster1.Percent - cluster2.Percent));
+            float colorDistance = 1 / (float)(1 + (color1 - color2).LengthSquared());
             float edgeDistance = 1 / (float)(1 + (edge1 - edge2).LengthSquared());
-            result = colorDistance * percentDistance * edgeDistance;
+            result = colorDistance * edgeDistance;
             return result;
         }
 

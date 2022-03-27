@@ -31,7 +31,14 @@ namespace AutoPaint.Recognition.Clustering
             }
             Debug.WriteLine(pixels.Colors.Length);
 
+            // Paint lines
             Lines.AddRange(GenerateLines(Hierarchies[9].Clusters.ToList()));
+
+            // Paint pixels
+            foreach (var item in Hierarchies[8].Clusters)
+            {
+                BuildResult2(Lines, item);
+            }
         }
 
         private List<ILine> GenerateLines(List<Cluster> clusters)
@@ -56,14 +63,30 @@ namespace AutoPaint.Recognition.Clustering
         private static void BuildResult(List<ILine> result, Cluster cluster)
         {
             Line line = new Line();
-            var leaves = cluster.Leaves.Select(v => v.Position).ToList();
+            var leaves = cluster.Leaves;
             var step = cluster.LayerIndex * 8 + 1;
             for (int i = 0; i < leaves.Count; i += step)
             {
                 var leaf = leaves[i];
                 Color c = cluster.Color;
                 Color p = Color.FromArgb((int)(0 + 255 / (double)(cluster.LayerIndex * 8 + 2F)), c.R, c.G, c.B);
-                line.Vertices.Add(new Vertex() { Color = p, Position = leaf, Size = cluster.LayerIndex * 16f + 1.0F, LayerIndex = cluster.LayerIndex });
+                if (cluster.LayerIndex == 0)
+                {
+                    p = cluster.Color;
+                }
+                line.Vertices.Add(new Vertex() { Color = p, Position = leaf.Position, Size = cluster.LayerIndex * 16f + 1.0F, LayerIndex = cluster.LayerIndex });
+            }
+            result.Add(line);
+        }
+
+        private static void BuildResult2(List<ILine> result, Cluster cluster)
+        {
+            Line line = new Line();
+            var leaves = cluster.Leaves.ToList();
+            for (int i = 0; i < leaves.Count; i += 1)
+            {
+                var leaf = leaves[i];
+                line.Vertices.Add(new Vertex() { Color = leaf.Color, Position = leaf.Position, Size = 1.0F, LayerIndex = 0 });
             }
             result.Add(line);
         }

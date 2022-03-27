@@ -39,17 +39,16 @@ namespace AutoPaint.Painter.Win2DAnimation
                 LastVertex = null;
             }
 
-            if (vertex.Size == 1000)
+            if (vertex.LayerIndex == 0)
             {
-                Sessions[index].FillCircle(vertex.Position, vertex.Size, vertex.Color.ToUIColor());
+                Sessions[index].FillRectangle(new Rect(vertex.Position.X, vertex.Position.Y, 1, 1), vertex.Color.ToUIColor());
+                ForegroundSession.FillCircle(vertex.Position, 1, Colors.Black);
             }
             else
             {
                 Sessions[index].DrawLine((LastVertex ?? vertex).Position, vertex.Position, vertex.Color.ToUIColor(), vertex.Size);
+                ForegroundSession.FillCircle(vertex.Position, vertex.Size / 5.0f, Colors.Black);
             }
-            //Sessions[index].FillRectangle(new Rect(vertex.Position.X, vertex.Position.Y, vertex.Size, vertex.Size), vertex.Color.ToUIColor());
-
-            ForegroundSession.FillCircle(vertex.Position, vertex.Size / 5.0f, Colors.Black);
 
             LastVertex = vertex;
         }
