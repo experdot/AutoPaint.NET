@@ -32,30 +32,52 @@ namespace AutoPaint.Recognition.Clustering
             Debug.WriteLine(pixels.Colors.Length);
 
             // Paint lines
-            Lines.AddRange(GenerateLines(Hierarchies[9].Clusters.ToList()));
+            Lines.AddRange(GenerateLines1(Hierarchies[9].Clusters.ToList()));
+            Lines.AddRange(GenerateLines1(Hierarchies[8].Clusters.ToList()));
+            Lines.AddRange(GenerateLines1(Hierarchies[7].Clusters.ToList()));
+            Lines.AddRange(GenerateLines1(Hierarchies[6].Clusters.ToList()));
+            Lines.AddRange(GenerateLines2(Hierarchies[7].Clusters.ToList()));
+
 
             // Paint pixels
-            foreach (var item in Hierarchies[8].Clusters)
+            foreach (var item in Hierarchies[9].Clusters)
             {
-                BuildResult2(Lines, item);
+                BuildLeafResult(Lines, item);
             }
         }
 
-        private List<ILine> GenerateLines(List<Cluster> clusters)
+
+        private List<ILine> GenerateLines1(List<Cluster> clusters)
         {
             List<ILine> result = new List<ILine>();
 
-            clusters.Sort((a, b) => -Math.Sign(a.LeavesCount - b.LeavesCount));
+            //clusters.Sort((a, b) => Math.Sign(a.LeavesCount - b.LeavesCount));
+
+            var averagePosition = VectorHelper.GetAveragePosition(clusters.Select(v => v.Position));
+            clusters.Sort((a, b) => Math.Sign((a.Position - averagePosition).LengthSquared() - (b.Position - averagePosition).LengthSquared()));
 
             for (int i = 0; i < clusters.Count; i++)
             {
                 BuildResult(result, clusters[i]);
-                result.AddRange(GenerateLines(clusters[i].Children.ToList()));
             }
 
+            return result;
+        }
 
-            //var averagePosition = VectorHelper.GetAveragePosition(hierarchy.Clusters.Select(v => v.Position));
-            //hierarchy.Clusters.Sort((a, b) => -Math.Sign((a.Position - averagePosition).LengthSquared() - (b.Position - averagePosition).LengthSquared()));
+        private List<ILine> GenerateLines2(List<Cluster> clusters)
+        {
+            List<ILine> result = new List<ILine>();
+
+            //clusters.Sort((a, b) => -Math.Sign(a.LeavesCount - b.LeavesCount));
+
+            var averagePosition = VectorHelper.GetAveragePosition(clusters.Select(v => v.Position));
+            clusters.Sort((a, b) => Math.Sign((a.Position - averagePosition).LengthSquared() - (b.Position - averagePosition).LengthSquared()));
+
+            for (int i = 0; i < clusters.Count; i++)
+            {
+                BuildResult(result, clusters[i]);
+                result.AddRange(GenerateLines2(clusters[i].Children.ToList()));
+            }
 
             return result;
         }
@@ -69,7 +91,7 @@ namespace AutoPaint.Recognition.Clustering
             {
                 var leaf = leaves[i];
                 Color c = cluster.Color;
-                Color p = Color.FromArgb((int)(0 + 255 / (double)(cluster.LayerIndex * 8 + 2F)), c.R, c.G, c.B);
+                Color p = Color.FromArgb((int)(0 + 255 / (double)(cluster.LayerIndex * 4 + 2F)), c.R, c.G, c.B);
                 if (cluster.LayerIndex == 0)
                 {
                     p = cluster.Color;
@@ -79,7 +101,19 @@ namespace AutoPaint.Recognition.Clustering
             result.Add(line);
         }
 
-        private static void BuildResult2(List<ILine> result, Cluster cluster)
+        private static void BuildClusterResult(List<ILine> result, Cluster cluster)
+        {
+            Line line = new Line();
+            var leaves = cluster.Leaves.ToList();
+            for (int i = 0; i < leaves.Count; i += 1)
+            {
+                var leaf = leaves[i];
+                line.Vertices.Add(new Vertex() { Color = cluster.Color, Position = leaf.Position, Size = 1.0F, LayerIndex = 0 });
+            }
+            result.Add(line);
+        }
+
+        private static void BuildLeafResult(List<ILine> result, Cluster cluster)
         {
             Line line = new Line();
             var leaves = cluster.Leaves.ToList();

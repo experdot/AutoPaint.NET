@@ -39,7 +39,7 @@ namespace AutoPaint.Painter.Win2DAnimation
                 LastVertex = null;
             }
 
-            if (vertex.LayerIndex == 0)
+            if (vertex.Size == 1)
             {
                 Sessions[index].FillRectangle(new Rect(vertex.Position.X, vertex.Position.Y, 1, 1), vertex.Color.ToUIColor());
                 ForegroundSession.FillCircle(vertex.Position, 1, Colors.Black);
