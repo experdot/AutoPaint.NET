@@ -152,7 +152,7 @@ namespace AutoPaint.Recognition.Clustering
             if (Children.Count == 0)
                 return Color;
             else
-                return ColorHelper.GetAverageColor(GetAColorsOfChildren());
+                return ColorHelper.FindClosestColor(GetAColorsOfChildren());
         }
 
         private float Compare(Cluster cluster1, Cluster cluster2)

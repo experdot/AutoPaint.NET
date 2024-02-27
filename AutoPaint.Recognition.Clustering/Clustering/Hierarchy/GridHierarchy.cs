@@ -169,17 +169,17 @@ namespace AutoPaint.Recognition.Clustering
 
             for (var i = 0; i < 4; i++)
             {
-                dx = x + OffsetX9[i];
-                dy = y + OffsetY9[i];
+                dx = x + OffsetX4[i];
+                dy = y + OffsetY4[i];
                 if ((dx >= 0 && dy >= 0 && dx <= xBound && dy <= yBound))
                 {
-                    if(Grid[dx, dy].Count == 0)
+                    if (Grid[dx, dy].Count == 0)
                     {
                         floats[i] = 0.0f;
                     }
                     else
                     {
-                        var neighbourColor = ColorHelper.GetAverageColor(Grid[dx, dy].Select(v => v.Color));
+                        var neighbourColor = ColorHelper.FindClosestColor(Grid[dx, dy].Select(v => v.Color));
                         floats[i] = ColorHelper.GetColorSimilarity(cluster.Color, neighbourColor);
                     }
                 }

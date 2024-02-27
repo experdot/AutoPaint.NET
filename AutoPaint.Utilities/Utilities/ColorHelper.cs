@@ -10,6 +10,35 @@ namespace AutoPaint.Utilities
 {
     public class ColorHelper
     {
+        public static int CalculateDistance(Color color1, Color color2)
+        {
+            int deltaR = color1.R - color2.R;
+            int deltaG = color1.G - color2.G;
+            int deltaB = color1.B - color2.B;
+
+            return deltaR * deltaR + deltaG * deltaG + deltaB * deltaB;
+        }
+
+        public static Color FindClosestColor(IEnumerable<Color> colors)
+        {
+            int minDistance = int.MaxValue;
+            Color closestColor = Color.Empty;
+
+            var targetColor = GetAverageColor(colors);
+
+            foreach (Color color in colors)
+            {
+                int distance = CalculateDistance(color, targetColor);
+                if (distance < minDistance)
+                {
+                    minDistance = distance;
+                    closestColor = color;
+                }
+            }
+
+            return closestColor;
+        }
+
         public static Color GetAverageColor(IEnumerable<Color> colors)
         {
             Color result;
